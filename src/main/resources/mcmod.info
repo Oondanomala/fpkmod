@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "spkmod",
+    "name": "SPK Mod",
+    "description": "MPK, but shit.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["Oondanomala"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

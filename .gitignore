@@ -1,0 +1,23 @@
+# idea
+/.idea/
+out/
+*.ipr
+*.iws
+*.iml
+
+# eclipse
+/eclipse/
+bin/
+.settings/
+*.launch
+.metadata
+.classpath
+.project
+.factorypath
+
+# gradle
+/.gradle/
+/build/
+
+# minecraft
+/run/

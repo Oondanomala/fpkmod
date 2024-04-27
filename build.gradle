@@ -1,0 +1,126 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        // Mixin
+        maven { url = 'https://repo.spongepowered.org/maven' }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        // Mixin
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+// Shadow
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+// Mixin
+apply plugin: 'org.spongepowered.mixin'
+
+repositories {
+    // DevAuth
+    maven { url = 'https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1' }
+    // Mixin
+    maven { url = 'https://repo.spongepowered.org/maven/' }
+}
+
+version = mod_version
+group = mod_group
+archivesBaseName = mod_jar_name
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+minecraft {
+    version = '1.8.9-11.15.1.2318-1.8.9'
+    mappings = 'stable_22'
+    runDir = 'run'
+    makeObfSourceJar = false
+    // Mixin
+    clientJvmArgs.addAll('-Dmixin.debug.verbose=true')
+    serverJvmArgs.addAll('-Dmixin.debug.verbose=true')
+    clientRunArgs.addAll('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', "mixins.spkmod.json")
+    serverRunArgs.addAll('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', "mixins.spkmod.json")
+}
+
+// Shadow
+configurations {
+    shade
+    implementation.extendsFrom(shade)
+}
+
+dependencies {
+    // Use "implementation" to add a dependency normally,
+    // or use "shade" to also bundle it with your mod jar.
+
+    // DevAuth
+    implementation('me.djtheredstoner:DevAuth-forge-legacy:1.2.0')
+    // Mixin
+    shade('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        exclude module: 'guava'
+        exclude module: 'gson'
+        exclude module: 'commons-io'
+    }
+}
+
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version': project.version,
+             'mcversion': project.minecraft.version
+    }
+    // Why is this needed? Really doesn't look like it is
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+    // Access Transformer
+    rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+jar {
+    // Mixin
+    manifest.attributes(
+            'FMLCorePluginContainsFMLMod': true,
+            'ForceLoadAsMod': true,
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'MixinConfigs': "mixins.spkmod.json"
+    )
+    // Access Transformer
+    manifest.attributes('FMLAT': "spkmod_at.cfg")
+}
+
+// Mixin
+mixin {
+    add sourceSets.main, "mixins.spkmod.refmap.json"
+}
+
+// Shadow
+shadowJar {
+    configurations = [project.configurations.shade]
+    classifier ''
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    // Mixin
+    exclude 'LICENSE.txt'
+}
+reobf { shadowJar {} }
+
+// Fix resources when in dev environment
+tasks.register('moveResources') {
+    dependsOn processResources
+    doLast {
+        ant.move file: "${buildDir}/resources/main", todir: "${buildDir}/classes/java"
+    }
+}
+tasks.classes.dependsOn moveResources
