@@ -1,8 +1,5 @@
 package me.oondanomala.spkmod;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +14,5 @@ public class SPKMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        ItemSword sword = (ItemSword) Items.diamond_sword;
-        sword.attackDamage = 1000;
-        LOGGER.info("DIRT BLOCK >> " + Blocks.dirt.getUnlocalizedName());
     }
 }

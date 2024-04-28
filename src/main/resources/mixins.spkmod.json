@@ -5,8 +5,6 @@
   "refmap": "mixins.spkmod.refmap.json",
   "package": "me.oondanomala.spkmod.mixin",
   "mixins": [],
-  "client": [
-    "ExampleMixin"
-  ],
+  "client": [],
   "server": []
 }
