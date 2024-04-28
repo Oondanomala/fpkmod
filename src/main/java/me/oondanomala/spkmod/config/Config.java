@@ -16,6 +16,8 @@ public class Config {
     public int doublePrecision;
     public boolean trimZeroes;
 
+    public boolean mpkCommand;
+
     public Config(File configFile) {
         configuration = new Configuration(configFile);
         loadConfiguration();
@@ -32,6 +34,8 @@ public class Config {
         enableLabels = configuration.getBoolean("Enable Labels", Configuration.CATEGORY_CLIENT, true, "");
         doublePrecision = configuration.getInt("Coord Precision", Configuration.CATEGORY_CLIENT, 5, 0, 16, "");
         trimZeroes = configuration.getBoolean("Trim Zeroes", Configuration.CATEGORY_CLIENT, false, "");
+
+        mpkCommand = configuration.getBoolean("MPK Command",Configuration.CATEGORY_CLIENT, true, "Whether to create the \"mpk\" alias to the \"spk\" command.\n§cRequires Minecraft restart");
 
         configuration.save();
     }

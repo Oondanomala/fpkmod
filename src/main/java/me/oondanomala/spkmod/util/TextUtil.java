@@ -12,8 +12,12 @@ public class TextUtil {
     private static final DecimalFormat decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 
     public static void showChatMessage(String message) {
+        showChatMessage(message, true);
+    }
+
+    public static void showChatMessage(String message, boolean prefix) {
         if (Minecraft.getMinecraft().thePlayer == null) return;
-        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(assembleText(SPKMod.config.prefix, message)));
+        Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(prefix ? assembleText(SPKMod.config.prefix, message) : message));
     }
 
     public static String assembleText(String text1, String text2) {
