@@ -4,6 +4,7 @@ import me.oondanomala.spkmod.SPKMod;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,14 @@ public class SPKMainCommand extends CommandBase {
                 subCommand.run(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length));
             }
         }
+    }
+
+    @Override
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+        if (args.length == 1) {
+            return new ArrayList<>(subCommands.keySet());
+        }
+        return Collections.emptyList();
     }
 
     @Override
