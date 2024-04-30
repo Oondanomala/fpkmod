@@ -8,7 +8,7 @@ public class HelpCommand extends SPKSubCommand {
     }
 
     @Override
-    public void run(String[] args) {
+    public void internalRun(String[] args) {
         TextUtil.showChatMessage("§lSPK Command Help:", false);
         for (SPKSubCommand command : SPKMainCommand.instance.subCommandList) {
             TextUtil.showChatMessage(TextUtil.assembleText(command.name, command.helpMessage, ": "), false);
