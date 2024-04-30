@@ -6,8 +6,8 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 
-public class SPKConfig extends GuiConfig {
-    public SPKConfig(GuiScreen guiScreen) {
+public class SPKConfigGUI extends GuiConfig {
+    public SPKConfigGUI(GuiScreen guiScreen) {
         super(guiScreen,
                 new ConfigElement(SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT)).getChildElements(),
                 SPKMod.MODID,
