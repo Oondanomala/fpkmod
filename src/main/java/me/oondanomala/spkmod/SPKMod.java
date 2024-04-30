@@ -4,6 +4,7 @@ import me.oondanomala.spkmod.commands.SPKMainCommand;
 import me.oondanomala.spkmod.config.Config;
 import me.oondanomala.spkmod.labels.LabelFPS;
 import me.oondanomala.spkmod.util.ForgeUtil;
+import me.oondanomala.spkmod.util.GuiUtil;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -25,7 +26,7 @@ public class SPKMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        ForgeUtil.registerEvents(config, new LabelFPS());
+        ForgeUtil.registerEvents(config, new GuiUtil(), new LabelFPS());
         ForgeUtil.registerCommands(SPKMainCommand.instance);
     }
 }

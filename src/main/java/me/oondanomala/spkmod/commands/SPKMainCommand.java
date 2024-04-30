@@ -22,7 +22,11 @@ public class SPKMainCommand extends CommandBase {
     public SPKMainCommand() {
         subCommands = new HashMap<>();
         subCommandList = new ArrayList<>();
-        registerSubCommands(new HelpCommand(), new DecimalPrecisionCommand());
+        registerSubCommands(
+                new HelpCommand(),
+                new DecimalPrecisionCommand(),
+                new OpenConfigCommand()
+        );
     }
 
     private void registerSubCommands(SPKSubCommand... subCommands) {
