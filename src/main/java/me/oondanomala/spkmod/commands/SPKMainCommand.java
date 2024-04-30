@@ -56,7 +56,7 @@ public class SPKMainCommand extends CommandBase {
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
-            return new ArrayList<>(subCommands.keySet());
+            return getListOfStringsMatchingLastWord(args, subCommands.keySet());
         }
         return Collections.emptyList();
     }
