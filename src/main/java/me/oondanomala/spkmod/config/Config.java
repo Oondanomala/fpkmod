@@ -47,6 +47,14 @@ public class Config {
         }
     }
 
+    public void setConfigOption(String optionName, boolean value) {
+        SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+        if (configuration.hasChanged()) {
+            configuration.save();
+        }
+    }
+
+
     @SubscribeEvent
     public void onConfigChange(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equals(SPKMod.MODID)) {

@@ -25,7 +25,8 @@ public class SPKMainCommand extends CommandBase {
         registerSubCommands(
                 new HelpCommand(),
                 new DecimalPrecisionCommand(),
-                new OpenConfigCommand()
+                new OpenConfigCommand(),
+                new ToggleLabelsCommand()
         );
     }
 
