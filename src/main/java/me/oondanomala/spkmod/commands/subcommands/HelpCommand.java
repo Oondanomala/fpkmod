@@ -1,5 +1,7 @@
-package me.oondanomala.spkmod.commands;
+package me.oondanomala.spkmod.commands.subcommands;
 
+import me.oondanomala.spkmod.commands.SPKMainCommand;
+import me.oondanomala.spkmod.commands.SPKSubCommand;
 import me.oondanomala.spkmod.util.TextUtil;
 
 public class HelpCommand extends SPKSubCommand {

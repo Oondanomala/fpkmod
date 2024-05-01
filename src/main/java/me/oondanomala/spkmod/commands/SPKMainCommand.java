@@ -1,6 +1,7 @@
 package me.oondanomala.spkmod.commands;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.commands.subcommands.*;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;

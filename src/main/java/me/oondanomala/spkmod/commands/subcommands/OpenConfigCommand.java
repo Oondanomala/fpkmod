@@ -1,5 +1,6 @@
-package me.oondanomala.spkmod.commands;
+package me.oondanomala.spkmod.commands.subcommands;
 
+import me.oondanomala.spkmod.commands.SPKSubCommand;
 import me.oondanomala.spkmod.config.SPKConfigGUI;
 import me.oondanomala.spkmod.util.GuiUtil;
 

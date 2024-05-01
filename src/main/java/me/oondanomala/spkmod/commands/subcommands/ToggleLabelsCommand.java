@@ -1,6 +1,7 @@
-package me.oondanomala.spkmod.commands;
+package me.oondanomala.spkmod.commands.subcommands;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.commands.SPKSubCommand;
 import me.oondanomala.spkmod.util.TextUtil;
 
 public class ToggleLabelsCommand extends SPKSubCommand {
