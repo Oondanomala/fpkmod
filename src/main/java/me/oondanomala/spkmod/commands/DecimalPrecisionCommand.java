@@ -3,7 +3,6 @@ package me.oondanomala.spkmod.commands;
 import me.oondanomala.spkmod.SPKMod;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandException;
-import net.minecraftforge.common.config.Configuration;
 
 public class DecimalPrecisionCommand extends SPKSubCommand {
     public DecimalPrecisionCommand() {
@@ -22,10 +21,8 @@ public class DecimalPrecisionCommand extends SPKSubCommand {
             } else if (decimals > 16) {
                 TextUtil.showChatMessage("Maximum coord precision is 16 decimals.");
             } else {
-                // TODO: Proper config system?
                 SPKMod.config.doublePrecision = decimals;
-                SPKMod.config.configuration.get(Configuration.CATEGORY_CLIENT, "Coord Precision", 5).setMaxValue(16).setMinValue(0).set(decimals);
-                SPKMod.config.configuration.save();
+                SPKMod.config.setConfigOption("Coord Precision", decimals);
                 TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals");
             }
         } catch (NumberFormatException e) {

@@ -35,9 +35,16 @@ public class Config {
         doublePrecision = configuration.getInt("Coord Precision", Configuration.CATEGORY_CLIENT, 5, 0, 16, "");
         trimZeroes = configuration.getBoolean("Trim Zeroes", Configuration.CATEGORY_CLIENT, false, "");
 
-        mpkCommand = configuration.getBoolean("MPK Command",Configuration.CATEGORY_CLIENT, true, "Whether to create the \"mpk\" alias to the \"spk\" command.\n§cRequires Minecraft restart");
+        mpkCommand = configuration.get(Configuration.CATEGORY_CLIENT, "MPK Command", true, "Whether to create the \"mpk\" alias to the \"spk\" command.").setRequiresMcRestart(true).getBoolean();
 
         configuration.save();
+    }
+
+    public void setConfigOption(String optionName, double value) {
+        SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+        if (configuration.hasChanged()) {
+            configuration.save();
+        }
     }
 
     @SubscribeEvent
