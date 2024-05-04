@@ -7,7 +7,7 @@ public abstract class Label {
     public final String labelName;
     public boolean isEnabled = true;
 
-    public Label(String labelName) {
+    protected Label(String labelName) {
         this.labelName = labelName;
     }
 

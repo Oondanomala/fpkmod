@@ -14,11 +14,9 @@ public class GuiUtil {
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            if (guiToDisplay != null) {
-                Minecraft.getMinecraft().displayGuiScreen(guiToDisplay);
-                guiToDisplay = null;
-            }
+        if (guiToDisplay != null && event.phase == TickEvent.Phase.END) {
+            Minecraft.getMinecraft().displayGuiScreen(guiToDisplay);
+            guiToDisplay = null;
         }
     }
 }

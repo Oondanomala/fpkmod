@@ -8,7 +8,7 @@ public abstract class SPKSubCommand {
     public final String name;
     public final String helpMessage;
 
-    public SPKSubCommand(String name, String helpMessage) {
+    protected SPKSubCommand(String name, String helpMessage) {
         this.name = name;
         this.helpMessage = helpMessage;
     }

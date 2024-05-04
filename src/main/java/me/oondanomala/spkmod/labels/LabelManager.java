@@ -1,7 +1,6 @@
 package me.oondanomala.spkmod.labels;
 
 import me.oondanomala.spkmod.SPKMod;
-import me.oondanomala.spkmod.util.ForgeUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -16,10 +15,11 @@ public class LabelManager {
     public LabelManager() {
         labels = new ArrayList<>();
         labels.addAll(Arrays.asList(
+                new LabelVersion(),
                 new LabelFPS(),
-                new LabelXPos())
-        );
-        ForgeUtil.registerEvents(labels);
+                new LabelXPos(),
+                new LabelYPos()
+        ));
     }
 
     @SubscribeEvent

@@ -13,7 +13,7 @@ public class ForgeUtil {
     }
 
     public static void registerCommands(CommandBase... commands) {
-        for (CommandBase command: commands) {
+        for (CommandBase command : commands) {
             ClientCommandHandler.instance.registerCommand(command);
         }
     }
