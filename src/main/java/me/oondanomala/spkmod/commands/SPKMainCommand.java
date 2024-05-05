@@ -1,7 +1,11 @@
 package me.oondanomala.spkmod.commands;
 
 import me.oondanomala.spkmod.SPKMod;
-import me.oondanomala.spkmod.commands.subcommands.*;
+import me.oondanomala.spkmod.commands.subcommands.DecimalPrecisionCommand;
+import me.oondanomala.spkmod.commands.subcommands.HelpCommand;
+import me.oondanomala.spkmod.commands.subcommands.LabelGUICommand;
+import me.oondanomala.spkmod.commands.subcommands.OpenConfigCommand;
+import me.oondanomala.spkmod.commands.subcommands.ToggleLabelsCommand;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -15,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SPKMainCommand extends CommandBase {
-    // Not a big fan of this instance thing
     public static final SPKMainCommand instance = new SPKMainCommand();
     private final HashMap<String, SPKSubCommand> subCommands;
     public final List<SPKSubCommand> subCommandList;
@@ -27,6 +30,7 @@ public class SPKMainCommand extends CommandBase {
                 new HelpCommand(),
                 new DecimalPrecisionCommand(),
                 new OpenConfigCommand(),
+                new LabelGUICommand(),
                 new ToggleLabelsCommand()
         );
     }

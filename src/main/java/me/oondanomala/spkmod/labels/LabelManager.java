@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LabelManager {
-    private final List<Label> labels;
+    public static final LabelManager instance = new LabelManager();
+    public final List<Label> labels;
 
     public LabelManager() {
         labels = new ArrayList<>();
