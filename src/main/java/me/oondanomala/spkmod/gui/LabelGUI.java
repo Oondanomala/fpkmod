@@ -3,7 +3,9 @@ package me.oondanomala.spkmod.gui;
 import me.oondanomala.spkmod.labels.Label;
 import me.oondanomala.spkmod.labels.LabelManager;
 import me.oondanomala.spkmod.util.GuiUtil;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.client.config.GuiButtonExt;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class LabelGUI extends GuiScreen {
     @Override
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
+        buttonList.add(new GuiButtonExt(0, this.width - 24, 6, 18, 18, "x"));
+        buttonList.add(new GuiButtonExt(1, this.width - 24, 29, 18, 18, "+"));
         super.initGui();
     }
 
@@ -40,13 +44,22 @@ public class LabelGUI extends GuiScreen {
             }
             label.drawLabel();
         }
+        super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (selectedLabel != null && isClickingLabel) {
             selectedLabel.drawSelectionBox(150);
             selectedLabel.drawLabel();
         }
+    }
 
-        super.drawScreen(mouseX, mouseY, partialTicks);
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        if (button.id == 0) {
+            this.mc.displayGuiScreen(null);
+        } else if (button.id == 1) {
+            // TODO: Add labels GUI
+        }
+        super.actionPerformed(button);
     }
 
     @Override
