@@ -1,5 +1,6 @@
-package me.oondanomala.spkmod.labels;
+package me.oondanomala.spkmod.labels.misc;
 
+import me.oondanomala.spkmod.labels.Label;
 import net.minecraft.client.Minecraft;
 
 public class LabelFPS extends Label {

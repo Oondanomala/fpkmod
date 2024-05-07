@@ -40,7 +40,7 @@ public class Config {
         configuration.save();
     }
 
-    public void setConfigOption(String optionName, double value) {
+    public void setConfigOption(String optionName, int value) {
         SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
         if (configuration.hasChanged()) {
             configuration.save();
@@ -53,7 +53,6 @@ public class Config {
             configuration.save();
         }
     }
-
 
     @SubscribeEvent
     public void onConfigChange(ConfigChangedEvent.OnConfigChangedEvent event) {

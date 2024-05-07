@@ -1,5 +1,6 @@
 package me.oondanomala.spkmod.commands.subcommands;
 
+import me.oondanomala.spkmod.SPKMod;
 import me.oondanomala.spkmod.commands.SPKMainCommand;
 import me.oondanomala.spkmod.commands.SPKSubCommand;
 import me.oondanomala.spkmod.util.TextUtil;
@@ -11,7 +12,7 @@ public class HelpCommand extends SPKSubCommand {
 
     @Override
     public void internalRun(String[] args) {
-        TextUtil.showChatMessage("§lSPK Command Help:", false);
+        TextUtil.showChatMessage(SPKMod.config.color1 + "§lSPK Command Help:", false);
         for (SPKSubCommand command : SPKMainCommand.instance.subCommandList) {
             TextUtil.showChatMessage(TextUtil.assembleText(command.name, command.helpMessage, ": "), false);
         }

@@ -1,11 +1,12 @@
 package me.oondanomala.spkmod.labels;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.labels.misc.LabelFPS;
+import me.oondanomala.spkmod.labels.misc.LabelVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,13 +15,15 @@ public class LabelManager {
     public final List<Label> labels;
 
     public LabelManager() {
-        labels = new ArrayList<>();
-        labels.addAll(Arrays.asList(
+        labels = Arrays.asList(
                 new LabelVersion(),
                 new LabelFPS(),
                 new LabelXPos(),
-                new LabelYPos()
-        ));
+                new LabelYPos(),
+                new LabelZPos(),
+                new LabelFacing(),
+                new LabelPitch()
+        );
     }
 
     @SubscribeEvent

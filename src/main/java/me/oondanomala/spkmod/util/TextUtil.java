@@ -3,6 +3,7 @@ package me.oondanomala.spkmod.util;
 import me.oondanomala.spkmod.SPKMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.MathHelper;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -34,5 +35,9 @@ public class TextUtil {
             decimalFormat.setMinimumFractionDigits(SPKMod.config.doublePrecision);
         }
         return decimalFormat.format(number);
+    }
+
+    public static String formatAngle(float angle) {
+        return formatDouble(MathHelper.wrapAngleTo180_float(angle)) + "°";
     }
 }
