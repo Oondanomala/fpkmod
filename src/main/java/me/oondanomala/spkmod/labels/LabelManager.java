@@ -26,6 +26,18 @@ public class LabelManager {
         );
     }
 
+    public void loadLabelsConfig() {
+        for (Label label : labels) {
+            label.loadLabelConfig();
+        }
+    }
+
+    public void saveLabelsConfig() {
+        for (Label label : labels) {
+            label.saveLabelConfig();
+        }
+    }
+
     @SubscribeEvent
     public void drawLabels(RenderGameOverlayEvent.Text event) {
         if (SPKMod.config.enableLabels && !Minecraft.getMinecraft().gameSettings.showDebugInfo) {

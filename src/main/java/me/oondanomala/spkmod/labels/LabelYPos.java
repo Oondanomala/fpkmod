@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 
 public class LabelYPos extends Label {
     public LabelYPos() {
-        super("Y");
+        super("Y", 2, 29);
     }
 
     @Override

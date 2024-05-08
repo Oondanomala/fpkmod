@@ -20,35 +20,37 @@ public class Config {
 
     public Config(File configFile) {
         configuration = new Configuration(configFile);
-        loadConfiguration();
+        loadConfig();
     }
 
-    public void loadConfiguration() {
+    public void loadConfig() {
         // Hacky, but it works!
         String[] colorNames = {"§0Black", "§1Dark Blue", "§2Dark Green", "§3Dark Aqua", "§4Dark Red", "§5Dark Purple", "§6Gold", "§7Gray", "§8Dark Gray", "§9Blue", "§aGreen", "§bAqua", "§cRed", "§dLight Purple", "§eYellow", "§fWhite"};
 
-        prefix = configuration.getString("Prefix", Configuration.CATEGORY_CLIENT, "<SPK>", "");
+        prefix = configuration.getString("Prefix", Configuration.CATEGORY_CLIENT, "<SPK>", "The prefix that will be used in chat messages.");
         color1 = configuration.getString("Primary Color", Configuration.CATEGORY_CLIENT, "§6Gold", "", colorNames).substring(0, 2);
         color2 = configuration.getString("Secondary Color", Configuration.CATEGORY_CLIENT, "§fWhite", "", colorNames).substring(0, 2);
 
         enableLabels = configuration.getBoolean("Enable Labels", Configuration.CATEGORY_CLIENT, true, "");
-        doublePrecision = configuration.getInt("Coord Precision", Configuration.CATEGORY_CLIENT, 5, 0, 16, "");
+        doublePrecision = configuration.getInt("Coord Precision", Configuration.CATEGORY_CLIENT, 6, 0, 16, "The number of decimals shown in floating point numbers.");
         trimZeroes = configuration.getBoolean("Trim Zeroes", Configuration.CATEGORY_CLIENT, false, "");
 
         mpkCommand = configuration.get(Configuration.CATEGORY_CLIENT, "MPK Command", true, "Whether to create the \"mpk\" alias to the \"spk\" command.").setRequiresMcRestart(true).getBoolean();
 
-        configuration.save();
+        saveConfig();
     }
 
     public void setConfigOption(String optionName, int value) {
         SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
-        if (configuration.hasChanged()) {
-            configuration.save();
-        }
+        saveConfig();
     }
 
     public void setConfigOption(String optionName, boolean value) {
         SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+        saveConfig();
+    }
+
+    public void saveConfig() {
         if (configuration.hasChanged()) {
             configuration.save();
         }
@@ -57,7 +59,7 @@ public class Config {
     @SubscribeEvent
     public void onConfigChange(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equals(SPKMod.MODID)) {
-            loadConfiguration();
+            loadConfig();
         }
     }
 }

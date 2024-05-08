@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 
 public class LabelVersion extends Label {
     public LabelVersion() {
-        super("Version");
+        super("Version", 2, 2);
     }
 
     @Override

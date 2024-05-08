@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 
 public class LabelFPS extends Label {
     public LabelFPS() {
-        super("FPS");
+        super("FPS", 2, 11);
     }
 
     @Override

@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 
 public class LabelZPos extends Label {
     public LabelZPos() {
-        super("Z");
+        super("Z", 2, 38);
     }
 
     @Override

@@ -5,6 +5,7 @@ import me.oondanomala.spkmod.commands.subcommands.DecimalPrecisionCommand;
 import me.oondanomala.spkmod.commands.subcommands.HelpCommand;
 import me.oondanomala.spkmod.commands.subcommands.LabelGUICommand;
 import me.oondanomala.spkmod.commands.subcommands.OpenConfigCommand;
+import me.oondanomala.spkmod.commands.subcommands.ResetLabelsCommand;
 import me.oondanomala.spkmod.commands.subcommands.ToggleLabelsCommand;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
@@ -31,7 +32,8 @@ public class SPKMainCommand extends CommandBase {
                 new DecimalPrecisionCommand(),
                 new OpenConfigCommand(),
                 new LabelGUICommand(),
-                new ToggleLabelsCommand()
+                new ToggleLabelsCommand(),
+                new ResetLabelsCommand()
         );
     }
 

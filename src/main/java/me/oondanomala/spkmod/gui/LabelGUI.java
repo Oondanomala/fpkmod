@@ -28,7 +28,7 @@ public class LabelGUI extends GuiScreen {
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
-        // TODO: save positions to config here
+        LabelManager.instance.saveLabelsConfig();
         super.onGuiClosed();
     }
 

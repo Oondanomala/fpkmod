@@ -7,7 +7,7 @@ import net.minecraft.util.MathHelper;
 
 public class LabelFacing extends Label {
     public LabelFacing() {
-        super("F");
+        super("F", 2, 47);
     }
 
     @Override
