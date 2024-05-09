@@ -1,7 +1,9 @@
 package me.oondanomala.spkmod.labels;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.labels.misc.LabelDate;
 import me.oondanomala.spkmod.labels.misc.LabelFPS;
+import me.oondanomala.spkmod.labels.misc.LabelTime;
 import me.oondanomala.spkmod.labels.misc.LabelVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -22,7 +24,9 @@ public class LabelManager {
                 new LabelYPos(),
                 new LabelZPos(),
                 new LabelFacing(),
-                new LabelPitch()
+                new LabelPitch(),
+                new LabelDate(),
+                new LabelTime()
         );
     }
 
