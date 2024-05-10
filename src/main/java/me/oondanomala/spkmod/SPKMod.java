@@ -3,6 +3,7 @@ package me.oondanomala.spkmod;
 import me.oondanomala.spkmod.commands.SPKMainCommand;
 import me.oondanomala.spkmod.config.Config;
 import me.oondanomala.spkmod.labels.LabelManager;
+import me.oondanomala.spkmod.movement.PlayerMovementHandler;
 import me.oondanomala.spkmod.util.ForgeUtil;
 import me.oondanomala.spkmod.util.GuiUtil;
 import net.minecraftforge.fml.common.Mod;
@@ -29,7 +30,8 @@ public class SPKMod {
         ForgeUtil.registerEvents(
                 config,
                 new GuiUtil(),
-                LabelManager.instance
+                LabelManager.instance,
+                new PlayerMovementHandler()
         );
         ForgeUtil.registerCommands(SPKMainCommand.instance);
     }
