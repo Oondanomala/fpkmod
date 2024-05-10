@@ -18,15 +18,17 @@ public class LabelManager {
 
     public LabelManager() {
         labels = Arrays.asList(
+                // Misc
                 new LabelVersion(),
                 new LabelFPS(),
+                new LabelDate(),
+                new LabelTime(),
+                // Other
                 new LabelXPos(),
                 new LabelYPos(),
                 new LabelZPos(),
                 new LabelFacing(),
-                new LabelPitch(),
-                new LabelDate(),
-                new LabelTime()
+                new LabelPitch()
         );
     }
 

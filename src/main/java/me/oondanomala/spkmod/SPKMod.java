@@ -26,7 +26,11 @@ public class SPKMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        ForgeUtil.registerEvents(config, new GuiUtil(), LabelManager.instance);
+        ForgeUtil.registerEvents(
+                config,
+                new GuiUtil(),
+                LabelManager.instance
+        );
         ForgeUtil.registerCommands(SPKMainCommand.instance);
     }
 }

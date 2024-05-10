@@ -16,11 +16,11 @@ public abstract class Label {
     public int posX;
     public int posY;
 
-    protected Label(String labelName) {
+    public Label(String labelName) {
         this(labelName, 0, 0, false);
     }
 
-    protected Label(String labelName, int defaultPosX, int defaultPosY) {
+    public Label(String labelName, int defaultPosX, int defaultPosY) {
         this(labelName, defaultPosX, defaultPosY, true);
     }
 

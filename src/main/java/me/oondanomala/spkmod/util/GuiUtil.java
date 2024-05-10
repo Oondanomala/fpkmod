@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.awt.Color;
 
-public class GuiUtil {
+public final class GuiUtil {
     public static final int MOUSE_LEFT = 0;
     public static final int MOUSE_RIGHT = 1;
     private static GuiScreen guiToDisplay;

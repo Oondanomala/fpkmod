@@ -5,7 +5,7 @@ import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 // Maybe rename
-public class ForgeUtil {
+public final class ForgeUtil {
     public static void registerEvents(Object... events) {
         for (Object event : events) {
             MinecraftForge.EVENT_BUS.register(event);
