@@ -5,31 +5,17 @@ buildscript {
             name = 'forge'
             url = 'https://files.minecraftforge.net/maven'
         }
-        // Mixin
-        maven { url = 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
-        // Mixin
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
-// Shadow
-plugins {
-    id 'java'
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
-}
-
 apply plugin: 'net.minecraftforge.gradle.forge'
-// Mixin
-apply plugin: 'org.spongepowered.mixin'
 
 repositories {
     // DevAuth
     maven { url = 'https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1' }
-    // Mixin
-    maven { url = 'https://repo.spongepowered.org/maven/' }
 }
 
 version = mod_version
@@ -44,31 +30,11 @@ minecraft {
     mappings = 'stable_22'
     runDir = 'run'
     makeObfSourceJar = false
-    // Mixin
-    clientJvmArgs.addAll('-Dmixin.debug.verbose=true')
-    serverJvmArgs.addAll('-Dmixin.debug.verbose=true')
-    clientRunArgs.addAll('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', "mixins.spkmod.json")
-    serverRunArgs.addAll('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker', '--mixin', "mixins.spkmod.json")
-}
-
-// Shadow
-configurations {
-    shade
-    implementation.extendsFrom(shade)
 }
 
 dependencies {
-    // Use "implementation" to add a dependency normally,
-    // or use "shade" to also bundle it with your mod jar.
-
     // DevAuth
     implementation('me.djtheredstoner:DevAuth-forge-legacy:1.2.0')
-    // Mixin
-    shade('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
-        exclude module: 'guava'
-        exclude module: 'gson'
-        exclude module: 'commons-io'
-    }
 }
 
 processResources {
@@ -81,7 +47,7 @@ processResources {
         expand 'version': project.version,
              'mcversion': project.minecraft.version
     }
-    // Why is this needed? Really doesn't look like it is
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
@@ -90,31 +56,9 @@ processResources {
 }
 
 jar {
-    // Mixin
-    manifest.attributes(
-            'FMLCorePluginContainsFMLMod': true,
-            'ForceLoadAsMod': true,
-            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-            'MixinConfigs': "mixins.spkmod.json"
-    )
     // Access Transformer
     manifest.attributes('FMLAT': "spkmod_at.cfg")
 }
-
-// Mixin
-mixin {
-    add sourceSets.main, "mixins.spkmod.refmap.json"
-}
-
-// Shadow
-shadowJar {
-    configurations = [project.configurations.shade]
-    classifier ''
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE
-    // Mixin
-    exclude 'LICENSE.txt'
-}
-reobf { shadowJar {} }
 
 // Fix resources when in dev environment
 tasks.register('moveResources') {
