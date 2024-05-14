@@ -65,6 +65,7 @@ public class LabelManager {
         for (Label label : labels) {
             label.saveLabelConfig();
         }
+        SPKMod.config.saveConfig();
     }
 
     @SubscribeEvent

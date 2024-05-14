@@ -6,28 +6,32 @@ import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
 public abstract class Label {
-    public final String labelName;
+    public final String name;
+    public final ConfigCategory configCategory;
     public boolean isUsed;
     public boolean isEnabled;
     public int posX;
     public int posY;
 
-    public Label(String labelName) {
-        this(labelName, 0, 0, false);
+    public Label(String name) {
+        this(name, 0, 0, false);
     }
 
-    public Label(String labelName, int defaultPosX, int defaultPosY) {
-        this(labelName, defaultPosX, defaultPosY, true);
+    public Label(String name, int defaultPosX, int defaultPosY) {
+        this(name, defaultPosX, defaultPosY, true);
     }
 
-    private Label(String labelName, int defaultPosX, int defaultPosY, boolean defaultUsed) {
-        this.labelName = labelName;
+    private Label(String name, int defaultPosX, int defaultPosY, boolean defaultUsed) {
+        this.name = name;
+        this.configCategory = SPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + name.toLowerCase());
 
-        String category = "labels" + Configuration.CATEGORY_SPLITTER + labelName.toLowerCase();
+        String category = configCategory.getQualifiedName();
         SPKMod.config.configuration.get(category, "x", defaultPosX);
         SPKMod.config.configuration.get(category, "y", defaultPosY);
         SPKMod.config.configuration.get(category, "used", defaultUsed);
@@ -38,9 +42,19 @@ public abstract class Label {
     }
 
     public void drawLabel() {
+        drawLabel(false);
+    }
+
+    public void drawLabel(boolean showDisabled) {
         if (isUsed && isEnabled) {
-            Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(TextUtil.assembleText(labelName, getLabelText(), ": "), posX, posY, -1);
+            drawLabel(TextUtil.assembleText(name, getLabelText(), ": "));
+        } else if (showDisabled) {
+            drawLabel(EnumChatFormatting.GRAY.toString() + EnumChatFormatting.STRIKETHROUGH + name + ": " + StringUtils.stripControlCodes(getLabelText()));
         }
+    }
+
+    protected void drawLabel(String labelText) {
+        Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(labelText, posX, posY, -1);
     }
 
     public void drawSelectionBox(int alpha) {
@@ -54,22 +68,17 @@ public abstract class Label {
     }
 
     public void loadLabelConfig() {
-        ConfigCategory category = SPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + labelName.toLowerCase());
-
-        posX = category.get("x").getInt();
-        posY = category.get("y").getInt();
-        isUsed = category.get("used").getBoolean();
-        isEnabled = category.get("enabled").getBoolean();
+        posX = configCategory.get("x").getInt();
+        posY = configCategory.get("y").getInt();
+        isUsed = configCategory.get("used").getBoolean();
+        isEnabled = configCategory.get("enabled").getBoolean();
     }
 
     public void saveLabelConfig() {
-        ConfigCategory category = SPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + labelName.toLowerCase());
-
-        category.get("x").set(posX);
-        category.get("y").set(posY);
-        category.get("used").set(isUsed);
-        category.get("enabled").set(isEnabled);
-        SPKMod.config.saveConfig();
+        configCategory.get("x").set(posX);
+        configCategory.get("y").set(posY);
+        configCategory.get("used").set(isUsed);
+        configCategory.get("enabled").set(isEnabled);
     }
 
     public void move(int posX, int posY) {
@@ -80,7 +89,7 @@ public abstract class Label {
     }
 
     public int getWidth() {
-        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(TextUtil.assembleText(labelName, getLabelText(), ": "));
+        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(TextUtil.assembleText(name, getLabelText(), ": "));
     }
 
     public int getHeight() {

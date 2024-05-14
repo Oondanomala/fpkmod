@@ -42,13 +42,13 @@ public class LabelGUI extends GuiScreen {
                 if (isClickingLabel) continue;
                 selectedLabel.drawSelectionBox(100);
             }
-            label.drawLabel();
+            label.drawLabel(true);
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (selectedLabel != null && isClickingLabel) {
+        if (isClickingLabel) {
             selectedLabel.drawSelectionBox(150);
-            selectedLabel.drawLabel();
+            selectedLabel.drawLabel(true);
         }
     }
 
