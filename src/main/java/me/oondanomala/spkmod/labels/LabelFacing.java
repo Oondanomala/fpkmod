@@ -6,15 +6,35 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.MathHelper;
 
 public class LabelFacing extends Label {
+    private boolean showAxis;
+
     public LabelFacing() {
         super("F", 2, 47);
+        SPKMod.config.configuration.get(configCategory.getQualifiedName(), "Show Axis", true);
+        showAxis = configCategory.get("Show Axis").getBoolean();
     }
 
     @Override
     protected String getLabelText() {
         float facing = Minecraft.getMinecraft().thePlayer.rotationYaw;
-        float absFacing = Math.abs(MathHelper.wrapAngleTo180_float(facing));
+        if (showAxis) {
+            float absFacing = Math.abs(MathHelper.wrapAngleTo180_float(facing));
+            return TextUtil.formatAngle(facing) + SPKMod.config.color1 + (absFacing > 45 && absFacing < 135 ? " X" : " Z");
+        }
+        return TextUtil.formatAngle(facing);
+    }
 
-        return TextUtil.formatAngle(facing) + SPKMod.config.color1 + (absFacing > 45 && absFacing < 135 ? " X" : " Z");
+    @Override
+    public void loadLabelConfig() {
+        super.loadLabelConfig();
+        if (configCategory.get("Show Axis") != null) {
+            showAxis = configCategory.get("Show Axis").getBoolean();
+        }
+    }
+
+    @Override
+    public void saveLabelConfig() {
+        super.saveLabelConfig();
+        configCategory.get("Show Axis").set(showAxis);
     }
 }
