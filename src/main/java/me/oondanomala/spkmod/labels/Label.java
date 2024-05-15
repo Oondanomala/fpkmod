@@ -35,7 +35,7 @@ public abstract class Label {
         SPKMod.config.configuration.get(category, "x", defaultPosX);
         SPKMod.config.configuration.get(category, "y", defaultPosY);
         SPKMod.config.configuration.get(category, "used", defaultUsed);
-        SPKMod.config.configuration.get(category, "enabled", true);
+        SPKMod.config.configuration.get(category, "Enabled", true);
         SPKMod.config.saveConfig();
 
         loadLabelConfig();
@@ -71,14 +71,14 @@ public abstract class Label {
         posX = configCategory.get("x").getInt();
         posY = configCategory.get("y").getInt();
         isUsed = configCategory.get("used").getBoolean();
-        isEnabled = configCategory.get("enabled").getBoolean();
+        isEnabled = configCategory.get("Enabled").getBoolean();
     }
 
     public void saveLabelConfig() {
         configCategory.get("x").set(posX);
         configCategory.get("y").set(posY);
         configCategory.get("used").set(isUsed);
-        configCategory.get("enabled").set(isEnabled);
+        configCategory.get("Enabled").set(isEnabled);
     }
 
     public void move(int posX, int posY) {

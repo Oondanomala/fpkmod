@@ -13,6 +13,7 @@ import java.util.List;
 
 public class LabelGUI extends GuiScreen {
     private Label selectedLabel;
+    private RightClickMenu rightClickMenu;
     private boolean isClickingLabel;
     private int clickX = 0;
     private int clickY = 0;
@@ -37,7 +38,6 @@ public class LabelGUI extends GuiScreen {
         drawDefaultBackground();
 
         for (Label label : LabelManager.instance.labels) {
-            // TODO: make it crossed out when its disabled
             if (label == selectedLabel) {
                 if (isClickingLabel) continue;
                 selectedLabel.drawSelectionBox(100);
@@ -49,6 +49,9 @@ public class LabelGUI extends GuiScreen {
         if (isClickingLabel) {
             selectedLabel.drawSelectionBox(150);
             selectedLabel.drawLabel(true);
+        }
+        if (rightClickMenu != null) {
+            rightClickMenu.drawMenu(mouseX, mouseY);
         }
     }
 
@@ -101,8 +104,12 @@ public class LabelGUI extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if (rightClickMenu != null && rightClickMenu.mouseClicked(mouseX, mouseY)) {
+            return;
+        }
         if (mouseButton == GuiUtil.MOUSE_LEFT) {
             selectedLabel = getHoveredLabel(mouseX, mouseY);
+            rightClickMenu = null;
             if (selectedLabel != null) {
                 isClickingLabel = true;
                 clickX = mouseX - selectedLabel.posX;
@@ -110,11 +117,11 @@ public class LabelGUI extends GuiScreen {
             }
         } else if (mouseButton == GuiUtil.MOUSE_RIGHT) {
             Label hoveredLabel = getHoveredLabel(mouseX, mouseY);
-            if (hoveredLabel != null) {
+            if (hoveredLabel == null) {
+                rightClickMenu = null;
+            } else {
                 selectedLabel = hoveredLabel;
-                // TODO: a small menu to let you disable each label manually
-                //  or maybe just disable them on right click without a menu?
-                //this.buttonList.add(a = new GuiCheckBox(0, mouseX, mouseY, "Enabled", selectedLabel.isEnabled));
+                rightClickMenu = new RightClickMenu(hoveredLabel, mouseX, mouseY);
             }
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -128,7 +135,7 @@ public class LabelGUI extends GuiScreen {
 
     @Override
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-        if (clickedMouseButton == GuiUtil.MOUSE_LEFT && selectedLabel != null) {
+        if (clickedMouseButton == GuiUtil.MOUSE_LEFT && selectedLabel != null && rightClickMenu == null) {
             selectedLabel.move(mouseX - clickX, mouseY - clickY);
         }
         super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
