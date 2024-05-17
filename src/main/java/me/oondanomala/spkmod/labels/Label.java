@@ -81,6 +81,10 @@ public abstract class Label {
         configCategory.get("Enabled").set(isEnabled);
     }
 
+    protected void addCustomConfig(String name, boolean defaultValue) {
+        SPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue);
+    }
+
     public void move(int posX, int posY) {
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
 

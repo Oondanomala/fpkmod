@@ -10,7 +10,7 @@ public class LabelFacing extends Label {
 
     public LabelFacing() {
         super("F", 2, 47);
-        SPKMod.config.configuration.get(configCategory.getQualifiedName(), "Show Axis", true);
+        addCustomConfig("Show Axis", true);
         showAxis = configCategory.get("Show Axis").getBoolean();
     }
 
