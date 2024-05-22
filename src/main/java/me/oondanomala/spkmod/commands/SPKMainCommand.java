@@ -42,7 +42,7 @@ public class SPKMainCommand extends CommandBase {
             this.subCommands.put(subCommand.name, subCommand);
             this.subCommandList.add(subCommand);
         }
-        subCommandList.sort(Comparator.comparing(o -> o.name));
+        subCommandList.sort(Comparator.comparing(c -> c.name));
     }
 
     @Override

@@ -7,7 +7,7 @@ import me.oondanomala.spkmod.util.TextUtil;
 
 public class HelpCommand extends SPKSubCommand {
     public HelpCommand() {
-        super("help", "Sends a list of all commands in the chat.");
+        super("help", "Sends a list of all commands and their help text in the chat.");
     }
 
     @Override

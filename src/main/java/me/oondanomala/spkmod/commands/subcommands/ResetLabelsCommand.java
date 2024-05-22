@@ -19,6 +19,7 @@ public class ResetLabelsCommand extends SPKSubCommand {
                 property.setToDefault();
             }
         }
+        // For some reason settings don't get marked as changed when reset to default
         SPKMod.config.configuration.save();
         LabelManager.instance.loadLabelsConfig();
 
