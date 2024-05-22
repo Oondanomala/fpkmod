@@ -1,6 +1,8 @@
 package me.oondanomala.spkmod.labels;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.labels.input.LabelJumpInput;
+import me.oondanomala.spkmod.labels.input.LabelLastInput;
 import me.oondanomala.spkmod.labels.jump.LabelHitAngle;
 import me.oondanomala.spkmod.labels.jump.LabelHitX;
 import me.oondanomala.spkmod.labels.jump.LabelHitY;
@@ -51,7 +53,10 @@ public class LabelManager {
                 new LabelHitZ(),
                 new LabelLandingX(),
                 new LabelLandingY(),
-                new LabelLandingZ()
+                new LabelLandingZ(),
+                // Input
+                new LabelLastInput(),
+                new LabelJumpInput()
         );
     }
 
