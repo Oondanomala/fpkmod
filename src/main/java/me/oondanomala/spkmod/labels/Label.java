@@ -81,8 +81,26 @@ public abstract class Label {
         configCategory.get("Enabled").set(isEnabled);
     }
 
-    protected void addCustomConfig(String name, boolean defaultValue) {
-        SPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue);
+    /**
+     * Don't forget to also override {@link #loadLabelConfig()} and {@link #saveLabelConfig()} to save the configs!
+     *
+     * @return The config value if it already exists, otherwise the default value
+     * @see #getCustomConfig(String)
+     * @see #setCustomConfig(String, boolean)
+     */
+    protected boolean addCustomConfig(String name, boolean defaultValue) {
+        return SPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue).getBoolean();
+    }
+
+    protected boolean getCustomConfig(String name) {
+        if (configCategory.get(name) != null) {
+            return configCategory.get(name).getBoolean();
+        }
+        return false;
+    }
+
+    protected void setCustomConfig(String name, boolean value) {
+        configCategory.get(name).set(value);
     }
 
     public void move(int posX, int posY) {

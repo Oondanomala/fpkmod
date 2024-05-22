@@ -10,8 +10,7 @@ public class LabelFacing extends Label {
 
     public LabelFacing() {
         super("F", 2, 47);
-        addCustomConfig("Show Axis", true);
-        showAxis = configCategory.get("Show Axis").getBoolean();
+        showAxis = addCustomConfig("Show Axis", true);
     }
 
     @Override
@@ -27,14 +26,12 @@ public class LabelFacing extends Label {
     @Override
     public void loadLabelConfig() {
         super.loadLabelConfig();
-        if (configCategory.get("Show Axis") != null) {
-            showAxis = configCategory.get("Show Axis").getBoolean();
-        }
+        showAxis = getCustomConfig("Show Axis");
     }
 
     @Override
     public void saveLabelConfig() {
         super.saveLabelConfig();
-        configCategory.get("Show Axis").set(showAxis);
+        setCustomConfig("Show Axis", showAxis);
     }
 }

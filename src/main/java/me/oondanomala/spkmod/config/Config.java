@@ -37,7 +37,7 @@ public class Config {
 
         mpkCommand = configuration.get(Configuration.CATEGORY_CLIENT, "MPK Command", true, "Whether to create the \"mpk\" alias to the \"spk\" command.").setRequiresMcRestart(true).getBoolean();
 
-        saveConfig();
+        configuration.save();
     }
 
     public void setConfigOption(String optionName, int value) {

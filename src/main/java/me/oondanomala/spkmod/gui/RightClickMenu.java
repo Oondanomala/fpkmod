@@ -21,8 +21,9 @@ public class RightClickMenu extends Gui {
     public RightClickMenu(Label label, int posX, int posY) {
         this.label = label;
 
+        buttons.add(new GuiCheckBox(10, 0, 0, "Enabled", label.isEnabled));
         label.configCategory.forEach((name, value) -> {
-            if (value.isBooleanValue()) {
+            if (!name.equals("Enabled") && !name.equals("used") && value.isBooleanValue()) {
                 buttons.add(new GuiCheckBox(10, 0, 0, name, value.getBoolean()));
             }
         });
