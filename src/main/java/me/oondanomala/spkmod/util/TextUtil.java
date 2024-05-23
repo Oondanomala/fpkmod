@@ -49,6 +49,7 @@ public final class TextUtil {
      *
      * @param angle The angle to format
      * @return The formatted angle
+     * @see #formatDouble(double)
      */
     public static String formatAngle(float angle) {
         return formatDouble(MathHelper.wrapAngleTo180_float(angle)) + "°";

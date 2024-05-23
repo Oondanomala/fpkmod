@@ -7,10 +7,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PlayerMovementHandler {
-    public static PlayerPosition lastJumpPosition = new PlayerPosition();
-    public static PlayerPosition lastLandingPosition = new PlayerPosition();
-    public static PlayerPosition lastHitPosition = new PlayerPosition();
-    private PlayerPosition pastPosition = new PlayerPosition();
+    /**
+     * The player state on jump tick.
+     */
+    public static PlayerState lastJumpPosition = new PlayerState();
+    /**
+     * The player state on the tick right before land tick.
+     */
+    public static PlayerState lastLandingPosition = new PlayerState();
+    /**
+     * The player state on land tick.
+     */
+    public static PlayerState lastHitPosition = new PlayerState();
+    private PlayerState pastPosition = new PlayerState();
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -20,7 +29,7 @@ public class PlayerMovementHandler {
         // This will probably need refactoring... But it's fine for now
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-        PlayerPosition currentPosition = getNewPlayerPosition(player, gameSettings);
+        PlayerState currentPosition = getNewPlayerState(player, gameSettings);
 
         // Player has jumped
         if (pastPosition.onGround && !player.onGround && player.posY >= pastPosition.posY && Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown()) {
@@ -36,8 +45,8 @@ public class PlayerMovementHandler {
         pastPosition = currentPosition;
     }
 
-    private PlayerPosition getNewPlayerPosition(EntityPlayer player, GameSettings settings) {
-        return new PlayerPosition(
+    private PlayerState getNewPlayerState(EntityPlayer player, GameSettings settings) {
+        return new PlayerState(
                 player.posX,
                 player.posY,
                 player.posZ,

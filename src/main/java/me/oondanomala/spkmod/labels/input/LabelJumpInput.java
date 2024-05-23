@@ -2,7 +2,7 @@ package me.oondanomala.spkmod.labels.input;
 
 import me.oondanomala.spkmod.labels.Label;
 import me.oondanomala.spkmod.movement.PlayerMovementHandler;
-import me.oondanomala.spkmod.movement.PlayerPosition;
+import me.oondanomala.spkmod.movement.PlayerState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import org.lwjgl.input.Keyboard;
@@ -17,7 +17,7 @@ public class LabelJumpInput extends Label {
 
     @Override
     protected String getLabelText() {
-        PlayerPosition jumpPosition = PlayerMovementHandler.lastJumpPosition;
+        PlayerState jumpPosition = PlayerMovementHandler.lastJumpPosition;
         String jumpInput;
 
         if (accurateKeyNames) {

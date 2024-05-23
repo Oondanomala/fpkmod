@@ -1,6 +1,6 @@
 package me.oondanomala.spkmod.movement;
 
-public class PlayerPosition {
+public class PlayerState {
     public final double posX;
     public final double posY;
     public final double posZ;
@@ -13,11 +13,11 @@ public class PlayerPosition {
     public final boolean keyLeft;
     public final boolean keyRight;
 
-    public PlayerPosition() {
+    public PlayerState() {
         this(0.0, 0.0, 0.0, 0.0F, true, false, false, false, false);
     }
 
-    public PlayerPosition(double posX, double posY, double posZ, float yaw, boolean onGround, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {
+    public PlayerState(double posX, double posY, double posZ, float yaw, boolean onGround, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
