@@ -8,6 +8,12 @@ public abstract class SPKSubCommand {
     public final String name;
     public final String helpMessage;
 
+    /**
+     * Constructs a new subcommand with the provided name and help message.
+     *
+     * @param name        The name of the subcommand, e.g. {@code /spk name}
+     * @param helpMessage The text that will be displayed in the {@code /spk help} subcommand
+     */
     protected SPKSubCommand(String name, String helpMessage) {
         this.name = name;
         this.helpMessage = helpMessage;

@@ -19,10 +19,22 @@ public abstract class Label {
     public int posX;
     public int posY;
 
+    /**
+     * Constructs a new label which is hidden by default.
+     *
+     * @param name The name of the label
+     */
     public Label(String name) {
         this(name, 0, 0, false);
     }
 
+    /**
+     * Constructs a new label that will be shown by default at the provided position.
+     *
+     * @param name        The name of the label
+     * @param defaultPosX The default X position.
+     * @param defaultPosY The default Y position.
+     */
     public Label(String name, int defaultPosX, int defaultPosY) {
         this(name, defaultPosX, defaultPosY, true);
     }
@@ -41,10 +53,20 @@ public abstract class Label {
         loadLabelConfig();
     }
 
+    /**
+     * Draws the label to the screen, if it is enabled and used.
+     */
     public void drawLabel() {
         drawLabel(false);
     }
 
+    /**
+     * Draws the label to the screen.
+     * If {@code showDisabled} is true it will be rendered as strikethrough and gray when disabled,
+     * otherwise it won't be rendered at all.
+     *
+     * @param showDisabled Whether to draw the label if it's disabled.
+     */
     public void drawLabel(boolean showDisabled) {
         if (isUsed && isEnabled) {
             drawLabel(TextUtil.assembleText(name, getLabelText(), ": "));
@@ -103,6 +125,12 @@ public abstract class Label {
         configCategory.get(name).set(value);
     }
 
+    /**
+     * Moves the label to the specified position, without going outside the screen.
+     *
+     * @param posX The X position to move to
+     * @param posY The Y position to move to
+     */
     public void move(int posX, int posY) {
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
 
@@ -110,10 +138,16 @@ public abstract class Label {
         this.posY = Math.min(Math.max(posY, 0), resolution.getScaledHeight() - getHeight());
     }
 
+    /**
+     * Gets the width of the label.
+     */
     public int getWidth() {
         return Minecraft.getMinecraft().fontRendererObj.getStringWidth(TextUtil.assembleText(name, getLabelText(), ": "));
     }
 
+    /**
+     * Gets the height of the label.
+     */
     public int getHeight() {
         return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
     }

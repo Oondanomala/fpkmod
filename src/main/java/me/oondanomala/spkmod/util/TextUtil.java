@@ -29,6 +29,12 @@ public final class TextUtil {
         return SPKMod.config.color1 + text1 + separator + SPKMod.config.color2 + text2;
     }
 
+    /**
+     * Converts a double into a string formatted according to the current settings.
+     *
+     * @param number The number to format
+     * @return The formatted number
+     */
     public static String formatDouble(double number) {
         decimalFormat.setMaximumFractionDigits(SPKMod.config.doublePrecision);
         if (!SPKMod.config.trimZeroes) {
@@ -37,6 +43,13 @@ public final class TextUtil {
         return decimalFormat.format(number);
     }
 
+    /**
+     * Converts an angle into a string formatted to the current settings.
+     * In particular, it wraps it to 180 degrees, formats it as a double, and appends {@code °} to it.
+     *
+     * @param angle The angle to format
+     * @return The formatted angle
+     */
     public static String formatAngle(float angle) {
         return formatDouble(MathHelper.wrapAngleTo180_float(angle)) + "°";
     }
