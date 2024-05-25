@@ -8,18 +8,23 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PlayerMovementHandler {
     /**
+     * The player state on the previous tick.
+     */
+    public static PlayerState prevTickState = new PlayerState();
+    /**
      * The player state on jump tick.
      */
-    public static PlayerState lastJumpPosition = new PlayerState();
+    public static PlayerState lastJumpState = new PlayerState();
     /**
      * The player state on the tick right before land tick.
      */
-    public static PlayerState lastLandingPosition = new PlayerState();
+    public static PlayerState lastLandingState = new PlayerState();
     /**
      * The player state on land tick.
      */
-    public static PlayerState lastHitPosition = new PlayerState();
-    private PlayerState pastPosition = new PlayerState();
+    public static PlayerState lastHitState = new PlayerState();
+    // Not actually the past tick for anything other than this class
+    private PlayerState pastState = new PlayerState();
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -29,20 +34,21 @@ public class PlayerMovementHandler {
         // This will probably need refactoring... But it's fine for now
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-        PlayerState currentPosition = getNewPlayerState(player, gameSettings);
+        PlayerState currentState = getNewPlayerState(player, gameSettings);
 
         // Player has jumped
-        if (pastPosition.onGround && !player.onGround && player.posY >= pastPosition.posY && Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown()) {
-            lastJumpPosition = currentPosition;
+        if (pastState.onGround && !player.onGround && player.posY >= pastState.posY && Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown()) {
+            lastJumpState = currentState;
         }
 
         // Player has landed
-        if (player.onGround && !pastPosition.onGround && player.posY < pastPosition.posY) {
-            lastHitPosition = currentPosition;
-            lastLandingPosition = pastPosition;
+        if (player.onGround && !pastState.onGround && player.posY < pastState.posY) {
+            lastHitState = currentState;
+            lastLandingState = pastState;
         }
 
-        pastPosition = currentPosition;
+        prevTickState = pastState;
+        pastState = currentState;
     }
 
     private PlayerState getNewPlayerState(EntityPlayer player, GameSettings settings) {

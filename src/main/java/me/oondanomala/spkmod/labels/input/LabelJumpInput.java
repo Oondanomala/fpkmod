@@ -17,20 +17,20 @@ public class LabelJumpInput extends Label {
 
     @Override
     protected String getLabelText() {
-        PlayerState jumpPosition = PlayerMovementHandler.lastJumpPosition;
+        PlayerState jumpState = PlayerMovementHandler.lastJumpState;
         String jumpInput;
 
         if (accurateKeyNames) {
             GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-            jumpInput = (jumpPosition.keyForward ? Keyboard.getKeyName(gameSettings.keyBindForward.getKeyCode()) : "") +
-                    (jumpPosition.keyLeft ? Keyboard.getKeyName(gameSettings.keyBindLeft.getKeyCode()) : "") +
-                    (jumpPosition.keyBackward ? Keyboard.getKeyName(gameSettings.keyBindBack.getKeyCode()) : "") +
-                    (jumpPosition.keyRight ? Keyboard.getKeyName(gameSettings.keyBindRight.getKeyCode()) : "");
+            jumpInput = (jumpState.keyForward ? Keyboard.getKeyName(gameSettings.keyBindForward.getKeyCode()) : "") +
+                    (jumpState.keyLeft ? Keyboard.getKeyName(gameSettings.keyBindLeft.getKeyCode()) : "") +
+                    (jumpState.keyBackward ? Keyboard.getKeyName(gameSettings.keyBindBack.getKeyCode()) : "") +
+                    (jumpState.keyRight ? Keyboard.getKeyName(gameSettings.keyBindRight.getKeyCode()) : "");
         } else {
-            jumpInput = (jumpPosition.keyForward ? "W" : "") +
-                    (jumpPosition.keyLeft ? "A" : "") +
-                    (jumpPosition.keyBackward ? "S" : "") +
-                    (jumpPosition.keyRight ? "D" : "");
+            jumpInput = (jumpState.keyForward ? "W" : "") +
+                    (jumpState.keyLeft ? "A" : "") +
+                    (jumpState.keyBackward ? "S" : "") +
+                    (jumpState.keyRight ? "D" : "");
         }
 
         return jumpInput.isEmpty() ? "None" : jumpInput;

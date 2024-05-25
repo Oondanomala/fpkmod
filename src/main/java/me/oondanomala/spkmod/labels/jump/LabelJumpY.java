@@ -11,6 +11,6 @@ public class LabelJumpY extends Label {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerMovementHandler.lastJumpPosition.posY);
+        return TextUtil.formatDouble(PlayerMovementHandler.lastJumpState.posY);
     }
 }

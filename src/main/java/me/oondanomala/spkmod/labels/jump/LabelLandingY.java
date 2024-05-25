@@ -11,6 +11,6 @@ public class LabelLandingY extends Label {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerMovementHandler.lastLandingPosition.posY);
+        return TextUtil.formatDouble(PlayerMovementHandler.lastLandingState.posY);
     }
 }
