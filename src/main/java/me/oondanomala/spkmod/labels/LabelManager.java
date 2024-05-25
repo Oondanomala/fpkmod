@@ -42,6 +42,7 @@ public class LabelManager {
                 new LabelZPos(),
                 new LabelFacing(),
                 new LabelPitch(),
+                new LabelSpeedVector(),
                 // Jump
                 new LabelJumpAngle(),
                 new LabelJumpX(),
