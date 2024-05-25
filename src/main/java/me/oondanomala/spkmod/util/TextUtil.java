@@ -34,6 +34,7 @@ public final class TextUtil {
      *
      * @param number The number to format
      * @return The formatted number
+     * @see #formatAngle(float)
      */
     public static String formatDouble(double number) {
         decimalFormat.setMaximumFractionDigits(SPKMod.config.doublePrecision);

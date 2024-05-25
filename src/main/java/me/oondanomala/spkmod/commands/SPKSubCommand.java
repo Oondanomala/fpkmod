@@ -4,6 +4,10 @@ import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandException;
 import net.minecraft.util.EnumChatFormatting;
 
+/**
+ * Implement this class to add a new subcommand to {@code /spk}.
+ * Don't forget to register it in {@link SPKMainCommand}'s constructor!
+ */
 public abstract class SPKSubCommand {
     public final String name;
     public final String helpMessage;
@@ -27,5 +31,11 @@ public abstract class SPKSubCommand {
         }
     }
 
+    /**
+     * Called when the subcommand is run.
+     *
+     * @param args The subcommand arguments
+     * @throws CommandException When an error occurs in the command. The exception message will be shown in chat
+     */
     protected abstract void internalRun(String[] args) throws CommandException;
 }

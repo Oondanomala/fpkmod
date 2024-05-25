@@ -1,6 +1,7 @@
 package me.oondanomala.spkmod.labels;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.movement.PlayerMovementHandler;
 import me.oondanomala.spkmod.util.GuiUtil;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
@@ -11,6 +12,10 @@ import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
+/**
+ * Implement this class to add a new label.
+ * Don't forget to register it in {@link LabelManager}'s constructor!
+ */
 public abstract class Label {
     public final String name;
     public final ConfigCategory configCategory;
@@ -152,5 +157,13 @@ public abstract class Label {
         return Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
     }
 
+    /**
+     * Called every frame.
+     *
+     * @return The label text that will be shown next to the label name, formatted as {@code Name: Text}.
+     * @see PlayerMovementHandler
+     * @see TextUtil#formatDouble(double)
+     * @see TextUtil#formatAngle(float)
+     */
     protected abstract String getLabelText();
 }
