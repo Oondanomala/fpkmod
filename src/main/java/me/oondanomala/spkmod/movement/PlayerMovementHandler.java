@@ -8,10 +8,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PlayerMovementHandler {
     /**
-     * The player state on the previous tick.
-     */
-    public static PlayerState prevTickState = new PlayerState();
-    /**
      * The player state on jump tick.
      */
     public static PlayerState lastJumpState = new PlayerState();
@@ -25,6 +21,36 @@ public class PlayerMovementHandler {
     public static PlayerState lastHitState = new PlayerState();
     // Not actually the past tick for anything other than this class
     private PlayerState pastState = new PlayerState();
+
+    // TODO: Move to another class
+    /**
+     * The player speed on the X axis.
+     * Implemented as:
+     * <pre>{@code player.posX - lastTick.posX;}</pre>
+     */
+    public static double speedX;
+    /**
+     * The player speed on the Y axis.
+     * Implemented as:
+     * <pre>{@code player.posY - lastTick.posY;}</pre>
+     */
+    public static double speedY;
+    /**
+     * The player speed on the Z axis.
+     * Implemented as:
+     * <pre>{@code player.posZ - lastTick.posZ;}</pre>
+     */
+    public static double speedZ;
+    /**
+     * The size of the turn made in the current tick.
+     * Implemented as:
+     * <pre>{@code
+     * if (player.rotationYaw != lastTick.yaw) {
+     *     player.rotationYaw - lastTick.yaw;
+     * }
+     * }</pre>
+     */
+    public static float lastTurning;
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -47,7 +73,14 @@ public class PlayerMovementHandler {
             lastLandingState = pastState;
         }
 
-        prevTickState = pastState;
+        // Update [CLASS NAME]
+        if (player.rotationYaw != pastState.yaw) {
+            lastTurning = player.rotationYaw - pastState.yaw;
+        }
+
+        speedX = player.posX - pastState.posX;
+        speedY = player.posY - pastState.posY;
+        speedZ = player.posZ - pastState.posZ;
         pastState = currentState;
     }
 

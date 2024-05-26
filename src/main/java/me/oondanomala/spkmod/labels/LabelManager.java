@@ -19,11 +19,15 @@ import me.oondanomala.spkmod.labels.misc.LabelFPS;
 import me.oondanomala.spkmod.labels.misc.LabelTime;
 import me.oondanomala.spkmod.labels.misc.LabelVersion;
 import me.oondanomala.spkmod.labels.movement.LabelSpeedVector;
+import me.oondanomala.spkmod.labels.movement.LabelSpeedX;
+import me.oondanomala.spkmod.labels.movement.LabelSpeedY;
+import me.oondanomala.spkmod.labels.movement.LabelSpeedZ;
 import me.oondanomala.spkmod.labels.simple.LabelFacing;
 import me.oondanomala.spkmod.labels.simple.LabelPitch;
 import me.oondanomala.spkmod.labels.simple.LabelXPos;
 import me.oondanomala.spkmod.labels.simple.LabelYPos;
 import me.oondanomala.spkmod.labels.simple.LabelZPos;
+import me.oondanomala.spkmod.labels.turn.LabelLastTurning;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -61,10 +65,15 @@ public class LabelManager {
                 new LabelLandingY(),
                 new LabelLandingZ(),
                 // Movement
+                new LabelSpeedX(),
+                new LabelSpeedY(),
+                new LabelSpeedZ(),
                 new LabelSpeedVector(),
                 // Input
                 new LabelLastInput(),
-                new LabelJumpInput()
+                new LabelJumpInput(),
+                // Turn
+                new LabelLastTurning()
         );
     }
 
