@@ -1,5 +1,6 @@
-package me.oondanomala.spkmod.labels;
+package me.oondanomala.spkmod.labels.simple;
 
+import me.oondanomala.spkmod.labels.Label;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 

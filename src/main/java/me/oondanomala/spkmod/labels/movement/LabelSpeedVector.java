@@ -1,6 +1,7 @@
-package me.oondanomala.spkmod.labels;
+package me.oondanomala.spkmod.labels.movement;
 
 import me.oondanomala.spkmod.SPKMod;
+import me.oondanomala.spkmod.labels.Label;
 import me.oondanomala.spkmod.movement.PlayerMovementHandler;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
