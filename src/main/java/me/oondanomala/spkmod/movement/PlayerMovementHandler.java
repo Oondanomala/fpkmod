@@ -1,6 +1,7 @@
 package me.oondanomala.spkmod.movement;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -58,12 +59,11 @@ public class PlayerMovementHandler {
             return;
         }
         // This will probably need refactoring... But it's fine for now
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-        PlayerState currentState = getNewPlayerState(player, gameSettings);
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        PlayerState currentState = getNewPlayerState(player, Minecraft.getMinecraft().gameSettings);
 
         // Player has jumped
-        if (pastState.onGround && !player.onGround && player.posY >= pastState.posY && Minecraft.getMinecraft().gameSettings.keyBindJump.isKeyDown()) {
+        if (pastState.onGround && !player.onGround && player.posY >= pastState.posY && player.movementInput.jump) {
             lastJumpState = currentState;
         }
 
