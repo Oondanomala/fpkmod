@@ -1,12 +1,7 @@
 package me.oondanomala.spkmod.commands;
 
 import me.oondanomala.spkmod.SPKMod;
-import me.oondanomala.spkmod.commands.subcommands.DecimalPrecisionCommand;
-import me.oondanomala.spkmod.commands.subcommands.HelpCommand;
-import me.oondanomala.spkmod.commands.subcommands.LabelGUICommand;
-import me.oondanomala.spkmod.commands.subcommands.OpenConfigCommand;
-import me.oondanomala.spkmod.commands.subcommands.ResetLabelsCommand;
-import me.oondanomala.spkmod.commands.subcommands.ToggleLabelsCommand;
+import me.oondanomala.spkmod.commands.subcommands.*;
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
