@@ -41,12 +41,12 @@ public class Config {
     }
 
     public void setConfigOption(String optionName, int value) {
-        SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+        configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
         saveConfig();
     }
 
     public void setConfigOption(String optionName, boolean value) {
-        SPKMod.config.configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+        configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
         saveConfig();
     }
 

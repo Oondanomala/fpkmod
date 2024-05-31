@@ -14,7 +14,7 @@ public class PlayerState {
     public final boolean keyRight;
 
     public PlayerState() {
-        this(0.0, 0.0, 0.0, 0.0F, true, false, false, false, false);
+        this(0, 0, 0, 0, true, false, false, false, false);
     }
 
     public PlayerState(double posX, double posY, double posZ, float yaw, boolean onGround, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {

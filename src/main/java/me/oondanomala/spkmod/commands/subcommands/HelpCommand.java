@@ -4,6 +4,7 @@ import me.oondanomala.spkmod.SPKMod;
 import me.oondanomala.spkmod.commands.SPKMainCommand;
 import me.oondanomala.spkmod.commands.SPKSubCommand;
 import me.oondanomala.spkmod.util.TextUtil;
+import net.minecraft.util.EnumChatFormatting;
 
 public class HelpCommand extends SPKSubCommand {
     public HelpCommand() {
@@ -12,7 +13,7 @@ public class HelpCommand extends SPKSubCommand {
 
     @Override
     public void internalRun(String[] args) {
-        TextUtil.showChatMessage(SPKMod.config.color1 + "§lSPK Command Help:", false);
+        TextUtil.showChatMessage(SPKMod.config.color1 + EnumChatFormatting.BOLD + "SPK Command Help:", false);
         for (SPKSubCommand command : SPKMainCommand.instance.subCommandList) {
             TextUtil.showChatMessage(TextUtil.assembleText(command.name, command.helpMessage, ": "), false);
         }

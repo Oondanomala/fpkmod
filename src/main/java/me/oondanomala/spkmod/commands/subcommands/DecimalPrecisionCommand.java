@@ -24,7 +24,7 @@ public class DecimalPrecisionCommand extends SPKSubCommand {
             } else {
                 SPKMod.config.doublePrecision = decimals;
                 SPKMod.config.setConfigOption("Coord Precision", decimals);
-                TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals");
+                TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals.");
             }
         } catch (NumberFormatException e) {
             throw new CommandException("<precision>");
