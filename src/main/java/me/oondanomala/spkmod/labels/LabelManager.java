@@ -25,6 +25,7 @@ public class LabelManager {
                 new LabelFPS(),
                 new LabelDate(),
                 new LabelTime(),
+                new LabelIp(),
                 // Simple
                 new LabelXPos(),
                 new LabelYPos(),
