@@ -2,6 +2,7 @@ package me.oondanomala.spkmod.commands;
 
 import me.oondanomala.spkmod.util.TextUtil;
 import net.minecraft.command.CommandException;
+import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.util.EnumChatFormatting;
 
 /**
@@ -15,7 +16,7 @@ public abstract class SPKSubCommand {
     /**
      * Constructs a new subcommand with the provided name and help message.
      *
-     * @param name        The name of the subcommand, e.g. {@code /spk name}
+     * @param name        The name of the subcommand, e.g. {@code /spk command}
      * @param helpMessage The text that will be displayed in the {@code /spk help} subcommand
      */
     protected SPKSubCommand(String name, String helpMessage) {
@@ -26,8 +27,10 @@ public abstract class SPKSubCommand {
     public void run(String[] args) {
         try {
             internalRun(args);
-        } catch (CommandException e) {
+        } catch (SyntaxErrorException e) {
             TextUtil.showChatMessage(EnumChatFormatting.RED + "/mpk " + name + " " + e.getMessage());
+        } catch (CommandException e) {
+            TextUtil.showChatMessage(e.getMessage());
         }
     }
 

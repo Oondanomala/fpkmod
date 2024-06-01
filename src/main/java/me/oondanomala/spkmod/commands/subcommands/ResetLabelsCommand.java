@@ -9,7 +9,7 @@ import net.minecraftforge.common.config.Property;
 
 public class ResetLabelsCommand extends SPKSubCommand {
     public ResetLabelsCommand() {
-        super("resetlabels", "Resets all labels to their default positions");
+        super("resetlabels", "Resets all labels to their default positions.");
     }
 
     @Override
