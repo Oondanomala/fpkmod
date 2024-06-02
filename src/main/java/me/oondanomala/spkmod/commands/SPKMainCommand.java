@@ -27,6 +27,7 @@ public class SPKMainCommand extends CommandBase {
                 new DecimalPrecisionCommand(),
                 new FlyCommand(),
                 new OpenConfigCommand(),
+                new ReloadConfigCommand(),
                 new LabelGUICommand(),
                 new ToggleLabelsCommand(),
                 new ResetLabelsCommand()

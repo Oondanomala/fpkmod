@@ -38,7 +38,8 @@ public abstract class SPKSubCommand {
      * Called when the subcommand is run.
      *
      * @param args The subcommand arguments
-     * @throws CommandException When an error occurs in the command. The exception message will be shown in chat
+     * @throws SyntaxErrorException When a syntax error occurs in the command. The exception message will be shown in chat, formatted appropriately
+     * @throws CommandException     When a generic error occurs in the command. The exception message will be sent in chat, without additional formatting
      */
     protected abstract void internalRun(String[] args) throws CommandException;
 }
