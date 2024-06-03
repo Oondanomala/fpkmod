@@ -3,8 +3,8 @@ package me.oondanomala.spkmod.labels.misc;
 import me.oondanomala.spkmod.labels.Label;
 import net.minecraft.client.Minecraft;
 
-public class LabelIp extends Label {
-    public LabelIp() {
+public class LabelIP extends Label {
+    public LabelIP() {
         super("IP");
     }
 
