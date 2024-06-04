@@ -6,6 +6,7 @@ import me.oondanomala.spkmod.labels.jump.*;
 import me.oondanomala.spkmod.labels.misc.*;
 import me.oondanomala.spkmod.labels.movement.*;
 import me.oondanomala.spkmod.labels.simple.*;
+import me.oondanomala.spkmod.labels.special.*;
 import me.oondanomala.spkmod.labels.turn.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -53,7 +54,10 @@ public class LabelManager {
                 new LabelLastInput(),
                 new LabelJumpInput(),
                 // Turn
-                new LabelLastTurning()
+                new LabelLastTurning(),
+                // Special
+                new LabelAirtime(),
+                new LabelTier()
         );
     }
 

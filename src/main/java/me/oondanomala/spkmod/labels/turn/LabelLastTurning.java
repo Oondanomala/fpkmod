@@ -1,7 +1,7 @@
 package me.oondanomala.spkmod.labels.turn;
 
 import me.oondanomala.spkmod.labels.Label;
-import me.oondanomala.spkmod.movement.PlayerMovementHandler;
+import me.oondanomala.spkmod.movement.ParkourHandler;
 import me.oondanomala.spkmod.util.TextUtil;
 
 public class LabelLastTurning extends Label {
@@ -11,6 +11,6 @@ public class LabelLastTurning extends Label {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerMovementHandler.lastTurning);
+        return TextUtil.formatDouble(ParkourHandler.lastTurning);
     }
 }

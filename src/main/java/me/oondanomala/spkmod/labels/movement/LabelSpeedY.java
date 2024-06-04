@@ -1,7 +1,7 @@
 package me.oondanomala.spkmod.labels.movement;
 
 import me.oondanomala.spkmod.labels.Label;
-import me.oondanomala.spkmod.movement.PlayerMovementHandler;
+import me.oondanomala.spkmod.movement.ParkourHandler;
 import me.oondanomala.spkmod.util.TextUtil;
 
 public class LabelSpeedY extends Label {
@@ -11,6 +11,6 @@ public class LabelSpeedY extends Label {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerMovementHandler.speedY);
+        return TextUtil.formatDouble(ParkourHandler.speedY);
     }
 }

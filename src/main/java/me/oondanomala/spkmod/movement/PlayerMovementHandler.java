@@ -23,48 +23,20 @@ public class PlayerMovementHandler {
     // Not actually the past tick for anything other than this class
     private PlayerState pastState = new PlayerState();
 
-    // TODO: Move to another class
-    /**
-     * The player speed on the X axis.
-     * Implemented as:
-     * <pre>{@code player.posX - lastTick.posX;}</pre>
-     */
-    public static double speedX;
-    /**
-     * The player speed on the Y axis.
-     * Implemented as:
-     * <pre>{@code player.posY - lastTick.posY;}</pre>
-     */
-    public static double speedY;
-    /**
-     * The player speed on the Z axis.
-     * Implemented as:
-     * <pre>{@code player.posZ - lastTick.posZ;}</pre>
-     */
-    public static double speedZ;
-    /**
-     * The size of the turn made in the current tick.
-     * Implemented as:
-     * <pre>{@code
-     * if (player.rotationYaw != lastTick.yaw) {
-     *     player.rotationYaw - lastTick.yaw;
-     * }
-     * }</pre>
-     */
-    public static float lastTurning;
-
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END || Minecraft.getMinecraft().thePlayer == null || Minecraft.getMinecraft().isGamePaused()) {
             return;
         }
-        // This will probably need refactoring... But it's fine for now
+
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         PlayerState currentState = getNewPlayerState(player, Minecraft.getMinecraft().gameSettings);
+        boolean isJumpTick = false;
 
         // Player has jumped
         if (pastState.onGround && !player.onGround && player.posY >= pastState.posY && player.movementInput.jump) {
             lastJumpState = currentState;
+            isJumpTick = true;
         }
 
         // Player has landed
@@ -73,14 +45,9 @@ public class PlayerMovementHandler {
             lastLandingState = pastState;
         }
 
-        // Update [CLASS NAME]
-        if (player.rotationYaw != pastState.yaw) {
-            lastTurning = player.rotationYaw - pastState.yaw;
-        }
+        // ParkourHandler
+        ParkourHandler.update(player, pastState, isJumpTick);
 
-        speedX = player.posX - pastState.posX;
-        speedY = player.posY - pastState.posY;
-        speedZ = player.posZ - pastState.posZ;
         pastState = currentState;
     }
 
