@@ -57,7 +57,7 @@ processResources {
 
 jar {
     // Access Transformer
-    manifest.attributes('FMLAT': "spkmod_at.cfg")
+    manifest.attributes('FMLAT': "fpkmod_at.cfg")
 }
 
 // Fix resources when in dev environment

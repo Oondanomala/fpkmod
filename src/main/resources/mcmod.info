@@ -1,7 +1,7 @@
 [
   {
-    "modid": "spkmod",
-    "name": "SPK Mod",
+    "modid": "fpkmod",
+    "name": "FPK Mod",
     "description": "MPK, but shit.",
     "version": "${version}",
     "mcversion": "${mcversion}",
