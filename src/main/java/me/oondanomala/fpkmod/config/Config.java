@@ -1,6 +1,7 @@
 package me.oondanomala.fpkmod.config;
 
 import me.oondanomala.fpkmod.FPKMod;
+import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,6 +37,8 @@ public class Config {
         trimZeroes = configuration.getBoolean("Trim Zeroes", Configuration.CATEGORY_CLIENT, false, "Whether to remove any trailing zeroes from labels.");
 
         mpkCommand = configuration.get(Configuration.CATEGORY_CLIENT, "MPK Command", true, "Whether to create the \"mpk\" alias to the \"fpk\" command.").setRequiresMcRestart(true).getBoolean();
+
+        TextUtil.setDecimalPrecision(doublePrecision, trimZeroes);
 
         configuration.save();
     }

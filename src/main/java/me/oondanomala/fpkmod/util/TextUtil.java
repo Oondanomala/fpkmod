@@ -37,10 +37,6 @@ public final class TextUtil {
      * @see #formatAngle(float)
      */
     public static String formatDouble(double number) {
-        decimalFormat.setMaximumFractionDigits(FPKMod.config.doublePrecision);
-        if (!FPKMod.config.trimZeroes) {
-            decimalFormat.setMinimumFractionDigits(FPKMod.config.doublePrecision);
-        }
         return decimalFormat.format(number);
     }
 
@@ -54,5 +50,10 @@ public final class TextUtil {
      */
     public static String formatAngle(float angle) {
         return formatDouble(MathHelper.wrapAngleTo180_float(angle)) + "°";
+    }
+
+    public static void setDecimalPrecision(int digits, boolean trimZeroes) {
+        decimalFormat.setMaximumFractionDigits(digits);
+        decimalFormat.setMinimumFractionDigits(trimZeroes ? 0 : digits);
     }
 }
