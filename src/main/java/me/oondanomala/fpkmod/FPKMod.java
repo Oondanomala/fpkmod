@@ -1,5 +1,6 @@
 package me.oondanomala.fpkmod;
 
+import me.oondanomala.fpkmod.commands.CommandKeybindHandler;
 import me.oondanomala.fpkmod.commands.FPKMainCommand;
 import me.oondanomala.fpkmod.config.Config;
 import me.oondanomala.fpkmod.labels.LabelManager;
@@ -31,6 +32,7 @@ public class FPKMod {
                 config,
                 new GuiUtil(),
                 LabelManager.instance,
+                new CommandKeybindHandler(),
                 new PlayerMovementHandler()
         );
         ForgeUtil.registerCommands(FPKMainCommand.instance);

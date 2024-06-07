@@ -1,9 +1,11 @@
 package me.oondanomala.fpkmod.commands;
 
 import me.oondanomala.fpkmod.util.TextUtil;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.util.EnumChatFormatting;
+import org.lwjgl.input.Keyboard;
 
 /**
  * Implement this class to add a new subcommand to {@code /fpk}.
@@ -12,16 +14,35 @@ import net.minecraft.util.EnumChatFormatting;
 public abstract class FPKSubCommand {
     public final String name;
     public final String helpMessage;
+    public final KeyBinding keybind;
 
     /**
-     * Constructs a new subcommand with the provided name and help message.
+     * Constructs a new subcommand with the provided name and help message, and no keybind.
      *
      * @param name        The name of the subcommand, e.g. {@code /fpk command}
      * @param helpMessage The text that will be displayed in the {@code /fpk help} subcommand
      */
     protected FPKSubCommand(String name, String helpMessage) {
+        this(name, helpMessage, null);
+    }
+
+    /**
+     * Constructs a new subcommand with the provided name, help message, and keybind.
+     * The keybind has no default key, and will call {@link #run(String[])} with no arguments when pressed.
+     *
+     * @param name        The name of the subcommand, e.g. {@code /fpk command}
+     * @param helpMessage The text that will be displayed in the {@code /fpk help} subcommand
+     * @param keybindName The name of the keybind, or <tt>null</tt> for no keybind
+     */
+    protected FPKSubCommand(String name, String helpMessage, String keybindName) {
         this.name = name;
         this.helpMessage = helpMessage;
+
+        if (keybindName == null) {
+            keybind = null;
+        } else {
+            keybind = new KeyBinding(keybindName, Keyboard.KEY_NONE, CommandKeybindHandler.KEYBIND_CATEGORY);
+        }
     }
 
     public void run(String[] args) {

@@ -7,7 +7,7 @@ import net.minecraft.command.CommandException;
 
 public class FlyCommand extends FPKSubCommand {
     public FlyCommand() {
-        super("fly", "Disables flight when in creative mode.");
+        super("fly", "Disables flight when in creative mode.", "Toggle Flight");
     }
 
     @Override

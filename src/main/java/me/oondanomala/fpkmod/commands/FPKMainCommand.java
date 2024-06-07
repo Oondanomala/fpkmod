@@ -40,6 +40,7 @@ public class FPKMainCommand extends CommandBase {
             this.subCommandList.add(subCommand);
         }
         subCommandList.sort(Comparator.comparing(c -> c.name));
+        CommandKeybindHandler.registerKeybinds(subCommandList);
     }
 
     @Override
