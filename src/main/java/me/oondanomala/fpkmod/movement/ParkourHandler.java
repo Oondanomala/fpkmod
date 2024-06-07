@@ -21,6 +21,14 @@ public class ParkourHandler {
      */
     public static float lastTurning;
     /**
+     * The size of the turn made in the tick right before jump tick.
+     */
+    public static float preturn;
+    /**
+     * The size of the turn made in the tick right after jump tick, if the player started strafing.
+     */
+    public static float last45;
+    /**
      * The amount of ticks the player has been in the air for.
      */
     public static int airtime;
@@ -31,7 +39,7 @@ public class ParkourHandler {
      */
     public static int tier;
 
-    static void update(EntityPlayerSP player, PlayerState pastState, boolean isJumpTick) {
+    static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
         // Speed
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
@@ -59,6 +67,16 @@ public class ParkourHandler {
         // Last Turning
         if (player.rotationYaw != pastState.yaw) {
             lastTurning = player.rotationYaw - pastState.yaw;
+        }
+
+        // Preturn
+        if (isJumpTick) {
+            preturn = pastState.yaw - secondPastState.yaw;
+        }
+
+        // Last 45
+        if (secondPastState.onGround && !pastState.onGround && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
+            last45 = player.rotationYaw - pastState.yaw;
         }
     }
 }

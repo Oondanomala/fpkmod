@@ -7,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+/**
+ * @see ParkourHandler
+ */
 public class PlayerMovementHandler {
     /**
      * The player state on jump tick.
@@ -20,8 +23,9 @@ public class PlayerMovementHandler {
      * The player state on land tick.
      */
     public static PlayerState lastHitState = new PlayerState();
-    // Not actually the past tick for anything other than this class
+
     private PlayerState pastState = new PlayerState();
+    private PlayerState secondPastState = new PlayerState();
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -46,8 +50,9 @@ public class PlayerMovementHandler {
         }
 
         // ParkourHandler
-        ParkourHandler.update(player, pastState, isJumpTick);
+        ParkourHandler.update(player, pastState, secondPastState, isJumpTick);
 
+        secondPastState = pastState;
         pastState = currentState;
     }
 

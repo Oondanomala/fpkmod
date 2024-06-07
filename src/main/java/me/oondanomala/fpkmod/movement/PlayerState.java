@@ -28,4 +28,8 @@ public class PlayerState {
         this.keyLeft = keyLeft;
         this.keyRight = keyRight;
     }
+
+    public boolean isStrafing() {
+        return keyLeft ^ keyRight;
+    }
 }

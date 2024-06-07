@@ -55,6 +55,8 @@ public class LabelManager {
                 new LabelJumpInput(),
                 // Turn
                 new LabelLastTurning(),
+                new LabelPreturn(),
+                new LabelLast45(),
                 // Special
                 new LabelAirtime(),
                 new LabelTier()
