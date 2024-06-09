@@ -13,10 +13,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FPKMainCommand extends CommandBase {
     public static final FPKMainCommand instance = new FPKMainCommand();
-    private final HashMap<String, FPKSubCommand> subCommands;
+    private final Map<String, FPKSubCommand> subCommands;
     public final List<FPKSubCommand> subCommandList;
 
     public FPKMainCommand() {

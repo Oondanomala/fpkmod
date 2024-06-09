@@ -21,7 +21,7 @@ public class CommandKeybindHandler {
     private void handleInput() {
         for (FPKSubCommand subCommand : FPKMainCommand.instance.subCommandList) {
             if (subCommand.keybind != null && subCommand.keybind.isPressed()) {
-                subCommand.run(new String[]{});
+                subCommand.run(new String[0]);
             }
         }
     }

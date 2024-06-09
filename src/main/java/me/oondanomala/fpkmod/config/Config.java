@@ -10,13 +10,13 @@ import java.io.File;
 
 public class Config {
     public final Configuration configuration;
+
     public String prefix;
     public String color1;
     public String color2;
     public boolean enableLabels;
     public int doublePrecision;
     public boolean trimZeroes;
-
     public boolean mpkCommand;
 
     public Config(File configFile) {
