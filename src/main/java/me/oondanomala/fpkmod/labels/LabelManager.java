@@ -59,7 +59,8 @@ public class LabelManager {
                 new LabelLast45(),
                 // Special
                 new LabelAirtime(),
-                new LabelTier()
+                new LabelTier(),
+                new LabelGrind()
         );
     }
 

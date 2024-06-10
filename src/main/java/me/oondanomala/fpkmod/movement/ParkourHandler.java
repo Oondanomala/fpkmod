@@ -38,6 +38,12 @@ public class ParkourHandler {
      * @see <a href="https://www.mcpk.wiki/wiki/Tiers">mcpk.wiki/wiki/Tiers</a>
      */
     public static int tier;
+    /**
+     * The amount of grinds chained. Resets when a jump isn't a grind.
+     *
+     * @see <a href="https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
+     */
+    public static int grinds;
 
     static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
         // Speed
@@ -64,14 +70,21 @@ public class ParkourHandler {
             tier = 0;
         }
 
+        if (isJumpTick) {
+            // Grind
+            // TODO: Add stairboosts?
+            if (player.posY == pastState.posY) {
+                grinds++;
+            } else {
+                grinds = 0;
+            }
+            // Preturn
+            preturn = pastState.yaw - secondPastState.yaw;
+        }
+
         // Last Turning
         if (player.rotationYaw != pastState.yaw) {
             lastTurning = player.rotationYaw - pastState.yaw;
-        }
-
-        // Preturn
-        if (isJumpTick) {
-            preturn = pastState.yaw - secondPastState.yaw;
         }
 
         // Last 45
