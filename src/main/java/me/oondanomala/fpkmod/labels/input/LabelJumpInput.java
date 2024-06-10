@@ -5,7 +5,6 @@ import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.movement.PlayerState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
-import org.lwjgl.input.Keyboard;
 
 public class LabelJumpInput extends Label {
     private boolean accurateKeyNames;
@@ -22,10 +21,10 @@ public class LabelJumpInput extends Label {
 
         if (accurateKeyNames) {
             GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-            jumpInput = (jumpState.keyForward ? Keyboard.getKeyName(gameSettings.keyBindForward.getKeyCode()) : "") +
-                    (jumpState.keyLeft ? Keyboard.getKeyName(gameSettings.keyBindLeft.getKeyCode()) : "") +
-                    (jumpState.keyBackward ? Keyboard.getKeyName(gameSettings.keyBindBack.getKeyCode()) : "") +
-                    (jumpState.keyRight ? Keyboard.getKeyName(gameSettings.keyBindRight.getKeyCode()) : "");
+            jumpInput = (jumpState.keyForward ? GameSettings.getKeyDisplayString(gameSettings.keyBindForward.getKeyCode()) : "") +
+                    (jumpState.keyLeft ? GameSettings.getKeyDisplayString(gameSettings.keyBindLeft.getKeyCode()) : "") +
+                    (jumpState.keyBackward ? GameSettings.getKeyDisplayString(gameSettings.keyBindBack.getKeyCode()) : "") +
+                    (jumpState.keyRight ? GameSettings.getKeyDisplayString(gameSettings.keyBindRight.getKeyCode()) : "");
         } else {
             jumpInput = (jumpState.keyForward ? "W" : "") +
                     (jumpState.keyLeft ? "A" : "") +
