@@ -60,7 +60,7 @@ public abstract class FPKSubCommand {
      *
      * @param args The subcommand arguments
      * @throws SyntaxErrorException When a syntax error occurs in the command. The exception message will be shown in chat, formatted appropriately
-     * @throws CommandException     When a generic error occurs in the command. The exception message will be sent in chat, without additional formatting
+     * @throws CommandException     When a generic error occurs in the command. The exception message will be shown in chat, without additional formatting
      */
     protected abstract void internalRun(String[] args) throws CommandException;
 }

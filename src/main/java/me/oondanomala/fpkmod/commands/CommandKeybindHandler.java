@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 
 import java.util.List;
-
+// Move to a KeybindUtil?
 public class CommandKeybindHandler {
     // Hack! §r makes the category show below vanilla ones
     public static final String KEYBIND_CATEGORY = "§rFPK Mod";

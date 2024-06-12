@@ -1,8 +1,10 @@
 package me.oondanomala.fpkmod.movement;
 
+import me.oondanomala.fpkmod.commands.subcommands.TogglesprintCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -47,6 +49,11 @@ public class PlayerMovementHandler {
         if (player.onGround && !pastState.onGround && player.posY < pastState.posY) {
             lastHitState = currentState;
             lastLandingState = pastState;
+        }
+
+        // Togglesprint
+        if (TogglesprintCommand.sprintToggled) {
+            KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);
         }
 
         // ParkourHandler
