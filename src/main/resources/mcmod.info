@@ -2,13 +2,13 @@
   {
     "modid": "fpkmod",
     "name": "FPK Mod",
-    "description": "MPK, but shit.",
+    "description": "An open source replacement for MPK Mod/CyvClient.\nAdds a bunch of useful parkour features to the game.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
+    "url": "https://github.com/Oondanomala/fpkmod",
     "updateUrl": "",
     "authorList": ["Oondanomala"],
-    "credits": "",
+    "credits": "kurrycat for making the original MPK mod and MPK mod 2, and Morpheye for making CyvFabric!",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
