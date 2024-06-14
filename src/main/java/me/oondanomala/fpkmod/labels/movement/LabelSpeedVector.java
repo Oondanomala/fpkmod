@@ -1,11 +1,11 @@
 package me.oondanomala.fpkmod.labels.movement;
 
 import me.oondanomala.fpkmod.FPKMod;
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.movement.ParkourHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 
-public class LabelSpeedVector extends Label {
+public class LabelSpeedVector extends TextLabel {
     public LabelSpeedVector() {
         super("Speed Vector");
     }

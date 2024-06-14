@@ -1,12 +1,12 @@
 package me.oondanomala.fpkmod.labels.simple;
 
 import me.oondanomala.fpkmod.FPKMod;
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MathHelper;
 
-public class LabelFacing extends Label {
+public class LabelFacing extends TextLabel {
     private boolean showAxis;
 
     public LabelFacing() {

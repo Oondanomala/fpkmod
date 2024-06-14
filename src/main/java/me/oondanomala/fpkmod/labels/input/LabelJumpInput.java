@@ -1,12 +1,12 @@
 package me.oondanomala.fpkmod.labels.input;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.movement.PlayerState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
-public class LabelJumpInput extends Label {
+public class LabelJumpInput extends TextLabel {
     private boolean accurateKeyNames;
 
     public LabelJumpInput() {

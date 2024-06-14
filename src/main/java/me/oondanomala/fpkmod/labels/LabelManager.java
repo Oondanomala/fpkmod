@@ -82,7 +82,7 @@ public class LabelManager {
     public void drawLabels(RenderGameOverlayEvent.Text event) {
         if (FPKMod.config.enableLabels && !Minecraft.getMinecraft().gameSettings.showDebugInfo) {
             for (Label label : labels) {
-                label.drawLabel();
+                label.draw();
             }
         }
     }

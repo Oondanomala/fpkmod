@@ -1,11 +1,11 @@
 package me.oondanomala.fpkmod.labels.misc;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class LabelDate extends Label {
+public class LabelDate extends TextLabel {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uu");
 
     public LabelDate() {

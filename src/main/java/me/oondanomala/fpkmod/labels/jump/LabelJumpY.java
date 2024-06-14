@@ -1,10 +1,10 @@
 package me.oondanomala.fpkmod.labels.jump;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 
-public class LabelJumpY extends Label {
+public class LabelJumpY extends TextLabel {
     public LabelJumpY() {
         super("Jump Y");
     }

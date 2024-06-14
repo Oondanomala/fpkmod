@@ -1,10 +1,10 @@
 package me.oondanomala.fpkmod.labels.simple;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
-public class LabelPitch extends Label {
+public class LabelPitch extends TextLabel {
     public LabelPitch() {
         super("Pitch");
     }

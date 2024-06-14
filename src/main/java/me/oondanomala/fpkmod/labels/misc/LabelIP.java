@@ -1,9 +1,9 @@
 package me.oondanomala.fpkmod.labels.misc;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import net.minecraft.client.Minecraft;
 
-public class LabelIP extends Label {
+public class LabelIP extends TextLabel {
     public LabelIP() {
         super("IP");
     }

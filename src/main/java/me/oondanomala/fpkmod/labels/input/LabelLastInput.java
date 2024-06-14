@@ -1,10 +1,10 @@
 package me.oondanomala.fpkmod.labels.input;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
-public class LabelLastInput extends Label {
+public class LabelLastInput extends TextLabel {
     private boolean accurateKeyNames;
 
     public LabelLastInput() {

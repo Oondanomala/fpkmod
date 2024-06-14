@@ -1,10 +1,10 @@
 package me.oondanomala.fpkmod.labels.simple;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
-public class LabelXPos extends Label {
+public class LabelXPos extends TextLabel {
     public LabelXPos() {
         super("X", 2, 20);
     }

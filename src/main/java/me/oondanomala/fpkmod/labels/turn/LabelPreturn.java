@@ -1,10 +1,10 @@
 package me.oondanomala.fpkmod.labels.turn;
 
-import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.movement.ParkourHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 
-public class LabelPreturn extends Label {
+public class LabelPreturn extends TextLabel {
     public LabelPreturn() {
         super("Preturn");
     }
