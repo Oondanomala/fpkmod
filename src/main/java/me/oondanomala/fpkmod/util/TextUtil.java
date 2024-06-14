@@ -3,7 +3,9 @@ package me.oondanomala.fpkmod.util;
 import me.oondanomala.fpkmod.FPKMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StringUtils;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -27,6 +29,10 @@ public final class TextUtil {
 
     public static String assembleText(String text1, String text2, String separator) {
         return FPKMod.config.color1 + text1 + separator + FPKMod.config.color2 + text2;
+    }
+
+    public static String formatAsDisabled(String text) {
+        return EnumChatFormatting.GRAY.toString() + EnumChatFormatting.STRIKETHROUGH + StringUtils.stripControlCodes(text);
     }
 
     /**

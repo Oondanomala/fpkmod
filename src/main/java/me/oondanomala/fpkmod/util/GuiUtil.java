@@ -25,6 +25,14 @@ public final class GuiUtil {
         return new Color(GuiUtils.getColorCode(colorCode, true) & 0xffffff | alpha << 24, true).getRGB();
     }
 
+    public static void drawCenteredString(String text, int posX, int posY, int width, int height, int color) {
+        int textWidth = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text) / 2;
+        int textHeight = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2;
+        int halfwayX = posX + Math.round((float) width / 2);
+        int halfwayY = posY + Math.round((float) height / 2);
+        Minecraft.getMinecraft().fontRendererObj.drawString(text, halfwayX - textWidth, halfwayY - textHeight, color);
+    }
+
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (guiToDisplay != null && event.phase == TickEvent.Phase.END) {

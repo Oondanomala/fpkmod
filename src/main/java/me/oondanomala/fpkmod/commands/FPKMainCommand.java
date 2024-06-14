@@ -2,6 +2,7 @@ package me.oondanomala.fpkmod.commands;
 
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.commands.subcommands.*;
+import me.oondanomala.fpkmod.util.KeyBindUtil;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -42,7 +43,7 @@ public class FPKMainCommand extends CommandBase {
             this.subCommandList.add(subCommand);
         }
         subCommandList.sort(Comparator.comparing(c -> c.name));
-        CommandKeybindHandler.registerKeybinds(subCommandList);
+        KeyBindUtil.registerKeybinds(subCommandList);
     }
 
     @Override

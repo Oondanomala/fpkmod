@@ -1,5 +1,6 @@
 package me.oondanomala.fpkmod.commands;
 
+import me.oondanomala.fpkmod.util.KeyBindUtil;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.command.CommandException;
@@ -41,7 +42,7 @@ public abstract class FPKSubCommand {
         if (keybindName == null) {
             keybind = null;
         } else {
-            keybind = new KeyBinding(keybindName, Keyboard.KEY_NONE, CommandKeybindHandler.KEYBIND_CATEGORY);
+            keybind = new KeyBinding(keybindName, Keyboard.KEY_NONE, KeyBindUtil.KEYBIND_CATEGORY);
         }
     }
 

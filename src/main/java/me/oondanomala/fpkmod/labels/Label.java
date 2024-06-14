@@ -7,8 +7,6 @@ import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
@@ -76,7 +74,7 @@ public abstract class Label {
         if (isUsed && isEnabled) {
             drawLabel(TextUtil.assembleText(name, getLabelText(), ": "));
         } else if (showDisabled) {
-            drawLabel(EnumChatFormatting.GRAY.toString() + EnumChatFormatting.STRIKETHROUGH + name + ": " + StringUtils.stripControlCodes(getLabelText()));
+            drawLabel(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
         }
     }
 
