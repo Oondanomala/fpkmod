@@ -18,12 +18,10 @@ import java.util.Map;
 
 public class FPKMainCommand extends CommandBase {
     public static final FPKMainCommand instance = new FPKMainCommand();
-    private final Map<String, FPKSubCommand> subCommands;
-    public final List<FPKSubCommand> subCommandList;
+    private final Map<String, FPKSubCommand> subCommands = new HashMap<>();
+    public final List<FPKSubCommand> subCommandList = new ArrayList<>();
 
     public FPKMainCommand() {
-        subCommands = new HashMap<>();
-        subCommandList = new ArrayList<>();
         registerSubCommands(
                 new HelpCommand(),
                 new DecimalPrecisionCommand(),

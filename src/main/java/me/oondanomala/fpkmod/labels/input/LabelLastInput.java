@@ -1,6 +1,7 @@
 package me.oondanomala.fpkmod.labels.input;
 
 import me.oondanomala.fpkmod.labels.TextLabel;
+import me.oondanomala.fpkmod.util.KeyBindUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
@@ -16,10 +17,10 @@ public class LabelLastInput extends TextLabel {
     protected String getLabelText() {
         GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
         if (accurateKeyNames) {
-            return (gameSettings.keyBindForward.isKeyDown() ? GameSettings.getKeyDisplayString(gameSettings.keyBindForward.getKeyCode()) : "")
-                    + (gameSettings.keyBindLeft.isKeyDown() ? GameSettings.getKeyDisplayString(gameSettings.keyBindLeft.getKeyCode()) : "")
-                    + (gameSettings.keyBindBack.isKeyDown() ? GameSettings.getKeyDisplayString(gameSettings.keyBindBack.getKeyCode()) : "")
-                    + (gameSettings.keyBindRight.isKeyDown() ? GameSettings.getKeyDisplayString(gameSettings.keyBindRight.getKeyCode()) : "");
+            return (gameSettings.keyBindForward.isKeyDown() ? KeyBindUtil.getKeybindName(gameSettings.keyBindForward) : "")
+                    + (gameSettings.keyBindLeft.isKeyDown() ? KeyBindUtil.getKeybindName(gameSettings.keyBindLeft) : "")
+                    + (gameSettings.keyBindBack.isKeyDown() ? KeyBindUtil.getKeybindName(gameSettings.keyBindBack) : "")
+                    + (gameSettings.keyBindRight.isKeyDown() ? KeyBindUtil.getKeybindName(gameSettings.keyBindRight) : "");
         }
         return (gameSettings.keyBindForward.isKeyDown() ? "W" : "")
                 + (gameSettings.keyBindLeft.isKeyDown() ? "A" : "")

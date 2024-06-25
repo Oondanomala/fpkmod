@@ -32,7 +32,11 @@ public final class TextUtil {
     }
 
     public static String formatAsDisabled(String text) {
-        return EnumChatFormatting.GRAY.toString() + EnumChatFormatting.STRIKETHROUGH + StringUtils.stripControlCodes(text);
+        return formatAsDisabled(text, EnumChatFormatting.GRAY);
+    }
+
+    public static String formatAsDisabled(String text, EnumChatFormatting color) {
+        return color.toString() + EnumChatFormatting.STRIKETHROUGH + StringUtils.stripControlCodes(text);
     }
 
     /**

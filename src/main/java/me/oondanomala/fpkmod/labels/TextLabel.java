@@ -46,13 +46,13 @@ public abstract class TextLabel extends Label {
     @Override
     public void draw(boolean showDisabled) {
         if (isUsed && isEnabled) {
-            drawLabel(TextUtil.assembleText(name, getLabelText(), ": "));
+            drawLabelText(TextUtil.assembleText(name, getLabelText(), ": "));
         } else if (showDisabled) {
-            drawLabel(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
+            drawLabelText(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
         }
     }
 
-    protected void drawLabel(String labelText) {
+    protected void drawLabelText(String labelText) {
         Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(labelText, posX, posY, -1);
     }
 

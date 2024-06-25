@@ -15,7 +15,7 @@ The current priority is to add all MPK and CyvClient features, then to add new s
 ### Labels
 
 Labels show useful information on screen.<br>
-You can edit their position using `/fpk gui`.
+You can edit their position and visibility using `/fpk gui`.
 
 | Label          | Description                                                                           |
 |----------------|---------------------------------------------------------------------------------------|

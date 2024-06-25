@@ -5,6 +5,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
@@ -20,18 +21,15 @@ public final class KeyBindUtil {
                 return "RMB";
             case -98:
                 return "WMB";
+            case Keyboard.KEY_NONE:
+                return I18n.format(keybind.getKeyDescription());
+            case Keyboard.KEY_LCONTROL:
+                return "LCTRL";
+            case Keyboard.KEY_RCONTROL:
+                return "RCTRL";
         }
 
-        String text = GameSettings.getKeyDisplayString(keybind.getKeyCode());
-        switch (text) {
-            case "LCONTROL":
-                return "LCTRL";
-            case "RCONTROL":
-                return "RCTRL";
-            case "NONE":
-                return I18n.format(keybind.getKeyDescription());
-        }
-        return text;
+        return GameSettings.getKeyDisplayString(keybind.getKeyCode());
     }
 
     public static void registerKeybinds(List<FPKSubCommand> subCommands) {

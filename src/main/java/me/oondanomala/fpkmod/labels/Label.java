@@ -19,6 +19,10 @@ public abstract class Label {
     public int posX;
     public int posY;
 
+    protected Label(String id) {
+        this(id, 0, 0, false);
+    }
+
     protected Label(String id, int defaultPosX, int defaultPosY, boolean defaultUsed) {
         this.id = id;
         configCategory = FPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + id);

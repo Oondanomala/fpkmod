@@ -6,8 +6,6 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.awt.Color;
-
 public final class GuiUtil {
     public static final int MOUSE_LEFT = 0;
     public static final int MOUSE_RIGHT = 1;
@@ -22,20 +20,20 @@ public final class GuiUtil {
             throw new IllegalArgumentException("Alpha value must be between 0 and 255 (inclusive)");
         }
 
-        return new Color(GuiUtils.getColorCode(colorCode, true) & 0xffffff | alpha << 24, true).getRGB();
+        return GuiUtils.getColorCode(colorCode, true) & 0xffffff | alpha << 24;
     }
 
     public static void drawCenteredString(String text, int posX, int posY, int width, int height, int color) {
         int textWidth = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text) / 2;
         int textHeight = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2;
-        int halfwayX = posX + Math.round((float) width / 2);
-        int halfwayY = posY + Math.round((float) height / 2);
+        int halfwayX = posX + Math.round(width / 2f);
+        int halfwayY = posY + Math.round(height / 2f);
         Minecraft.getMinecraft().fontRendererObj.drawString(text, halfwayX - textWidth, halfwayY - textHeight, color);
     }
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (guiToDisplay != null && event.phase == TickEvent.Phase.END) {
+        if (guiToDisplay != null) {
             Minecraft.getMinecraft().displayGuiScreen(guiToDisplay);
             guiToDisplay = null;
         }

@@ -3,6 +3,7 @@ package me.oondanomala.fpkmod.labels.input;
 import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.movement.PlayerState;
+import me.oondanomala.fpkmod.util.KeyBindUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
@@ -21,10 +22,10 @@ public class LabelJumpInput extends TextLabel {
 
         if (accurateKeyNames) {
             GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-            jumpInput = (jumpState.keyForward ? GameSettings.getKeyDisplayString(gameSettings.keyBindForward.getKeyCode()) : "") +
-                    (jumpState.keyLeft ? GameSettings.getKeyDisplayString(gameSettings.keyBindLeft.getKeyCode()) : "") +
-                    (jumpState.keyBackward ? GameSettings.getKeyDisplayString(gameSettings.keyBindBack.getKeyCode()) : "") +
-                    (jumpState.keyRight ? GameSettings.getKeyDisplayString(gameSettings.keyBindRight.getKeyCode()) : "");
+            jumpInput = (jumpState.keyForward ? KeyBindUtil.getKeybindName(gameSettings.keyBindForward) : "") +
+                    (jumpState.keyLeft ? KeyBindUtil.getKeybindName(gameSettings.keyBindLeft) : "") +
+                    (jumpState.keyBackward ? KeyBindUtil.getKeybindName(gameSettings.keyBindBack) : "") +
+                    (jumpState.keyRight ? KeyBindUtil.getKeybindName(gameSettings.keyBindRight) : "");
         } else {
             jumpInput = (jumpState.keyForward ? "W" : "") +
                     (jumpState.keyLeft ? "A" : "") +
