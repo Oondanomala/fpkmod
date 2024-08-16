@@ -5,8 +5,10 @@ import me.oondanomala.fpkmod.commands.FPKMainCommand;
 import me.oondanomala.fpkmod.config.Config;
 import me.oondanomala.fpkmod.labels.LabelManager;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
-import me.oondanomala.fpkmod.util.ForgeUtil;
 import me.oondanomala.fpkmod.util.GuiUtil;
+import net.minecraft.command.CommandBase;
+import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -28,13 +30,25 @@ public class FPKMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        ForgeUtil.registerEvents(
+        registerEvents(
                 config,
                 new GuiUtil(),
                 LabelManager.instance,
                 new CommandKeybindHandler(),
                 new PlayerMovementHandler()
         );
-        ForgeUtil.registerCommands(FPKMainCommand.instance);
+        registerCommands(FPKMainCommand.instance);
+    }
+
+    private void registerEvents(Object... events) {
+        for (Object event : events) {
+            MinecraftForge.EVENT_BUS.register(event);
+        }
+    }
+
+    private void registerCommands(CommandBase... commands) {
+        for (CommandBase command : commands) {
+            ClientCommandHandler.instance.registerCommand(command);
+        }
     }
 }
