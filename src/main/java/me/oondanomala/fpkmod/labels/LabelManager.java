@@ -33,6 +33,7 @@ public class LabelManager {
                 new LabelYPos(),
                 new LabelZPos(),
                 new LabelFacing(),
+                new LabelRawFacing(),
                 new LabelPitch(),
                 // Jump
                 new LabelJumpAngle(),

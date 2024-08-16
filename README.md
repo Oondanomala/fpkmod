@@ -25,6 +25,7 @@ You can edit their position and visibility using `/fpk gui`.
 | Y              | The player's position on the `Y` axis                                                 |
 | Z              | The player's position on the `Z` axis                                                 |
 | F              | The player's yaw. Also shows the axis the player is facing                            |
+| Raw Yaw        | The raw, unmodified yaw value                                                         |
 | Pitch          | The player's pitch                                                                    |
 | Date           | The current date                                                                      |
 | Time           | The current time                                                                      |
