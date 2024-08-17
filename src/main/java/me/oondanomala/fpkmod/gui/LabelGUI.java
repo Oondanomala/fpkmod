@@ -92,7 +92,7 @@ public class LabelGUI extends GuiScreen {
 
             if (isCtrlKeyDown()) {
                 horizontalOffset *= 10;
-                verticalOffset *= selectedLabel.getHeight();
+                verticalOffset *= fontRendererObj.FONT_HEIGHT;
             }
 
             if ((horizontalOffset != 0 || verticalOffset != 0) && !isClickingLabel) {

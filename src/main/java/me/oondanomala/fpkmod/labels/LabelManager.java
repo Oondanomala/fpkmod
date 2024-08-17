@@ -55,6 +55,7 @@ public class LabelManager {
                 // Input
                 new LabelLastInput(),
                 new LabelJumpInput(),
+                new LabelKeystrokes(),
                 // Turn
                 new LabelLastTurning(),
                 new LabelPreturn(),
