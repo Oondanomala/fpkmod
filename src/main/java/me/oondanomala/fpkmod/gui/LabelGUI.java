@@ -23,14 +23,12 @@ public class LabelGUI extends GuiScreen {
         Keyboard.enableRepeatEvents(true);
         buttonList.add(new GuiButtonExt(0, this.width - 24, 6, 18, 18, "x"));
         buttonList.add(new GuiButtonExt(1, this.width - 24, 29, 18, 18, "+"));
-        super.initGui();
     }
 
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         LabelManager.instance.saveLabelsConfig();
-        super.onGuiClosed();
     }
 
     @Override
@@ -56,13 +54,12 @@ public class LabelGUI extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(null);
         } else if (button.id == 1) {
             // TODO: Add labels GUI
         }
-        super.actionPerformed(button);
     }
 
     @Override
@@ -138,7 +135,6 @@ public class LabelGUI extends GuiScreen {
         if (clickedMouseButton == GuiUtil.MOUSE_LEFT && selectedLabel != null && rightClickMenu == null) {
             selectedLabel.move(mouseX - clickX, mouseY - clickY);
         }
-        super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
     }
 
     private Label getHoveredLabel(int mouseX, int mouseY) {

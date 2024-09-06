@@ -1,6 +1,5 @@
 package me.oondanomala.fpkmod.labels;
 
-import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
@@ -18,7 +17,9 @@ public abstract class TextLabel extends Label {
      * @param name The name of the label
      */
     public TextLabel(String name) {
-        this(name, 0, 0, false);
+        // TODO: Change the id to something else
+        super(name.toLowerCase(), 0, 0, false);
+        this.name = name;
     }
 
     /**
@@ -29,12 +30,8 @@ public abstract class TextLabel extends Label {
      * @param defaultPosY The default Y position.
      */
     public TextLabel(String name, int defaultPosX, int defaultPosY) {
-        this(name, defaultPosX, defaultPosY, true);
-    }
-
-    private TextLabel(String name, int defaultPosX, int defaultPosY, boolean defaultUsed) {
         // TODO: Change the id to something else
-        super(name.toLowerCase(), defaultPosX, defaultPosY, defaultUsed);
+        super(name.toLowerCase(), defaultPosX, defaultPosY, true);
         this.name = name;
     }
 
@@ -54,28 +51,6 @@ public abstract class TextLabel extends Label {
 
     protected void drawLabelText(String labelText) {
         Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(labelText, posX, posY, -1);
-    }
-
-    /**
-     * Don't forget to also override {@link #loadLabelConfig()} and {@link #saveLabelConfig()} to save the configs!
-     *
-     * @return The config value if it already exists, otherwise the default value
-     * @see #getCustomConfig(String)
-     * @see #setCustomConfig(String, boolean)
-     */
-    protected boolean addCustomConfig(String name, boolean defaultValue) {
-        return FPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue).getBoolean();
-    }
-
-    protected boolean getCustomConfig(String name) {
-        if (configCategory.get(name) != null) {
-            return configCategory.get(name).getBoolean();
-        }
-        return false;
-    }
-
-    protected void setCustomConfig(String name, boolean value) {
-        configCategory.get(name).set(value);
     }
 
     @Override

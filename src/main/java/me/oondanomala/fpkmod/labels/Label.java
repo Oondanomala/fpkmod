@@ -32,7 +32,7 @@ public abstract class Label {
         FPKMod.config.configuration.get(category, "y", defaultPosY);
         // FIXME: This should use defaultUsed, but since there's currently no way to change that, use true
         FPKMod.config.configuration.get(category, "used", true);
-        FPKMod.config.configuration.get(category, "enabled", true);
+        FPKMod.config.configuration.get(category, "Enabled", true);
         FPKMod.config.saveConfig();
         loadLabelConfig();
     }
@@ -58,14 +58,49 @@ public abstract class Label {
         posX = configCategory.get("x").getInt();
         posY = configCategory.get("y").getInt();
         isUsed = configCategory.get("used").getBoolean();
-        isEnabled = configCategory.get("enabled").getBoolean();
+        isEnabled = configCategory.get("Enabled").getBoolean();
     }
 
     public void saveLabelConfig() {
         configCategory.get("x").set(posX);
         configCategory.get("y").set(posY);
         configCategory.get("used").set(isUsed);
-        configCategory.get("enabled").set(isEnabled);
+        configCategory.get("Enabled").set(isEnabled);
+    }
+
+    /**
+     * Adds a custom boolean config to the label.
+     * It will show up when right-clicking the label in the label GUI.
+     * <p>
+     * Don't forget to override {@link #loadLabelConfig()} and {@link #saveLabelConfig()}
+     * to load and save the config values!
+     *
+     * @return The config value if it already exists, otherwise {@code defaultValue}
+     * @see #getCustomConfig(String)
+     * @see #setCustomConfig(String, boolean)
+     */
+    protected boolean addCustomConfig(String name, boolean defaultValue) {
+        return FPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue).getBoolean();
+    }
+
+    /**
+     * Gets the value of a custom label config.
+     *
+     * @return The value of the config, or <tt>false</tt> if the config doesn't exist
+     */
+    protected boolean getCustomConfig(String name) {
+        if (configCategory.get(name) != null) {
+            return configCategory.get(name).getBoolean();
+        }
+        return false;
+    }
+
+    /**
+     * Sets a custom label config to the specified value.
+     * The config option must be first created using {@link #addCustomConfig(String, boolean)}.
+     */
+    protected void setCustomConfig(String name, boolean value) {
+        configCategory.get(name).set(value);
     }
 
     /**
