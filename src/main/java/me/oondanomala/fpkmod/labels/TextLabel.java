@@ -9,8 +9,6 @@ import net.minecraft.client.Minecraft;
  * Don't forget to register it in {@link LabelManager}'s constructor!
  */
 public abstract class TextLabel extends Label {
-    public final String name;
-
     /**
      * Constructs a new text label which is hidden by default.
      *
@@ -18,8 +16,7 @@ public abstract class TextLabel extends Label {
      */
     public TextLabel(String name) {
         // TODO: Change the id to something else
-        super(name.toLowerCase(), 0, 0, false);
-        this.name = name;
+        super(name.toLowerCase(), name, 0, 0, false);
     }
 
     /**
@@ -31,8 +28,7 @@ public abstract class TextLabel extends Label {
      */
     public TextLabel(String name, int defaultPosX, int defaultPosY) {
         // TODO: Change the id to something else
-        super(name.toLowerCase(), defaultPosX, defaultPosY, true);
-        this.name = name;
+        super(name.toLowerCase(), name, defaultPosX, defaultPosY, true);
     }
 
     /**
@@ -42,10 +38,12 @@ public abstract class TextLabel extends Label {
      */
     @Override
     public void draw(boolean showDisabled) {
-        if (isUsed && isEnabled) {
-            drawLabelText(TextUtil.assembleText(name, getLabelText(), ": "));
-        } else if (showDisabled) {
-            drawLabelText(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
+        if (isUsed) {
+            if (isEnabled) {
+                drawLabelText(TextUtil.assembleText(name, getLabelText(), ": "));
+            } else if (showDisabled) {
+                drawLabelText(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
+            }
         }
     }
 

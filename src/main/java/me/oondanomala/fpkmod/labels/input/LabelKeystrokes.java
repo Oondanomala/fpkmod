@@ -11,7 +11,7 @@ public class LabelKeystrokes extends Label {
     private final List<KeystrokeKey> keys = new ArrayList<>();
 
     public LabelKeystrokes() {
-        super("keystrokes");
+        super("keystrokes", "Keystrokes");
 
         GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
         keys.add(new KeystrokeKey(gameSettings.keyBindForward, 25, 30, 0));
@@ -43,10 +43,12 @@ public class LabelKeystrokes extends Label {
 
     @Override
     public void draw(boolean showDisabled) {
-        if (isUsed && isEnabled) {
-            drawKeys(true);
-        } else if (showDisabled) {
-            drawKeys(false);
+        if (isUsed) {
+            if (isEnabled) {
+                drawKeys(true);
+            } else if (showDisabled) {
+                drawKeys(false);
+            }
         }
     }
 

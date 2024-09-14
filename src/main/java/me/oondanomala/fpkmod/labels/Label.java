@@ -13,25 +13,26 @@ import net.minecraftforge.common.config.Configuration;
  */
 public abstract class Label {
     protected final String id;
+    public final String name;
     public final ConfigCategory configCategory; // FIXME: This should be protected
     public boolean isUsed;
     public boolean isEnabled;
     public int posX;
     public int posY;
 
-    protected Label(String id) {
-        this(id, 0, 0, false);
+    protected Label(String id, String name) {
+        this(id, name, 0, 0, false);
     }
 
-    protected Label(String id, int defaultPosX, int defaultPosY, boolean defaultUsed) {
+    protected Label(String id, String name, int defaultPosX, int defaultPosY, boolean defaultUsed) {
         this.id = id;
+        this.name = name;
         configCategory = FPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + id);
 
         String category = configCategory.getQualifiedName();
         FPKMod.config.configuration.get(category, "x", defaultPosX);
         FPKMod.config.configuration.get(category, "y", defaultPosY);
-        // FIXME: This should use defaultUsed, but since there's currently no way to change that, use true
-        FPKMod.config.configuration.get(category, "used", true);
+        FPKMod.config.configuration.get(category, "used", defaultUsed);
         FPKMod.config.configuration.get(category, "Enabled", true);
         FPKMod.config.saveConfig();
         loadLabelConfig();
@@ -127,7 +128,7 @@ public abstract class Label {
     public abstract int getHeight();
 
     /**
-     * Draws the label to the screen.
+     * Draws the label to the screen, if it is used.
      *
      * @param showDisabled Whether to draw the label if it's disabled.
      */

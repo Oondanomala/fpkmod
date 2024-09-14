@@ -1,6 +1,7 @@
 package me.oondanomala.fpkmod.gui;
 
 import me.oondanomala.fpkmod.labels.Label;
+import me.oondanomala.fpkmod.util.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -52,7 +53,7 @@ public class RightClickMenu extends Gui {
     }
 
     public void drawMenu(int mouseX, int mouseY) {
-        drawMenuBackground(posX, posY, posX + width, posY + height);
+        GuiUtil.drawTooltipBackground(posX, posY, posX + width, posY + height);
         for (GuiButton button : buttons) {
             button.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
         }
@@ -69,21 +70,5 @@ public class RightClickMenu extends Gui {
             }
         }
         return false;
-    }
-
-    private void drawMenuBackground(int startX, int startY, int endX, int endY) {
-        final int backgroundColor = 0xF0100010;
-        final int borderColorStart = 0x505000FF;
-        final int borderColorEnd = 0x5028007F;
-        // Center
-        drawRect(startX, startY + 1, endX, endY - 1, backgroundColor);
-        // Out Border
-        drawRect(startX + 1, startY, endX - 1, startY + 1, backgroundColor);
-        drawRect(startX + 1, endY, endX - 1, endY - 1, backgroundColor);
-        // Gradient Border
-        drawRect(startX + 1, startY + 1, endX - 1, startY + 2, borderColorStart);
-        drawRect(startX + 1, endY - 1, endX - 1, endY - 2, borderColorEnd);
-        drawGradientRect(startX + 1, startY + 2, startX + 2, endY - 2, borderColorStart, borderColorEnd);
-        drawGradientRect(endX - 2, startY + 2, endX - 1, endY - 2, borderColorStart, borderColorEnd);
     }
 }

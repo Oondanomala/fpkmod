@@ -15,8 +15,8 @@ public class LabelGUI extends GuiScreen {
     private Label selectedLabel;
     private RightClickMenu rightClickMenu;
     private boolean isClickingLabel;
-    private int clickX = 0;
-    private int clickY = 0;
+    private int clickX;
+    private int clickY;
 
     @Override
     public void initGui() {
@@ -56,10 +56,14 @@ public class LabelGUI extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            this.mc.displayGuiScreen(null);
+            mc.displayGuiScreen(null);
         } else if (button.id == 1) {
             // TODO: Add labels GUI
         }
+        // Hack: Act like pressing the buttons doesn't select labels.
+        // Sadly this means pressing them will deselect the currently selected label.
+        isClickingLabel = false;
+        selectedLabel = null;
     }
 
     @Override
@@ -118,6 +122,7 @@ public class LabelGUI extends GuiScreen {
                 rightClickMenu = null;
             } else {
                 selectedLabel = hoveredLabel;
+                isClickingLabel = false;
                 rightClickMenu = new RightClickMenu(hoveredLabel, mouseX, mouseY);
             }
         }
@@ -132,7 +137,7 @@ public class LabelGUI extends GuiScreen {
 
     @Override
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-        if (clickedMouseButton == GuiUtil.MOUSE_LEFT && selectedLabel != null && rightClickMenu == null) {
+        if (isClickingLabel && rightClickMenu == null) {
             selectedLabel.move(mouseX - clickX, mouseY - clickY);
         }
     }
@@ -141,7 +146,7 @@ public class LabelGUI extends GuiScreen {
         List<Label> labels = LabelManager.instance.labels;
         for (int i = labels.size() - 1; i >= 0; i--) {
             Label label = labels.get(i);
-            if (mouseX >= label.posX && mouseY >= label.posY && mouseX < label.posX + label.getWidth() && mouseY < label.posY + label.getHeight()) {
+            if (label.isUsed && mouseX >= label.posX && mouseY >= label.posY && mouseX < label.posX + label.getWidth() && mouseY < label.posY + label.getHeight()) {
                 return label;
             }
         }
