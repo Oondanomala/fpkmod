@@ -13,7 +13,9 @@ import java.util.List;
 
 public class LabelGUI extends GuiScreen {
     private Label selectedLabel;
-    private RightClickMenu rightClickMenu;
+    RightClickMenu rightClickMenu;
+    private UnusedLabelList unusedLabelList;
+    private boolean unusedListOpen; // TODO: Save this value when closing, like MPK does.
     private boolean isClickingLabel;
     private int clickX;
     private int clickY;
@@ -23,6 +25,7 @@ public class LabelGUI extends GuiScreen {
         Keyboard.enableRepeatEvents(true);
         buttonList.add(new GuiButtonExt(0, this.width - 24, 6, 18, 18, "x"));
         buttonList.add(new GuiButtonExt(1, this.width - 24, 29, 18, 18, "+"));
+        unusedLabelList = new UnusedLabelList(this);
     }
 
     @Override
@@ -43,6 +46,9 @@ public class LabelGUI extends GuiScreen {
             label.draw(true);
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
+        if (unusedListOpen) {
+            unusedLabelList.drawScreen(mouseX, mouseY, partialTicks);
+        }
 
         if (isClickingLabel) {
             selectedLabel.drawSelectionBox(150);
@@ -58,7 +64,8 @@ public class LabelGUI extends GuiScreen {
         if (button.id == 0) {
             mc.displayGuiScreen(null);
         } else if (button.id == 1) {
-            // TODO: Add labels GUI
+            unusedListOpen = !unusedListOpen;
+            button.displayString = unusedListOpen ? "-" : "+";
         }
         // Hack: Act like pressing the buttons doesn't select labels.
         // Sadly this means pressing them will deselect the currently selected label.
@@ -87,7 +94,10 @@ public class LabelGUI extends GuiScreen {
                     break;
                 case Keyboard.KEY_BACK:
                 case Keyboard.KEY_DELETE:
-                    // TODO: Remove label
+                    selectedLabel.isUsed = false;
+                    selectedLabel = null;
+                    isClickingLabel = false;
+                    unusedLabelList.rebuildEntryList();
                     break;
             }
 
@@ -105,7 +115,8 @@ public class LabelGUI extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        if (rightClickMenu != null && rightClickMenu.mouseClicked(mouseX, mouseY)) {
+        if (rightClickMenu != null && rightClickMenu.mouseClicked(mouseX, mouseY) ||
+            unusedListOpen && (unusedLabelList.mouseClicked(mouseX, mouseY, mouseButton) || unusedLabelList.selectedEntry != null)) {
             return;
         }
         if (mouseButton == GuiUtil.MOUSE_LEFT) {
@@ -131,6 +142,14 @@ public class LabelGUI extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
+        if (unusedListOpen) {
+            unusedLabelList.mouseReleased(mouseX, mouseY, state);
+            if (unusedLabelList.isMouseInList(mouseX, mouseY) && isClickingLabel) {
+                selectedLabel.isUsed = false;
+                selectedLabel = null;
+                unusedLabelList.rebuildEntryList();
+            }
+        }
         isClickingLabel = false;
         super.mouseReleased(mouseX, mouseY, state);
     }
@@ -139,6 +158,15 @@ public class LabelGUI extends GuiScreen {
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
         if (isClickingLabel && rightClickMenu == null) {
             selectedLabel.move(mouseX - clickX, mouseY - clickY);
+        }
+    }
+
+    @Override
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
+        // FIXME: Can drag the list trough the right click menu, cant really fix without some awful code
+        if (unusedListOpen && !isClickingLabel && unusedLabelList.selectedEntry == null) {
+            unusedLabelList.handleMouseInput();
         }
     }
 
