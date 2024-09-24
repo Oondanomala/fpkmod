@@ -52,7 +52,7 @@ You can edit their position and visibility using `/fpk gui`.
 | Last 45        | The size of the turn made on the tick after jump tick, if the player started strafing   |
 | Airtime        | The amount of ticks the player has been in the air for                                  |
 | Tier           | The [jump tier][tiers]                                                                  |
-| Grind          | The amount of [grinds][grinds] chained                                                  |
+| Grinds         | The amount of [grinds][grinds] chained                                                  |
 | Keystrokes     | The current `WASD`, `sprint`, `jump`, and `sneak` input in a familiar looking interface |
 
 [vector]: https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)
@@ -85,7 +85,6 @@ Some commands have a keybind shortcut (unbound by default).
   - All the LB labels
 - Cyv Labels
   - Last Sidestep
-- Unused labels GUI
 - Landing blocks (multiple?)
 - AntiCP
 - Macro

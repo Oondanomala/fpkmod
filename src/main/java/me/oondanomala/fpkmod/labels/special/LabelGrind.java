@@ -5,7 +5,7 @@ import me.oondanomala.fpkmod.movement.ParkourHandler;
 
 public class LabelGrind extends TextLabel {
     public LabelGrind() {
-        super("Grind");
+        super("Grinds");
     }
 
     @Override
