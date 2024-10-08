@@ -13,6 +13,10 @@ public final class KeyBindUtil {
     // Hack! §r makes the category show below vanilla ones
     public static final String KEYBIND_CATEGORY = "§rFPK Mod";
 
+    /**
+     * Returns a shorter version of the key name the keybind is bound to than {@link GameSettings#getKeyDisplayString(int)}.
+     * If the keybind is unbound, returns its description.
+     */
     public static String getKeybindName(KeyBinding keybind) {
         switch (keybind.getKeyCode()) {
             case -100:

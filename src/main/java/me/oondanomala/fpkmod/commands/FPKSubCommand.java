@@ -8,6 +8,9 @@ import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Implement this class to add a new subcommand to {@code /fpk}.
  * Don't forget to register it in {@link FPKMainCommand}'s constructor!
@@ -54,6 +57,16 @@ public abstract class FPKSubCommand {
         } catch (CommandException e) {
             TextUtil.showChatMessage(e.getMessage());
         }
+    }
+
+    /**
+     * Gets a list of all the subcommand options available at the provided {@code args}.
+     * Called when the user presses tab while typing the subcommand arguments.
+     *
+     * @param args The subcommand arguments the user has already provided
+     */
+    public List<String> getTabCompletions(String[] args) {
+        return Collections.emptyList();
     }
 
     /**

@@ -64,6 +64,12 @@ public class FPKMainCommand extends CommandBase {
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, subCommands.keySet());
+        } else {
+            FPKSubCommand subCommand = subCommands.get(args[0]);
+            if (subCommand != null) {
+                String [] lowercaseArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
+                return getListOfStringsMatchingLastWord(lowercaseArgs, subCommand.getTabCompletions(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length)));
+            }
         }
         return Collections.emptyList();
     }
