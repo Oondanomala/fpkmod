@@ -98,5 +98,5 @@ Please make feature requests if there's something you want that isn't in this li
 ## Credits
 
 Thanks to [kurrycat](https://github.com/kurrycat2004) for the original [MPK Mod](https://github.com/kurrycat2004/MpkMod) and [MPK Mod 2](https://github.com/kurrycat2004/MPKMod_2);
-and to [Morpheye](https://github.com/Morpheye) for [CyvFabric](https://github.com/Morpheye/CyvFabric),
+and to [Morpheye](https://github.com/Morpheye) for [CyvForge](https://github.com/Morpheye/CyvForge),
 which were very helpful resources for making this!
