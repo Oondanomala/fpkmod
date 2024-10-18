@@ -68,7 +68,7 @@ public class FPKMainCommand extends CommandBase {
             FPKSubCommand subCommand = subCommands.get(args[0]);
             if (subCommand != null) {
                 String [] lowercaseArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
-                return getListOfStringsMatchingLastWord(lowercaseArgs, subCommand.getTabCompletions(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length)));
+                return getListOfStringsMatchingLastWord(lowercaseArgs, subCommand.getTabCompletions(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length - 1)));
             }
         }
         return Collections.emptyList();
