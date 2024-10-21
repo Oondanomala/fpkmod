@@ -14,6 +14,9 @@ import java.util.Locale;
 public final class TextUtil {
     private static final DecimalFormat decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 
+    private TextUtil() {
+    }
+
     public static void showChatMessage(String message) {
         showChatMessage(message, true);
     }
