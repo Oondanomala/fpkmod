@@ -2,6 +2,7 @@ package me.oondanomala.fpkmod.commands.subcommands;
 
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.commands.FPKSubCommand;
+import me.oondanomala.fpkmod.util.CommandUtil;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.SyntaxErrorException;
@@ -16,20 +17,18 @@ public class DecimalPrecisionCommand extends FPKSubCommand {
         if (args.length != 1) {
             throw new SyntaxErrorException("<precision>");
         }
-        try {
-            int decimals = Integer.parseInt(args[0]);
-            if (decimals < 0) {
-                throw new CommandException("Minimum coord precision is 0 decimals.");
-            }
-            if (decimals > 16) {
-                throw new CommandException("Maximum coord precision is 16 decimals.");
-            }
-            FPKMod.config.doublePrecision = decimals;
-            FPKMod.config.setConfigOption("Coord Precision", decimals);
-            TextUtil.setDecimalPrecision(decimals, FPKMod.config.trimZeroes);
-            TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals.");
-        } catch (NumberFormatException e) {
-            throw new SyntaxErrorException("<precision>");
+
+        int decimals = CommandUtil.parseInt(args[0], "<precision>");
+        if (decimals < 0) {
+            throw new CommandException("Minimum coord precision is 0 decimals.");
         }
+        if (decimals > 16) {
+            throw new CommandException("Maximum coord precision is 16 decimals.");
+        }
+
+        FPKMod.config.doublePrecision = decimals;
+        FPKMod.config.setConfigOption("Coord Precision", decimals);
+        TextUtil.setDecimalPrecision(decimals, FPKMod.config.trimZeroes);
+        TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals.");
     }
 }
