@@ -1,10 +1,14 @@
 package me.oondanomala.fpkmod.movement;
 
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Vec3;
+
 public class PlayerState {
     public final double posX;
     public final double posY;
     public final double posZ;
     public final float yaw;
+    public final AxisAlignedBB boundingBox;
 
     public final boolean onGround;
 
@@ -14,14 +18,15 @@ public class PlayerState {
     public final boolean keyRight;
 
     public PlayerState() {
-        this(0, 0, 0, 0, true, false, false, false, false);
+        this(0, 0, 0, 0, null, true, false, false, false, false);
     }
 
-    public PlayerState(double posX, double posY, double posZ, float yaw, boolean onGround, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {
+    public PlayerState(double posX, double posY, double posZ, float yaw, AxisAlignedBB boundingBox, boolean onGround, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
         this.yaw = yaw;
+        this.boundingBox = boundingBox;
         this.onGround = onGround;
         this.keyForward = keyForward;
         this.keyBackward = keyBackward;
@@ -31,5 +36,9 @@ public class PlayerState {
 
     public boolean isStrafing() {
         return keyLeft ^ keyRight;
+    }
+
+    public Vec3 getPositionVec() {
+        return new Vec3(posX, posY, posZ);
     }
 }

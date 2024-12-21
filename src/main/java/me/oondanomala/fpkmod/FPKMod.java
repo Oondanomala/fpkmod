@@ -4,6 +4,7 @@ import me.oondanomala.fpkmod.commands.CommandKeybindHandler;
 import me.oondanomala.fpkmod.commands.FPKMainCommand;
 import me.oondanomala.fpkmod.config.Config;
 import me.oondanomala.fpkmod.labels.LabelManager;
+import me.oondanomala.fpkmod.landingblock.LBManager;
 import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
 import me.oondanomala.fpkmod.util.CommandUtil;
 import me.oondanomala.fpkmod.util.GuiUtil;
@@ -33,6 +34,7 @@ public class FPKMod {
                 config,
                 new GuiUtil(),
                 LabelManager.instance,
+                new LBManager(),
                 new CommandKeybindHandler(),
                 new PlayerMovementHandler()
         );

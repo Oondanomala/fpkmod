@@ -30,8 +30,11 @@ public class FPKMainCommand extends CommandBase {
                 new OpenConfigCommand(),
                 new ReloadConfigCommand(),
                 new LabelGUICommand(),
+                new LandingBlockGUICommand(),
                 new ToggleLabelsCommand(),
-                new ResetLabelsCommand()
+                new ResetLabelsCommand(),
+                new SetLBCommand(),
+                new ClearLBCommand()
         );
     }
 

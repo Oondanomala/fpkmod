@@ -19,6 +19,10 @@ public class Config {
     public int doublePrecision;
     public boolean trimZeroes;
     public boolean mpkCommand;
+    public boolean sendOffsetInChat;
+
+    public boolean renderLandingBox;
+    public boolean renderCondBox;
 
     public Config(File configFile) {
         configuration = new Configuration(configFile);
@@ -75,6 +79,15 @@ public class Config {
                 true,
                 "Whether to create the \"mpk\" alias to the \"fpk\" command."
         ).setRequiresMcRestart(true).getBoolean();
+        sendOffsetInChat = configuration.getBoolean(
+                "Send Offsets In Chat",
+                Configuration.CATEGORY_CLIENT,
+                false,
+                "Whether to send the land offsets in chat when landing."
+        );
+
+        renderLandingBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderLB", true).setShowInGui(false).getBoolean();
+        renderCondBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderCond", false).setShowInGui(false).getBoolean();
 
         TextUtil.setDecimalPrecision(doublePrecision, trimZeroes);
 

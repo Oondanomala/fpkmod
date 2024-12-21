@@ -8,7 +8,11 @@ While it is intended as a replacement, it should work with MPK.
 
 ## Current Features
 
-Most labels and commands from MPK (see tables below).
+- Most labels and commands from MPK, and a little more (see tables below)
+- Landing blocks
+
+Landing blocks are massively improved over MPK
+(way better wall calculations, better `setlb` command, float precise offsets, etc...)
 
 The current priority is to add all MPK and CyvClient features, then to add new stuff.
 
@@ -63,18 +67,45 @@ You can edit their position and visibility using `/fpk gui`.
 
 Some commands have a keybind shortcut (unbound by default).
 
-| Command               | Description                                                  |
-|-----------------------|--------------------------------------------------------------|
-| `/fpk`                | Same as running `help`                                       |
-| `/fpk help`           | Sends a list of all commands and their help text in the chat |
-| `/fpk config`         | Opens the main config GUI                                    |
-| `/fpk reloadconfig`   | Reloads the config file                                      |
-| `/fpk gui`            | Opens the label config GUI                                   |
-| `/fpk df <precision>` | Changes the decimal precision. Range from 0 to 16            |
-| `/fpk toggleall`      | Toggles visibility of all labels                             |
-| `/fpk resetlabels`    | Resets all labels to their default positions                 |
-| `/fpk fly`            | Enables/Disables flight when in creative mode                |
-| `/fpk togglesprint`   | Enables/Disables togglesprint                                |
+| Command                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/fpk`                                                                       | Same as running `help`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `/fpk help`                                                                  | Sends a list of all commands and their help text in the chat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `/fpk config`                                                                | Opens the main config GUI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `/fpk reloadconfig`                                                          | Reloads the config file                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `/fpk gui`                                                                   | Opens the label config GUI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `/fpk df <precision>`                                                        | Changes the decimal precision. Range from 0 to 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `/fpk setlb [target\|below\|x y z] [land\|zneo\|enter\|hit] [box] [x\|z\|~]` | Sets the landing block. The first argument specifies what block to select (defaults to `target`). `target` will select the block the player is looking at, `below` will select the block the player is standing on, and `x y z` will select the block at said coordinates. The second argument specifies the landing mode to use (defaults to `land`). The third argument specifies whether to use `box` mode. The last argument specifies the axis the offsets should use. Arguments after the first can go in any order. See more in [Landing Blocks](#Landing-Blocks) |
+| `/fpk toggleall`                                                             | Toggles visibility of all labels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `/fpk resetlabels`                                                           | Resets all labels to their default positions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `/fpk fly`                                                                   | Enables/Disables flight when in creative mode                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `/fpk togglesprint`                                                          | Enables/Disables togglesprint                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+
+### Landing Blocks
+
+Landing blocks let you see how much you missed/made by on a jump.<br>
+You can set one on a block with the `/fpk setlb` command, or with the command keybind,
+and edit its properties in the `/fpk lb` GUI menu.
+
+The landing block GUI has 5 buttons:
+
+- `Land Mode` lets you change the block's landing mode
+- `Axis` lets you change what axis the offsets should use
+- `Render LB` lets you choose whether to render the landing block in the world
+- `Render Cond` lets you choose whether to render the condition box in the world
+- `Recalculate Walls` will recalculate the walls around the landing block, useful if they change
+
+The landing mode specified changes how an offset is calculated
+and different modes are useful for different types of jumps:
+
+- `Land` is the default and should work fine for most jumps
+- `Z Neo` is useful for `Z` facing neos where you can slide off a wall next to the landing block
+- `Enter` is useful for climbing ladders or vines (or any other climbable block)
+- `Hit` is useful for bouncing on slimes
+
+A landing block created with `box` mode will get the offset from the player coordinates instead of using the player hitbox,
+meaning it will check whether the player is "inside" a block instead of simply being able to land on it.
+This is useful for climbing ladders/vines and bouncing on slimes.
 
 ## Planned Features
 
@@ -85,7 +116,7 @@ Some commands have a keybind shortcut (unbound by default).
   - All the LB labels
 - Cyv Labels
   - Last Sidestep
-- Landing blocks (multiple?)
+- Multiple landing blocks
 - AntiCP
 - Macro
 - Some kind of [jump/strat](https://github.com/kurrycat2004/MpkMod/issues/86) manager thing

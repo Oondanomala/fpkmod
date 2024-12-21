@@ -1,6 +1,7 @@
 package me.oondanomala.fpkmod.movement;
 
 import me.oondanomala.fpkmod.commands.subcommands.TogglesprintCommand;
+import me.oondanomala.fpkmod.landingblock.LBManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.GameSettings;
@@ -56,6 +57,8 @@ public class PlayerMovementHandler {
             KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);
         }
 
+        // Landing Blocks
+        LBManager.updateLandingBlocks(pastState, secondPastState);
         // ParkourHandler
         ParkourHandler.update(player, pastState, secondPastState, isJumpTick);
 
@@ -69,6 +72,7 @@ public class PlayerMovementHandler {
                 player.posY,
                 player.posZ,
                 player.rotationYaw,
+                player.getEntityBoundingBox(),
                 player.onGround,
                 settings.keyBindForward.isKeyDown(),
                 settings.keyBindBack.isKeyDown(),
