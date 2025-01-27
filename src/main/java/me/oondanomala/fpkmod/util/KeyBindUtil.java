@@ -7,7 +7,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
-import java.util.List;
+import java.util.Collection;
 
 public final class KeyBindUtil {
     // Hack! §r makes the category show below vanilla ones
@@ -39,7 +39,7 @@ public final class KeyBindUtil {
         return GameSettings.getKeyDisplayString(keybind.getKeyCode());
     }
 
-    public static void registerKeybinds(List<FPKSubCommand> subCommands) {
+    public static void registerKeybinds(Collection<FPKSubCommand> subCommands) {
         for (FPKSubCommand subCommand : subCommands) {
             if (subCommand.keybind != null) {
                 ClientRegistry.registerKeyBinding(subCommand.keybind);

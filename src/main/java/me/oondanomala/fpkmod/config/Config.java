@@ -31,7 +31,7 @@ public class Config {
 
     public void loadConfig() {
         // Hacky, but it works!
-        String[] colorNames = {"§0Black", "§1Dark Blue", "§2Dark Green", "§3Dark Aqua", "§4Dark Red", "§5Dark Purple", "§6Gold", "§7Gray", "§8Dark Gray", "§9Blue", "§aGreen", "§bAqua", "§cRed", "§dLight Purple", "§eYellow", "§fWhite"};
+        final String[] colorNames = {"§0Black", "§1Dark Blue", "§2Dark Green", "§3Dark Aqua", "§4Dark Red", "§5Dark Purple", "§6Gold", "§7Gray", "§8Dark Gray", "§9Blue", "§aGreen", "§bAqua", "§cRed", "§dLight Purple", "§eYellow", "§fWhite"};
 
         prefix = configuration.getString(
                 "Prefix",
@@ -83,7 +83,7 @@ public class Config {
                 "Send Offsets In Chat",
                 Configuration.CATEGORY_CLIENT,
                 false,
-                "Whether to send the land offsets in chat when landing."
+                "Whether to send the land offsets in chat when landing on a landing block."
         );
 
         renderLandingBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderLB", true).setShowInGui(false).getBoolean();

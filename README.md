@@ -1,6 +1,7 @@
 # FPK Mod
 
-An open source replacement for [MPK Mod](https://github.com/kurrycat2004/MpkMod), [MPK Mod 2](https://github.com/kurrycat2004/MPKMod_2), and [CyvClient](https://github.com/Morpheye/CyvClient).
+An open source replacement for [MPK Mod](https://github.com/kurrycat2004/MpkMod), [MPK Mod 2](https://github.com/kurrycat2004/MPKMod_2), and [CyvClient](https://github.com/Morpheye/CyvClient),
+for 1.8.9 forge (a 1.12.2 port is planned).
 
 Adds a bunch of useful parkour features to the game. Client side only!
 
@@ -58,6 +59,7 @@ You can edit their position and visibility using `/fpk gui`.
 | Tier           | The [jump tier][tiers]                                                                  |
 | Grinds         | The amount of [grinds][grinds] chained                                                  |
 | Keystrokes     | The current `WASD`, `sprint`, `jump`, and `sneak` input in a familiar looking interface |
+| Togglesprint   | Whether togglesprint is enabled or disabled                                             |
 
 [vector]: https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)
 [tiers]: https://www.mcpk.wiki/wiki/Tiers
@@ -76,6 +78,7 @@ Some commands have a keybind shortcut (unbound by default).
 | `/fpk gui`                                                                   | Opens the label config GUI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `/fpk df <precision>`                                                        | Changes the decimal precision. Range from 0 to 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `/fpk setlb [target\|below\|x y z] [land\|zneo\|enter\|hit] [box] [x\|z\|~]` | Sets the landing block. The first argument specifies what block to select (defaults to `target`). `target` will select the block the player is looking at, `below` will select the block the player is standing on, and `x y z` will select the block at said coordinates. The second argument specifies the landing mode to use (defaults to `land`). The third argument specifies whether to use `box` mode. The last argument specifies the axis the offsets should use. Arguments after the first can go in any order. See more in [Landing Blocks](#Landing-Blocks) |
+| `/fpk clearlb`                                                               | Clears the landing block                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `/fpk toggleall`                                                             | Toggles visibility of all labels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `/fpk resetlabels`                                                           | Resets all labels to their default positions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `/fpk fly`                                                                   | Enables/Disables flight when in creative mode                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -116,6 +119,7 @@ This is useful for climbing ladders/vines and bouncing on slimes.
   - All the LB labels
 - Cyv Labels
   - Last Sidestep
+- Input and turn history
 - Multiple landing blocks
 - AntiCP
 - Macro
@@ -124,7 +128,7 @@ This is useful for climbing ladders/vines and bouncing on slimes.
 - Something something mothball?
 - 1.12.2 version (not happening soon)
 
-Please make feature requests if there's something you want that isn't in this list!
+Please make a feature request if there's something you want that isn't in this list!
 
 ## Credits
 
