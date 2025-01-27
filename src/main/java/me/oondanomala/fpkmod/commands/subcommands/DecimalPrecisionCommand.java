@@ -15,10 +15,10 @@ public class DecimalPrecisionCommand extends FPKSubCommand {
     @Override
     public void internalRun(String[] args) throws CommandException {
         if (args.length != 1) {
-            throw new SyntaxErrorException("<precision>");
+            throw new SyntaxErrorException();
         }
 
-        int decimals = CommandUtil.parseInt(args[0], "<precision>");
+        int decimals = CommandUtil.parseInt(args[0]);
         if (decimals < 0) {
             throw new CommandException("Minimum coord precision is 0 decimals.");
         }
@@ -30,5 +30,10 @@ public class DecimalPrecisionCommand extends FPKSubCommand {
         FPKMod.config.setConfigOption("Coord Precision", decimals);
         TextUtil.setDecimalPrecision(decimals, FPKMod.config.trimZeroes);
         TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals.");
+    }
+
+    @Override
+    protected String getUsage() {
+        return "<precision>";
     }
 }

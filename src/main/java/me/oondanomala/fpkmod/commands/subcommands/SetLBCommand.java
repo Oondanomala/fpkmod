@@ -81,7 +81,7 @@ public class SetLBCommand extends FPKSubCommand {
                 axis = (absYaw > 45 && absYaw < 135) ? LandAxis.X : LandAxis.Z;
                 setAxis = true;
             } else {
-                throw new SyntaxErrorException("[target|below|x y z] [land|zneo|enter|hit] [box] [x|z|~]");
+                throw new SyntaxErrorException();
             }
         }
 
@@ -124,7 +124,7 @@ public class SetLBCommand extends FPKSubCommand {
                 }
                 throw new CommandException("You must be standing on a solid block.");
             case COORDS:
-                pos = CommandUtil.parseBlockPos(coordArgs, 0, "[target|below|x y z] [land|zneo|enter|hit] [box] [x|z|~]");
+                pos = CommandUtil.parseBlockPos(coordArgs, 0);
                 if (!canLandOnBlock(pos)) throw new CommandException("You must specify a solid block.");
                 return pos;
         }
@@ -185,6 +185,11 @@ public class SetLBCommand extends FPKSubCommand {
         }
 
         return completions;
+    }
+
+    @Override
+    protected String getUsage() {
+        return "[target|below|x y z] [land|zneo|enter|hit] [box] [x|z|~]";
     }
 
     private enum TargetType {

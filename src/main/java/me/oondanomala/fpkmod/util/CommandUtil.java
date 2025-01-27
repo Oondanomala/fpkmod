@@ -14,35 +14,33 @@ public final class CommandUtil {
 
     /**
      * Equivalent to {@link Integer#parseInt(String)},
-     * but will throw a {@link SyntaxErrorException} with the provided {@code errorMessage} instead of a {@link NumberFormatException}.
+     * but will throw a {@link SyntaxErrorException} instead of a {@link NumberFormatException}.
      *
-     * @param number       The string to parse
-     * @param errorMessage The error message for the {@link SyntaxErrorException} that will be thrown
+     * @param number The string to parse
      * @throws SyntaxErrorException If the given argument is not a valid integer.
      */
-    public static int parseInt(String number, String errorMessage) throws SyntaxErrorException {
+    public static int parseInt(String number) throws SyntaxErrorException {
         try {
             return Integer.parseInt(number);
         } catch (NumberFormatException e) {
-            throw new SyntaxErrorException(errorMessage);
+            throw new SyntaxErrorException();
         }
     }
 
     /**
      * Equivalent to {@link CommandBase#parseBlockPos(net.minecraft.command.ICommandSender, String[], int, boolean) CommandBase.parseBlockPos()},
-     * but will throw a {@link SyntaxErrorException} with the provided {@code errorMessage} instead of a {@link NumberInvalidException}.
+     * but will throw a {@link SyntaxErrorException} instead of a {@link NumberInvalidException}.
      *
-     * @param args         The array with the coordinates
-     * @param startIndex   At what index of {@code args} the coordinates should start
-     * @param errorMessage The error message for the {@link SyntaxErrorException} that will be thrown
+     * @param args       The array with the coordinates
+     * @param startIndex At what index of {@code args} the coordinates should start
      * @throws SyntaxErrorException           If the given arguments were not a valid {@link BlockPos}
      * @throws ArrayIndexOutOfBoundsException if {@code startIndex + 3 > args.length}
      */
-    public static BlockPos parseBlockPos(String[] args, int startIndex, String errorMessage) throws SyntaxErrorException {
+    public static BlockPos parseBlockPos(String[] args, int startIndex) throws SyntaxErrorException {
         try {
             return CommandBase.parseBlockPos(Minecraft.getMinecraft().thePlayer, args, startIndex, true);
         } catch (NumberInvalidException e) {
-            throw new SyntaxErrorException(errorMessage);
+            throw new SyntaxErrorException();
         }
     }
 

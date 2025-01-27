@@ -53,7 +53,7 @@ public abstract class FPKSubCommand {
         try {
             internalRun(args);
         } catch (SyntaxErrorException e) {
-            TextUtil.showChatMessage(EnumChatFormatting.RED + "/fpk " + name + " " + e.getMessage());
+            TextUtil.showChatMessage(EnumChatFormatting.RED + "/fpk " + name + " " + getUsage());
         } catch (CommandException e) {
             TextUtil.showChatMessage(e.getMessage());
         }
@@ -70,10 +70,20 @@ public abstract class FPKSubCommand {
     }
 
     /**
+     * Gets the subcommand usage. This is shown to the user when the subcommand throws a {@link SyntaxErrorException}.
+     * <p>
+     * This <strong>must</strong> be overridden if the subcommand throws a {@link SyntaxErrorException}!
+     * @return The subcommand usage
+     */
+    protected String getUsage() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * Called when the subcommand is run.
      *
      * @param args The subcommand arguments
-     * @throws SyntaxErrorException When a syntax error occurs in the command. The exception message will be shown in chat, formatted appropriately
+     * @throws SyntaxErrorException When a syntax error occurs in the command. The {@link #getUsage() command usage} will be shown in chat, formatted appropriately
      * @throws CommandException     When a generic error occurs in the command. The exception message will be shown in chat, without additional formatting
      */
     protected abstract void internalRun(String[] args) throws CommandException;
