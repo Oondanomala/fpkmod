@@ -8,21 +8,18 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FPKMainCommand extends CommandBase {
-    public static final FPKMainCommand instance = new FPKMainCommand();
-    private final Map<String, FPKSubCommand> subCommands = new HashMap<>();
-    public final List<FPKSubCommand> subCommandList = new ArrayList<>();
+    public final Map<String, FPKSubCommand> subCommands;
 
     public FPKMainCommand() {
-        registerSubCommands(
+        FPKSubCommand[] subCommands = new FPKSubCommand[]{
                 new HelpCommand(),
                 new DecimalPrecisionCommand(),
                 new FlyCommand(),
@@ -37,16 +34,16 @@ public class FPKMainCommand extends CommandBase {
                 new SetCondCommand(),
                 new ClearPBCommand(),
                 new ClearLBCommand()
-        );
-    }
+        };
+        Arrays.sort(subCommands, Comparator.comparing(c -> c.name));
 
-    private void registerSubCommands(FPKSubCommand... subCommands) {
+        Map<String, FPKSubCommand> subCommandMap = new LinkedHashMap<>();
         for (FPKSubCommand subCommand : subCommands) {
-            this.subCommands.put(subCommand.name, subCommand);
-            this.subCommandList.add(subCommand);
+            subCommandMap.put(subCommand.name, subCommand);
         }
-        subCommandList.sort(Comparator.comparing(c -> c.name));
-        KeyBindUtil.registerKeybinds(subCommandList);
+        this.subCommands = Collections.unmodifiableMap(subCommandMap);
+
+        KeyBindUtil.registerKeybinds(this.subCommands.values());
     }
 
     @Override

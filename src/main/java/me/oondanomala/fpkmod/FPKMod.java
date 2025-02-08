@@ -22,6 +22,7 @@ public class FPKMod {
     public static final String VERSION = "0.0.1";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static Config config;
+    public static FPKMainCommand fpkCommand;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -38,7 +39,8 @@ public class FPKMod {
                 new CommandKeybindHandler(),
                 new PlayerTickHandler()
         );
-        CommandUtil.registerCommands(FPKMainCommand.instance);
+        fpkCommand = new FPKMainCommand();
+        CommandUtil.registerCommands(fpkCommand);
     }
 
     private void registerEvents(Object... events) {
