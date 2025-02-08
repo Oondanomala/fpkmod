@@ -28,6 +28,21 @@ public final class CommandUtil {
     }
 
     /**
+     * Equivalent to {@link CommandBase#parseDouble(String)},
+     * but will throw a {@link SyntaxErrorException} instead of a {@link NumberInvalidException}.
+     *
+     * @param number The string to parse
+     * @throws SyntaxErrorException If the given argument is not a valid double, or if said double isn't finite.
+     */
+    public static double parseDouble(String number) throws SyntaxErrorException {
+        try {
+            return CommandBase.parseDouble(number);
+        } catch (NumberInvalidException e) {
+            throw new SyntaxErrorException();
+        }
+    }
+
+    /**
      * Equivalent to {@link CommandBase#parseBlockPos(net.minecraft.command.ICommandSender, String[], int, boolean) CommandBase.parseBlockPos()},
      * but will throw a {@link SyntaxErrorException} instead of a {@link NumberInvalidException}.
      *

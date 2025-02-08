@@ -31,7 +31,7 @@ public class LandingBlock {
      * The condition box.
      * Land offsets will only be counted if the player's {@code X} and {@code Z} coordinates are inside of this.
      */
-    private final AxisAlignedBB condBox;
+    private AxisAlignedBB condBox;
     public LandOffset lastOffset;
     public LandOffset pbOffset;
     public LandAxis landAxis;
@@ -159,6 +159,14 @@ public class LandingBlock {
         }
         cond = cond.expand(1, 0, 1);
         return box ? cond : cond.expand(player.width / 2, 0, player.width / 2);
+    }
+
+    /**
+     * Sets the condition box to the provided coordinates.
+     * The {@code Y} values are taken from the previous condition box.
+     */
+    public void setCond(double minX, double minZ, double maxX, double maxZ) {
+        condBox = new AxisAlignedBB(minX, condBox.minY, minZ, maxX, condBox.maxY, maxZ);
     }
 
     public void draw(float partialTicks) {
