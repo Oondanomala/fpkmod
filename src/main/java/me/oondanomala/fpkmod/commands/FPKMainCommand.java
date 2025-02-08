@@ -34,6 +34,7 @@ public class FPKMainCommand extends CommandBase {
                 new ToggleLabelsCommand(),
                 new ResetLabelsCommand(),
                 new SetLBCommand(),
+                new ClearPBCommand(),
                 new ClearLBCommand()
         );
     }
