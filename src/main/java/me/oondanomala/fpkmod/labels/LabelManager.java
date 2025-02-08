@@ -52,6 +52,10 @@ public class LabelManager {
                 new LabelSpeedY(),
                 new LabelSpeedZ(),
                 new LabelSpeedVector(),
+                new LabelMaxSpeedX(),
+                new LabelMaxSpeedY(),
+                new LabelMaxSpeedZ(),
+                new LabelMaxSpeedVector(),
                 // Input
                 new LabelLastInput(),
                 new LabelJumpInput(),

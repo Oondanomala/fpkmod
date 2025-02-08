@@ -17,6 +17,21 @@ public class ParkourHandler {
      */
     public static double speedZ;
     /**
+     * The highest speed achieved on the X axis. Resets when the movement direction changes,
+     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     */
+    public static double maxSpeedX;
+    /**
+     * The highest speed achieved on the Y axis. Resets when the movement direction changes,
+     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     */
+    public static double maxSpeedY;
+    /**
+     * The highest speed achieved on the Z axis. Resets when the movement direction changes,
+     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     */
+    public static double maxSpeedZ;
+    /**
      * The size of the turn made in the current tick.
      */
     public static float lastTurning;
@@ -50,6 +65,24 @@ public class ParkourHandler {
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
         speedZ = player.posZ - pastState.posZ;
+
+        // Max Speed
+        // TODO: Reset on stop option
+        if (speedX != 0) {
+            if (Math.abs(speedX) > Math.abs(maxSpeedX) || Math.signum(speedX) != Math.signum(maxSpeedX)) {
+                maxSpeedX = speedX;
+            }
+        }
+        if (speedY != 0) {
+            if (Math.abs(speedY) > Math.abs(maxSpeedY) || Math.signum(speedY) != Math.signum(maxSpeedY)) {
+                maxSpeedY = speedY;
+            }
+        }
+        if (speedZ != 0) {
+            if (Math.abs(speedZ) > Math.abs(maxSpeedZ) || Math.signum(speedZ) != Math.signum(maxSpeedZ)) {
+                maxSpeedZ = speedZ;
+            }
+        }
 
         // Airtime & Tier
         if (pastState.onGround && !player.onGround) {

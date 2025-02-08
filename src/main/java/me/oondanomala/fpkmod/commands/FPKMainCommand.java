@@ -24,6 +24,7 @@ public class FPKMainCommand extends CommandBase {
                 new DecimalPrecisionCommand(),
                 new FlyCommand(),
                 new TogglesprintCommand(),
+                new ClearMaxSpeedCommand(),
                 new OpenConfigCommand(),
                 new ReloadConfigCommand(),
                 new LabelGUICommand(),
