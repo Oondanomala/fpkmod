@@ -1,7 +1,7 @@
 package me.oondanomala.fpkmod.labels.input;
 
 import me.oondanomala.fpkmod.labels.TextLabel;
-import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
+import me.oondanomala.fpkmod.movement.PlayerTickHandler;
 import me.oondanomala.fpkmod.movement.PlayerState;
 import me.oondanomala.fpkmod.util.KeyBindUtil;
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,7 @@ public class LabelJumpInput extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        PlayerState jumpState = PlayerMovementHandler.lastJumpState;
+        PlayerState jumpState = PlayerTickHandler.lastJumpState;
         String jumpInput;
 
         if (accurateKeyNames) {

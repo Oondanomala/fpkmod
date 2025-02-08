@@ -1,6 +1,6 @@
 package me.oondanomala.fpkmod.labels;
 
-import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
+import me.oondanomala.fpkmod.movement.PlayerTickHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
@@ -65,7 +65,7 @@ public abstract class TextLabel extends Label {
      * Called every frame.
      *
      * @return The label text that will be shown next to the label name, formatted as {@code Name: Text}.
-     * @see PlayerMovementHandler
+     * @see PlayerTickHandler
      * @see TextUtil#formatDouble(double)
      * @see TextUtil#formatAngle(float)
      */

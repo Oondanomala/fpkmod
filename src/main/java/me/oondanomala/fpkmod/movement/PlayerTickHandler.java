@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 /**
  * @see ParkourHandler
  */
-public class PlayerMovementHandler {
+public class PlayerTickHandler {
     /**
      * The player state on jump tick.
      */

@@ -5,7 +5,7 @@ import me.oondanomala.fpkmod.commands.FPKMainCommand;
 import me.oondanomala.fpkmod.config.Config;
 import me.oondanomala.fpkmod.labels.LabelManager;
 import me.oondanomala.fpkmod.landingblock.LBManager;
-import me.oondanomala.fpkmod.movement.PlayerMovementHandler;
+import me.oondanomala.fpkmod.movement.PlayerTickHandler;
 import me.oondanomala.fpkmod.util.CommandUtil;
 import me.oondanomala.fpkmod.util.GuiUtil;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +36,7 @@ public class FPKMod {
                 LabelManager.instance,
                 new LBManager(),
                 new CommandKeybindHandler(),
-                new PlayerMovementHandler()
+                new PlayerTickHandler()
         );
         CommandUtil.registerCommands(FPKMainCommand.instance);
     }
