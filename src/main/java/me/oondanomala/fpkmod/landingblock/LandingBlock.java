@@ -44,7 +44,7 @@ public class LandingBlock {
         this.landMode = landMode;
         this.boxMode = box;
         this.landingBoxes = getLandingBoxes(position, box);
-        this.wallBoxes = getWallBoxes(landingBoxes);
+        this.wallBoxes = getWallBoxes(landingBoxes, box);
         this.renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, box);
         this.condBox = getCondBox(landingBoxes, box);
     }
@@ -72,13 +72,17 @@ public class LandingBlock {
         return boundingBoxes.toArray(new AxisAlignedBB[0]);
     }
 
-    private AxisAlignedBB[] getWallBoxes(AxisAlignedBB[] landingBoxes) {
+    private AxisAlignedBB[] getWallBoxes(AxisAlignedBB[] landingBoxes, boolean box) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         World world = Minecraft.getMinecraft().theWorld;
         AxisAlignedBB[] wallBoxes = new AxisAlignedBB[landingBoxes.length];
 
         for (int i = 0; i < landingBoxes.length; i++) {
             AxisAlignedBB landingBox = landingBoxes[i];
+            // The effective landing area is smaller when using box mode.
+            if (box) {
+                landingBox = landingBox.contract(player.width / 2, 0, player.width / 2);
+            }
             AxisAlignedBB playerCollisionBox = new AxisAlignedBB(
                     landingBox.minX,
                     landingBox.maxY,
@@ -94,7 +98,6 @@ public class LandingBlock {
             double maxWallZ = Double.POSITIVE_INFINITY;
 
             // TODO: I'd like to make this smarter, and consider cornering blocks. It's already a massive improvement over MPK and CYV though.
-            // TODO: Box mode should consider things that don't let you get "inside" of the landing block as walls (e.g. heads).
             // FIXME: Wall boxes can be smaller than the player's width, which makes no sense since that means you cannot fit in the gap. Maybe delete the landing box if that's the case?
             for (AxisAlignedBB wallBox : world.getCollisionBoxes(playerCollisionBox)) {
                 if (wallBox.minX <= landingBox.minX && wallBox.maxX >= landingBox.maxX) {
@@ -236,6 +239,14 @@ public class LandingBlock {
         }
     }
 
+    /**
+     * Gets the player's bounding box and position at the tick (or a combination of multiple ticks)
+     * appropriate for the set landing mode.
+     *
+     * @param pastState       The player's state on the previous tick
+     * @param secondPastState The player's state on the tick before the previous tick
+     * @return A tuple containing the player's bounding box and position vector appropriate for the set landing mode
+     */
     private Tuple<AxisAlignedBB, Vec3> getLandPos(PlayerState pastState, PlayerState secondPastState) {
         AxisAlignedBB playerBB;
         Vec3 playerVec;
@@ -286,7 +297,7 @@ public class LandingBlock {
     }
 
     public void recalculateWalls() {
-        wallBoxes = getWallBoxes(landingBoxes);
+        wallBoxes = getWallBoxes(landingBoxes, boxMode);
         renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, boxMode);
     }
 
