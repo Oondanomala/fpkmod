@@ -21,7 +21,7 @@ public class ResetLabelsCommand extends FPKSubCommand {
         }
         // For some reason settings don't get marked as changed when reset to default
         FPKMod.config.configuration.save();
-        LabelManager.instance.loadLabelsConfig();
+        LabelManager.INSTANCE.loadLabelsConfig();
 
         TextUtil.showChatMessage("Labels have been reset.");
     }

@@ -24,20 +24,15 @@ public class LandingBlockGUI extends GuiScreen {
         final int bigDivider = 6;
         int y = 10;
         int x = this.width - buttonWidth - 10;
-        landModeButton = new GuiButtonExt(0, x, y, buttonWidth, buttonHeight, "Land Mode: Land");
-        buttonList.add(landModeButton);
+        buttonList.add(landModeButton = new GuiButtonExt(0, x, y, buttonWidth, buttonHeight, "Land Mode: Land"));
         y += buttonHeight + smallDivider;
-        axisButton = new GuiButtonExt(1, x, y, buttonWidth, buttonHeight, "Axis: BOTH");
-        buttonList.add(axisButton);
+        buttonList.add(axisButton = new GuiButtonExt(1, x, y, buttonWidth, buttonHeight, "Axis: BOTH"));
         y += buttonHeight + bigDivider;
-        renderLBButton = new GuiButtonExt(2, x, y, buttonWidth, buttonHeight, "Render LB: ?");
-        buttonList.add(renderLBButton);
+        buttonList.add(renderLBButton = new GuiButtonExt(2, x, y, buttonWidth, buttonHeight, "Render LB: ?"));
         y += buttonHeight + smallDivider;
-        renderCondButton = new GuiButtonExt(3, x, y, buttonWidth, buttonHeight, "Render Cond: ?");
-        buttonList.add(renderCondButton);
+        buttonList.add(renderCondButton = new GuiButtonExt(3, x, y, buttonWidth, buttonHeight, "Render Cond: ?"));
         y += buttonHeight + bigDivider;
-        recalculateWallsButton = new GuiButtonExt(4, x, y, buttonWidth, buttonHeight, "Recalculate Walls");
-        buttonList.add(recalculateWallsButton);
+        buttonList.add(recalculateWallsButton = new GuiButtonExt(4, x, y, buttonWidth, buttonHeight, "Recalculate Walls"));
 
         updateButtons();
     }

@@ -33,7 +33,7 @@ public class LandingBlock {
      */
     private AxisAlignedBB condBox;
     public LandOffset lastOffset;
-    public LandOffset pbOffset;
+    public LandOffset bestOffset;
     public LandAxis landAxis;
     public LandMode landMode;
     private final boolean boxMode;
@@ -196,9 +196,9 @@ public class LandingBlock {
             lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond(), boxMode);
 
             // TODO: Add an option to not count -0 offsets as PBs
-            if (pbOffset == null || lastOffset.getAxisOffset(landAxis) > pbOffset.getAxisOffset(landAxis)) {
-                pbOffset = lastOffset;
-                TextUtil.showChatMessage("New pb! " + TextUtil.formatDouble(pbOffset.getAxisOffset(landAxis)));
+            if (bestOffset == null || lastOffset.getAxisOffset(landAxis) > bestOffset.getAxisOffset(landAxis)) {
+                bestOffset = lastOffset;
+                TextUtil.showChatMessage("New pb! " + TextUtil.formatDouble(bestOffset.getAxisOffset(landAxis)));
             }
 
             if (FPKMod.config.sendOffsetInChat) {

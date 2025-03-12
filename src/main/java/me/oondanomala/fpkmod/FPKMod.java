@@ -34,7 +34,7 @@ public class FPKMod {
         registerEvents(
                 config,
                 new GuiUtil(),
-                LabelManager.instance,
+                LabelManager.INSTANCE,
                 new LBManager(),
                 new CommandKeybindHandler(),
                 new PlayerTickHandler()
