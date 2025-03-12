@@ -3,6 +3,7 @@ package me.oondanomala.fpkmod.labels;
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.labels.input.*;
 import me.oondanomala.fpkmod.labels.jump.*;
+import me.oondanomala.fpkmod.labels.lb.*;
 import me.oondanomala.fpkmod.labels.misc.*;
 import me.oondanomala.fpkmod.labels.movement.*;
 import me.oondanomala.fpkmod.labels.simple.*;
@@ -35,6 +36,13 @@ public class LabelManager {
                 new LabelFacing(),
                 new LabelRawFacing(),
                 new LabelPitch(),
+                // Landing Blocks (temporary!)
+                new LabelPB(),
+                new LabelXPB(),
+                new LabelZPB(),
+                new LabelOffset(),
+                new LabelXOffset(),
+                new LabelZOffset(),
                 // Jump
                 new LabelJumpAngle(),
                 new LabelJumpX(),
