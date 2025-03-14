@@ -34,7 +34,7 @@ minecraft {
 
 dependencies {
     // DevAuth
-    implementation('me.djtheredstoner:DevAuth-forge-legacy:1.2.0')
+    implementation('me.djtheredstoner:DevAuth-forge-legacy:1.2.1')
 }
 
 processResources {
