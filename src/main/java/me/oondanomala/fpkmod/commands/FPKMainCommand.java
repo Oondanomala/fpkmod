@@ -25,6 +25,8 @@ public class FPKMainCommand extends CommandBase {
                 new FlyCommand(),
                 new TogglesprintCommand(),
                 new ClearMaxSpeedCommand(),
+                new TeleportCommand(),
+                new CoordsCommand(),
                 new OpenConfigCommand(),
                 new ReloadConfigCommand(),
                 new LabelGUICommand(),

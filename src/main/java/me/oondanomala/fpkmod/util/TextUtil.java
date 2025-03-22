@@ -13,6 +13,11 @@ import java.util.Locale;
 
 public final class TextUtil {
     private static final DecimalFormat decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    private static final DecimalFormat exactFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+
+    static {
+        exactFormat.setMaximumFractionDigits(Integer.MAX_VALUE);
+    }
 
     private TextUtil() {
     }
@@ -40,6 +45,29 @@ public final class TextUtil {
 
     public static String formatAsDisabled(String text, EnumChatFormatting color) {
         return color.toString() + EnumChatFormatting.STRIKETHROUGH + StringUtils.stripControlCodes(text);
+    }
+
+    /**
+     * Returns the shortest possible string that can uniquely represent the provided double.
+     * @param number The double to format
+     * @see Double#toString(double)
+     */
+    public static String formatDoubleExact(double number) {
+        return exactFormat.format(number);
+    }
+
+    /**
+     * Returns the shortest possible string that can uniquely represent the provided float,
+     * wrapped to 180 degrees.
+     *
+     * @param number The angle to format
+     * @see Float#toString(float)
+     */
+    public static String formatAngleExact(float number) {
+        // Using a BigDecimal created from Float.toString(number) would work for all values,
+        // but since this is capped at ±180 and is faster, let's not bother.
+        String text = Float.toString(MathHelper.wrapAngleTo180_float(number));
+        return text.endsWith(".0") ? text.substring(0, text.length() - 2) : text;
     }
 
     /**
