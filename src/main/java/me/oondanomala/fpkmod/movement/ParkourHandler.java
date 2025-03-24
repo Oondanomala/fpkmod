@@ -59,6 +59,10 @@ public class ParkourHandler {
      * @see <a href="https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
      */
     public static int grinds;
+    /**
+     * Type of sidestep where 0 is wawd and anything else is wad
+     */
+    public static int sidestep;
 
     static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
         // Speed
@@ -123,6 +127,22 @@ public class ParkourHandler {
         // Last 45
         if (secondPastState.onGround && !pastState.onGround && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
             last45 = player.rotationYaw - pastState.yaw;
+        }
+
+        // Sidestep
+        if (isJumpTick) {
+            boolean strafingLeft = player.movementInput.moveStrafe > 0.0;
+            if (pastState.isStrafing() && (strafingLeft != pastState.keyLeft)) {
+                sidestep = 0;
+            } else {
+                sidestep = 1;
+            }
+        } else if (sidestep > 0 && !player.onGround) {
+            if (!pastState.isStrafing() && player.movementInput.moveStrafe == 0.0) {
+                sidestep++;
+            } else {
+                sidestep *= -1;
+            }
         }
     }
 }
