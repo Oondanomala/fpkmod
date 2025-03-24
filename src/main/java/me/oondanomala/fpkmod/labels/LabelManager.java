@@ -47,6 +47,12 @@ public class LabelManager {
                 new LabelLandingX(),
                 new LabelLandingY(),
                 new LabelLandingZ(),
+                new LabelOffset(),
+                new LabelOffsetX(),
+                new LabelOffsetZ(),
+                new LabelPb(),
+                new LabelPbX(),
+                new LabelPbZ(),
                 // Movement
                 new LabelSpeedX(),
                 new LabelSpeedY(),
