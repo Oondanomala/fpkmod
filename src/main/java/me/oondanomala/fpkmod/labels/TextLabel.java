@@ -4,6 +4,8 @@ import me.oondanomala.fpkmod.movement.PlayerTickHandler;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
+import java.util.Locale;
+
 /**
  * Implement this class to add a new text based label.
  * Don't forget to register it in {@link LabelManager}'s constructor!
@@ -16,7 +18,7 @@ public abstract class TextLabel extends Label {
      */
     public TextLabel(String name) {
         // TODO: Change the id to something else
-        super(name.toLowerCase(), name, 0, 0, false);
+        super(name.toLowerCase(Locale.ENGLISH), name, 0, 0, false);
     }
 
     /**
@@ -28,7 +30,7 @@ public abstract class TextLabel extends Label {
      */
     public TextLabel(String name, int defaultPosX, int defaultPosY) {
         // TODO: Change the id to something else
-        super(name.toLowerCase(), name, defaultPosX, defaultPosY, true);
+        super(name.toLowerCase(Locale.ENGLISH), name, defaultPosX, defaultPosY, true);
     }
 
     /**
