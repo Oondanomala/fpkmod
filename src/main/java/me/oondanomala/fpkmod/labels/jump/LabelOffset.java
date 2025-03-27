@@ -5,7 +5,6 @@ import me.oondanomala.fpkmod.landingblock.LandOffset;
 import me.oondanomala.fpkmod.util.TextUtil;
 import me.oondanomala.fpkmod.landingblock.LandingBlock;
 import me.oondanomala.fpkmod.landingblock.LBManager;
-import me.oondanomala.fpkmod.landingblock.LandAxis;
 
 public class LabelOffset extends TextLabel {
     public LabelOffset() {
@@ -16,7 +15,7 @@ public class LabelOffset extends TextLabel {
     protected String getLabelText() {
         LandingBlock lb = LBManager.getSelectedLandingBlock();
         LandOffset offset = lb != null ? lb.lastOffset : null;
-        return TextUtil.formatDouble(offset != null ? offset.getAxisOffset(LandAxis.BOTH): 0.0);
+        return TextUtil.formatDouble(offset != null ? offset.getAxisOffset(lb.landAxis) : 0.0);
 
     }
 }
