@@ -11,6 +11,6 @@ public class LabelLastSidestep extends TextLabel {
     @Override
     protected String getLabelText() {
         int lastSidestep = ParkourHandler.sidestep;
-        return lastSidestep == 0 ? "WAWD" : "WAD " + Math.abs(lastSidestep) + "t";
+        return lastSidestep == 0 ? "WDWA" : "WAD " + Math.abs(lastSidestep) + "t";
     }
 }

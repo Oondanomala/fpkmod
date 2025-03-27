@@ -60,7 +60,7 @@ public class ParkourHandler {
      */
     public static int grinds;
     /**
-     * Type of sidestep where 0 is wawd and anything else is wad
+     * Type of sidestep where 0 is wdwa and anything else is wad
      */
     public static int sidestep;
 
@@ -132,7 +132,7 @@ public class ParkourHandler {
         // Sidestep
         if (isJumpTick) {
             boolean strafingLeft = player.movementInput.moveStrafe > 0.0;
-            if (pastState.isStrafing() && (strafingLeft != pastState.keyLeft)) {
+            if (pastState.isStrafing() && player.movementInput.moveStrafe != 0.0 && (strafingLeft != pastState.keyLeft)) {
                 sidestep = 0;
             } else {
                 sidestep = 1;
