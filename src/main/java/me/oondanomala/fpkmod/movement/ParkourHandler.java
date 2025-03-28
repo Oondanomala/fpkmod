@@ -3,6 +3,7 @@ package me.oondanomala.fpkmod.movement;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 // Better class name?
 public class ParkourHandler {
@@ -191,7 +192,9 @@ public class ParkourHandler {
                     lastTiming = "WalkJam";
                 }
             } else if (currentInput.isMoving() && !lastInput.isMoving()) {
-                lastTiming = currentInput.duration + "t Pessi";
+                lastTiming = "Pessi";
+            } else if (Objects.equals(lastTiming, "WalkJam") && currentInput.sprinting && currentInput.forwardMove > 0f) {
+                lastTiming = "FMM";
             }
         }
     }
