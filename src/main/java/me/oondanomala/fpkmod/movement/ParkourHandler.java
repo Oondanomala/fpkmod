@@ -133,12 +133,14 @@ public class ParkourHandler {
         if (isJumpTick) {
             boolean strafingLeft = player.movementInput.moveStrafe > 0.0;
             if (pastState.isStrafing() && player.movementInput.moveStrafe != 0.0 && (strafingLeft != pastState.keyLeft)) {
+            boolean strafingLeft = player.movementInput.moveStrafe > 0f;
+            if (pastState.isStrafing() && player.movementInput.moveStrafe != 0f && (strafingLeft != pastState.keyLeft)) {
                 sidestep = 0;
             } else {
                 sidestep = 1;
             }
         } else if (sidestep > 0 && !player.onGround) {
-            if (!pastState.isStrafing() && player.movementInput.moveStrafe == 0.0) {
+            if (!pastState.isStrafing() && player.movementInput.moveStrafe == 0f) {
                 sidestep++;
             } else {
                 sidestep *= -1;
