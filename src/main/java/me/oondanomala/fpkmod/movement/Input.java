@@ -29,7 +29,7 @@ public class Input {
     }
 
     public boolean isMoving() {
-        return forwardMove > 0f || (strafeMove > 0f);
+        return Math.abs(forwardMove) > 0f || Math.abs(strafeMove) > 0f;
     }
 
     public boolean isEqual(Input other) {

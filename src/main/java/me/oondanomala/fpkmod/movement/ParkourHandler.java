@@ -174,7 +174,6 @@ public class ParkourHandler {
         if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround)) analyzeInputs();
     }
 
-    // TODO: Pessi only working forwards and to the left, and pessi being janky
     private static void analyzeInputs() {
         if (inputs.size() < 2) return;
         Input currentInput = inputs.get(inputs.size() - 1);
