@@ -173,6 +173,7 @@ public class ParkourHandler {
         if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround)) analyzeInputs();
     }
 
+    // TODO: Pessi only working forwards and to the left, and pessi being janky
     private static void analyzeInputs() {
         if (inputs.size() < 2) return;
         Input currentInput = inputs.get(inputs.size() - 1);
@@ -182,7 +183,15 @@ public class ParkourHandler {
             if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping && (!secondLastInput.jumping || lastInput.duration > 1)) {
                 lastTiming = lastInput.duration + "t HH";
             } else if (!lastInput.jumping) {
-                lastTiming = "Jam";
+                if (currentInput.sprinting) {
+                    lastTiming = "Jam";
+                } else if (currentInput.forwardMove < 0f && currentInput.strafeMove == 0f) {
+                    lastTiming = "BwJam";
+                } else {
+                    lastTiming = "WalkJam";
+                }
+            } else if (currentInput.isMoving() && !lastInput.isMoving()) {
+                lastTiming = currentInput.duration + "t Pessi";
             }
         }
     }
