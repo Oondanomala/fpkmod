@@ -131,8 +131,6 @@ public class ParkourHandler {
 
         // Sidestep
         if (isJumpTick) {
-            boolean strafingLeft = player.movementInput.moveStrafe > 0.0;
-            if (pastState.isStrafing() && player.movementInput.moveStrafe != 0.0 && (strafingLeft != pastState.keyLeft)) {
             boolean strafingLeft = player.movementInput.moveStrafe > 0f;
             if (pastState.isStrafing() && player.movementInput.moveStrafe != 0f && (strafingLeft != pastState.keyLeft)) {
                 sidestep = 0;
