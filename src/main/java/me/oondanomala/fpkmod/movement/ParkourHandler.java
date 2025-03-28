@@ -2,6 +2,8 @@ package me.oondanomala.fpkmod.movement;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 
+import java.util.ArrayList;
+
 // Better class name?
 public class ParkourHandler {
     /**
@@ -63,6 +65,14 @@ public class ParkourHandler {
      * Type of sidestep where 0 is wdwa and anything else is wad
      */
     public static int sidestep;
+    /**
+     *
+     */
+    public static String lastTiming = "";
+    /**
+     * History of inputs to be later interpreted by the input history and last timing labels
+     */
+    public static ArrayList<Input> inputs = new ArrayList<>();
 
     static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
         // Speed
@@ -130,7 +140,9 @@ public class ParkourHandler {
         }
 
         // Sidestep
+        Input currentInput = new Input();
         if (isJumpTick) {
+            currentInput.jump();
             boolean strafingLeft = player.movementInput.moveStrafe > 0f;
             if (pastState.isStrafing() && player.movementInput.moveStrafe != 0f && (strafingLeft != pastState.keyLeft)) {
                 sidestep = 0;
@@ -142,6 +154,34 @@ public class ParkourHandler {
                 sidestep++;
             } else {
                 sidestep *= -1;
+            }
+        }
+
+        // Inputs
+        if (!player.onGround) currentInput.jump();
+        currentInput.move(player.movementInput.moveForward, player.movementInput.moveStrafe);
+        if (player.movementInput.sneak) currentInput.sneak();
+        if (!player.isSprinting()) currentInput.walk();
+        Input lastInput = !inputs.isEmpty() ? inputs.get(inputs.size() - 1) : null;
+        if (lastInput != null && lastInput.isEqual(currentInput)) {
+            lastInput.duration++;
+        } else {
+            inputs.add(currentInput);
+        }
+        if (inputs.size() > 3) inputs.remove(0);
+        if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround)) analyzeInputs();
+    }
+
+    private static void analyzeInputs() {
+        if (inputs.size() < 2) return;
+        Input currentInput = inputs.get(inputs.size() - 1);
+        Input lastInput = inputs.get(inputs.size() - 2);
+        Input secondLastInput = inputs.size() > 2 ? inputs.get(inputs.size() - 3) : new Input();
+        if (currentInput.jumping) {
+            if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping && (!secondLastInput.jumping || lastInput.duration > 1)) {
+                lastTiming = lastInput.duration + "t HH";
+            } else if (!lastInput.jumping) {
+                lastTiming = "Jam";
             }
         }
     }
