@@ -168,6 +168,7 @@ public class ParkourHandler {
         } else {
             inputs.add(currentInput);
         }
+        // TODO: Inputs size depends on inputs history instead of being a constant
         if (inputs.size() > 3) inputs.remove(0);
         if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround)) analyzeInputs();
     }
