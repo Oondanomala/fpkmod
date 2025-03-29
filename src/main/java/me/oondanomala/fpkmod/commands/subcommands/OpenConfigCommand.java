@@ -6,7 +6,7 @@ import me.oondanomala.fpkmod.util.GuiUtil;
 
 public class OpenConfigCommand extends FPKSubCommand {
     public OpenConfigCommand() {
-        super("config", "Opens the config menu.");
+        super("config", "Opens the config GUI.");
     }
 
     @Override

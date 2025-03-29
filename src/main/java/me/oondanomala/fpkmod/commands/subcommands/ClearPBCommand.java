@@ -18,7 +18,7 @@ public class ClearPBCommand extends FPKSubCommand {
         if (landingBlock == null) {
             throw new CommandException("No landing block set.");
         }
-        landingBlock.pbOffset = null;
+        landingBlock.bestOffset = null;
         TextUtil.showChatMessage("Cleared landing block PB.");
     }
 }

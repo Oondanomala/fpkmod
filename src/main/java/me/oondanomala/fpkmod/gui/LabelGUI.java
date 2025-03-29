@@ -31,14 +31,14 @@ public class LabelGUI extends GuiScreen {
     @Override
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
-        LabelManager.instance.saveLabelsConfig();
+        LabelManager.INSTANCE.saveLabelsConfig();
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
 
-        for (Label label : LabelManager.instance.labels) {
+        for (Label label : LabelManager.INSTANCE.labels) {
             if (label == selectedLabel) {
                 if (isClickingLabel) continue;
                 selectedLabel.drawSelectionBox(100);
@@ -171,7 +171,7 @@ public class LabelGUI extends GuiScreen {
     }
 
     private Label getHoveredLabel(int mouseX, int mouseY) {
-        List<Label> labels = LabelManager.instance.labels;
+        List<Label> labels = LabelManager.INSTANCE.labels;
         for (int i = labels.size() - 1; i >= 0; i--) {
             Label label = labels.get(i);
             if (label.isUsed && mouseX >= label.posX && mouseY >= label.posY && mouseX < label.posX + label.getWidth() && mouseY < label.posY + label.getHeight()) {

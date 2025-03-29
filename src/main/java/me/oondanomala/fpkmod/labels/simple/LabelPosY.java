@@ -4,8 +4,8 @@ import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
-public class LabelYPos extends TextLabel {
-    public LabelYPos() {
+public class LabelPosY extends TextLabel {
+    public LabelPosY() {
         super("Y", 2, 29);
     }
 

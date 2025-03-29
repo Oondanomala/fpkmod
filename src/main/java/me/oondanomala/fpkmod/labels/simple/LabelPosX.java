@@ -4,8 +4,8 @@ import me.oondanomala.fpkmod.labels.TextLabel;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 
-public class LabelXPos extends TextLabel {
-    public LabelXPos() {
+public class LabelPosX extends TextLabel {
+    public LabelPosX() {
         super("X", 2, 20);
     }
 

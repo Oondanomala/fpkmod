@@ -37,7 +37,7 @@ public class UnusedLabelList extends GuiListExtended {
 
     private static int calculateWidth() {
         int width = 0;
-        for (Label label : LabelManager.instance.labels) {
+        for (Label label : LabelManager.INSTANCE.labels) {
             width = Math.max(width, Minecraft.getMinecraft().fontRendererObj.getStringWidth(label.name));
         }
         // 8 for text padding, 4 for list padding, 6 for the scrollbar and 1 for the scrollbar padding.
@@ -47,7 +47,7 @@ public class UnusedLabelList extends GuiListExtended {
 
     public void rebuildEntryList() {
         labels.clear();
-        for (Label label : LabelManager.instance.labels) {
+        for (Label label : LabelManager.INSTANCE.labels) {
             if (!label.isUsed) {
                 labels.add(new LabelEntry(label));
             }

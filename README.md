@@ -5,7 +5,7 @@ for 1.8.9 forge (a 1.12.2 port is planned).
 
 Adds a bunch of useful parkour features to the game. Client side only!
 
-While it is intended as a replacement, it should work with MPK.
+While it is intended as a replacement, it should work alongside MPK.
 
 ## Current Features
 

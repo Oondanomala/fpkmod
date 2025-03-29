@@ -6,7 +6,7 @@ import me.oondanomala.fpkmod.util.TextUtil;
 
 public class ClearLBCommand extends FPKSubCommand {
     public ClearLBCommand() {
-        super("clearlb", "Clears a landing block.");
+        super("clearlb", "Clears a landing block.", "Clear all landing blocks");
     }
 
     @Override

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SetLBCommand extends FPKSubCommand {
     public SetLBCommand() {
-        super("setlb", "Sets the landing block.", "Run /fpk setlb");
+        super("setlb", "Sets the landing block.", "Set a new landing block");
     }
     // TODO: Replace LB instead of adding a new one when setting it on the same block
 

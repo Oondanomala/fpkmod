@@ -3,6 +3,7 @@ package me.oondanomala.fpkmod.labels;
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.labels.input.*;
 import me.oondanomala.fpkmod.labels.jump.*;
+import me.oondanomala.fpkmod.labels.lb.*;
 import me.oondanomala.fpkmod.labels.misc.*;
 import me.oondanomala.fpkmod.labels.movement.*;
 import me.oondanomala.fpkmod.labels.simple.*;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LabelManager {
-    public static final LabelManager instance = new LabelManager();
+    public static final LabelManager INSTANCE = new LabelManager();
     public final List<Label> labels;
 
     public LabelManager() {
@@ -29,12 +30,19 @@ public class LabelManager {
                 new LabelIP(),
                 new LabelTogglesprint(),
                 // Simple
-                new LabelXPos(),
-                new LabelYPos(),
-                new LabelZPos(),
+                new LabelPosX(),
+                new LabelPosY(),
+                new LabelPosZ(),
                 new LabelFacing(),
                 new LabelRawFacing(),
                 new LabelPitch(),
+                // Landing Blocks (temporary!)
+                new LabelPB(),
+                new LabelXPB(),
+                new LabelZPB(),
+                new LabelOffset(),
+                new LabelXOffset(),
+                new LabelZOffset(),
                 // Jump
                 new LabelJumpAngle(),
                 new LabelJumpX(),

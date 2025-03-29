@@ -14,7 +14,7 @@ public class ReloadConfigCommand extends FPKSubCommand {
     protected void internalRun(String[] args) {
         FPKMod.config.configuration.load();
         FPKMod.config.loadConfig();
-        LabelManager.instance.loadLabelsConfig();
+        LabelManager.INSTANCE.loadLabelsConfig();
 
         TextUtil.showChatMessage("Reloaded config file.");
     }
