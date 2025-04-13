@@ -7,14 +7,18 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generic class for labels. You're probably looking for {@link TextLabel}.
  */
 public abstract class Label {
+    private final ConfigCategory configCategory;
     protected final String id;
     public final String name;
-    public final ConfigCategory configCategory; // FIXME: This should be protected
     public boolean isUsed;
     public boolean isEnabled;
     public int posX;
@@ -70,37 +74,39 @@ public abstract class Label {
     }
 
     /**
-     * Adds a custom boolean config to the label.
+     * Adds a custom boolean config to the label and gets its value.
      * It will show up when right-clicking the label in the label GUI.
      * <p>
-     * Don't forget to override {@link #loadLabelConfig()} and {@link #saveLabelConfig()}
-     * to load and save the config values!
+     * Should be used to load the config value in {@link #loadLabelConfig()}.
      *
+     * @param name The name of the config option, shown in GUIs
      * @return The config value if it already exists, otherwise {@code defaultValue}
-     * @see #getCustomConfig(String)
-     * @see #setCustomConfig(String, boolean)
      */
     protected boolean addCustomConfig(String name, boolean defaultValue) {
         return FPKMod.config.configuration.get(configCategory.getQualifiedName(), name, defaultValue).getBoolean();
     }
 
     /**
-     * Gets the value of a custom label config.
+     * Gets a list of all defined custom boolean configs for this label,
+     * will be empty if no custom configs are defined.
      *
-     * @return The value of the config, or <tt>false</tt> if the config doesn't exist
+     * @see #addCustomConfig(String, boolean)
      */
-    protected boolean getCustomConfig(String name) {
-        if (configCategory.get(name) != null) {
-            return configCategory.get(name).getBoolean();
-        }
-        return false;
+    public List<Property> getCustomConfigs() {
+        return configCategory.getOrderedValues().stream().filter(
+                prop -> prop.isBooleanValue() && !prop.getName().equals("used") && !prop.getName().equals("Enabled")
+        ).collect(Collectors.toList());
     }
 
     /**
-     * Sets a custom label config to the specified value.
-     * The config option must be first created using {@link #addCustomConfig(String, boolean)}.
+     * Sets a custom label config option to the specified value.
+     * The option must already exist.
+     *
+     * @param name The option name
+     * @param value The value to set the option to
+     * @see #addCustomConfig(String, boolean)
      */
-    protected void setCustomConfig(String name, boolean value) {
+    public void setCustomConfig(String name, boolean value) {
         configCategory.get(name).set(value);
     }
 

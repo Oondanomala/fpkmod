@@ -11,7 +11,6 @@ public class LabelFacing extends TextLabel {
 
     public LabelFacing() {
         super("F", 2, 47);
-        showAxis = addCustomConfig("Show Axis", true);
     }
 
     @Override
@@ -27,12 +26,6 @@ public class LabelFacing extends TextLabel {
     @Override
     public void loadLabelConfig() {
         super.loadLabelConfig();
-        showAxis = getCustomConfig("Show Axis");
-    }
-
-    @Override
-    public void saveLabelConfig() {
-        super.saveLabelConfig();
-        setCustomConfig("Show Axis", showAxis);
+        showAxis = addCustomConfig("Show Axis", true);
     }
 }

@@ -12,7 +12,6 @@ public class LabelJumpInput extends TextLabel {
 
     public LabelJumpInput() {
         super("Jump Input");
-        accurateKeyNames = addCustomConfig("Accurate Key Names", false);
     }
 
     @Override
@@ -39,12 +38,6 @@ public class LabelJumpInput extends TextLabel {
     @Override
     public void loadLabelConfig() {
         super.loadLabelConfig();
-        accurateKeyNames = getCustomConfig("Accurate Key Names");
-    }
-
-    @Override
-    public void saveLabelConfig() {
-        super.saveLabelConfig();
-        setCustomConfig("Accurate Key Names", accurateKeyNames);
+        accurateKeyNames = addCustomConfig("Accurate Key Names", false);
     }
 }

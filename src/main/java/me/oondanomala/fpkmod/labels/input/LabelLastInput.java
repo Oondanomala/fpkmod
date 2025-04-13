@@ -10,7 +10,6 @@ public class LabelLastInput extends TextLabel {
 
     public LabelLastInput() {
         super("Last Input");
-        accurateKeyNames = addCustomConfig("Accurate Key Names", false);
     }
 
     @Override
@@ -31,12 +30,6 @@ public class LabelLastInput extends TextLabel {
     @Override
     public void loadLabelConfig() {
         super.loadLabelConfig();
-        accurateKeyNames = getCustomConfig("Accurate Key Names");
-    }
-
-    @Override
-    public void saveLabelConfig() {
-        super.saveLabelConfig();
-        setCustomConfig("Accurate Key Names", accurateKeyNames);
+        accurateKeyNames = addCustomConfig("Accurate Key Names", false);
     }
 }

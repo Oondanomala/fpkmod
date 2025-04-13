@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.config.GuiCheckBox;
 
 import java.util.ArrayList;
@@ -23,11 +24,9 @@ public class RightClickMenu extends Gui {
         this.label = label;
 
         buttons.add(new GuiCheckBox(10, 0, 0, "Enabled", label.isEnabled));
-        label.configCategory.forEach((name, value) -> {
-            if (!name.equals("Enabled") && !name.equals("used") && value.isBooleanValue()) {
-                buttons.add(new GuiCheckBox(10, 0, 0, name, value.getBoolean()));
-            }
-        });
+        for (Property customConfig : label.getCustomConfigs()) {
+            buttons.add(new GuiCheckBox(10, 0, 0, customConfig.getName(), customConfig.getBoolean()));
+        }
 
         int width = 0;
         int height = 5;
@@ -64,7 +63,7 @@ public class RightClickMenu extends Gui {
             if (button.mousePressed(Minecraft.getMinecraft(), mouseX, mouseY)) {
                 button.playPressSound(Minecraft.getMinecraft().getSoundHandler());
                 label.saveLabelConfig();
-                label.configCategory.get(button.displayString).set(button.isChecked());
+                label.setCustomConfig(button.displayString, button.isChecked());
                 label.loadLabelConfig();
                 return true;
             }
