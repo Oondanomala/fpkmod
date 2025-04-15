@@ -14,6 +14,6 @@ public class LabelTime extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return LocalTime.now().format(timeFormatter);
+        return timeFormatter.format(LocalTime.now());
     }
 }

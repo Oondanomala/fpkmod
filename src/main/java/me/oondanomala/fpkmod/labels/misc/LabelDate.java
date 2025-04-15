@@ -14,6 +14,6 @@ public class LabelDate extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return LocalDate.now().format(dateFormatter);
+        return dateFormatter.format(LocalDate.now());
     }
 }
