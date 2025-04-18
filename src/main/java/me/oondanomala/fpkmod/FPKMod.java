@@ -16,7 +16,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = FPKMod.MODID, name = FPKMod.NAME, version = FPKMod.VERSION, acceptedMinecraftVersions = "1.8", clientSideOnly = true, guiFactory = "me.oondanomala.fpkmod.config.GuiFactory", updateJSON = "https://raw.githubusercontent.com/Oondanomala/fpkmod/master/versions.json")
+@Mod(
+    modid = FPKMod.MODID,
+    name = FPKMod.NAME,
+    version = FPKMod.VERSION,
+    acceptedMinecraftVersions = "1.8",
+    clientSideOnly = true,
+    guiFactory = "me.oondanomala.fpkmod.config.GuiFactory",
+    updateJSON = "https://raw.githubusercontent.com/Oondanomala/fpkmod/master/versions.json"
+)
 public class FPKMod {
     public static final String MODID = "fpkmod";
     public static final String NAME = "FPK Mod";

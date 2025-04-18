@@ -16,7 +16,7 @@ public final class MathUtil {
      * @return <tt>true</tt> if the double is negative zero, <tt>false</tt> otherwise
      */
     public static boolean isNegativeZero(double number) {
-        return Double.doubleToLongBits(number) == NEGATIVE_ZERO_BITS;
+        return Double.doubleToRawLongBits(number) == NEGATIVE_ZERO_BITS;
     }
 
     /**
@@ -34,7 +34,14 @@ public final class MathUtil {
         return isPositive(number1) == isPositive(number2);
     }
 
-    private static boolean isPositive(double number) {
-        return Double.doubleToRawLongBits(number) >= 0;
+    /**
+     * Checks if the number is positive, taking into account negative zero.
+     * {@code NaN} is always positive.
+     *
+     * @param number The number to check
+     * @return <tt>true</tt> if the provided number is positive, <tt>false</tt> otherwise
+     */
+    public static boolean isPositive(double number) {
+        return Double.doubleToLongBits(number) >= 0;
     }
 }

@@ -193,15 +193,15 @@ public class LandingBlock {
      */
     public void update(PlayerState pastState, PlayerState secondPastState) {
         if (canLand()) {
-            Tuple<AxisAlignedBB, Vec3> landPos = getLandPos(pastState, secondPastState);
-            lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond(), boxMode);
+            Tuple<AxisAlignedBB, Vec3> landPos = getLandPos(pastState, secondPastState, landMode);
+            lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond());
 
             if (bestOffset == null || Double.compare(lastOffset.getAxisOffset(landAxis), bestOffset.getAxisOffset(landAxis)) > 0) {
                 if (!FPKMod.config.ignoreZeroOffsets || !MathUtil.isNegativeZero(lastOffset.combinedOffset)) {
                     bestOffset = lastOffset;
                     TextUtil.showChatMessage("New pb! " + TextUtil.formatDouble(bestOffset.getAxisOffset(landAxis)));
                 } else {
-                    TextUtil.showChatMessage("Ignored " + TextUtil.formatDouble(-0.0) + " pb.");
+                    TextUtil.showChatMessage("Ignored " + TextUtil.formatDouble(lastOffset.combinedOffset) + " pb.");
                 }
             }
 
@@ -245,13 +245,14 @@ public class LandingBlock {
 
     /**
      * Gets the player's bounding box and position at the tick (or a combination of multiple ticks)
-     * appropriate for the set landing mode.
+     * appropriate for the provided landing mode.
      *
      * @param pastState       The player's state on the previous tick
      * @param secondPastState The player's state on the tick before the previous tick
-     * @return A tuple containing the player's bounding box and position vector appropriate for the set landing mode
+     * @param landMode        The landing mode to use
+     * @return A tuple containing the player's bounding box and position vector appropriate for the provided landing mode
      */
-    private Tuple<AxisAlignedBB, Vec3> getLandPos(PlayerState pastState, PlayerState secondPastState) {
+    private Tuple<AxisAlignedBB, Vec3> getLandPos(PlayerState pastState, PlayerState secondPastState, LandMode landMode) {
         AxisAlignedBB playerBB;
         Vec3 playerVec;
         switch (landMode) {
@@ -279,11 +280,11 @@ public class LandingBlock {
         return new Tuple<>(playerBB, playerVec);
     }
 
-    private LandOffset getLandOffset(AxisAlignedBB playerBB, Vec3 playerPos, boolean box) {
+    private LandOffset getLandOffset(AxisAlignedBB playerBB, Vec3 playerPos) {
         LandOffset offset = null;
         for (int i = 0; i < landingBoxes.length; i++) {
             if (canLandOnBox(landingBoxes[i])) {
-                LandOffset newOffset = new LandOffset(playerBB, playerPos, landingBoxes[i], wallBoxes[i], box);
+                LandOffset newOffset = new LandOffset(playerBB, playerPos, landingBoxes[i], wallBoxes[i], boxMode);
 
                 if (offset == null) {
                     offset = newOffset;

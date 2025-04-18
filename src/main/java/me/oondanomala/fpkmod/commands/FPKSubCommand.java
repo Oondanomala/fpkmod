@@ -49,7 +49,7 @@ public abstract class FPKSubCommand {
         }
     }
 
-    public void run(String[] args) {
+    public final void run(String[] args) {
         try {
             internalRun(args);
         } catch (SyntaxErrorException e) {

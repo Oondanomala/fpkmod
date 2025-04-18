@@ -38,7 +38,7 @@ public final class GuiUtil {
         final int borderColorEnd = 0x5028007F;
         // Center
         Gui.drawRect(startX, startY + 1, endX, endY - 1, backgroundColor);
-        // Out Border
+        // Outer Border
         Gui.drawRect(startX + 1, startY, endX - 1, startY + 1, backgroundColor);
         Gui.drawRect(startX + 1, endY, endX - 1, endY - 1, backgroundColor);
         // Gradient Border
