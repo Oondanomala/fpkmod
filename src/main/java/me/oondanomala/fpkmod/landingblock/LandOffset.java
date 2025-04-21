@@ -1,5 +1,6 @@
 package me.oondanomala.fpkmod.landingblock;
 
+import me.oondanomala.fpkmod.util.MathUtil;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 
@@ -78,7 +79,7 @@ public class LandOffset {
     }
 
     private double getCombinedOffset() {
-        if (Math.signum(xOffset) == Math.signum(zOffset)) {
+        if (MathUtil.compareSign(xOffset, zOffset)) {
             return Math.copySign(Math.hypot(xOffset, zOffset), xOffset);
         }
         return Math.min(xOffset, zOffset);

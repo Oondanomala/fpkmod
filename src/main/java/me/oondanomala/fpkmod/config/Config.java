@@ -20,6 +20,7 @@ public class Config {
     public boolean trimZeroes;
     public boolean mpkCommand;
     public boolean sendOffsetInChat;
+    public boolean ignoreZeroOffsets;
 
     public boolean renderLandingBox;
     public boolean renderCondBox;
@@ -84,6 +85,12 @@ public class Config {
                 Configuration.CATEGORY_CLIENT,
                 false,
                 "Whether to send the land offsets in chat when landing on a landing block."
+        );
+        ignoreZeroOffsets = configuration.getBoolean(
+                "Ignore -0 Offsets",
+                Configuration.CATEGORY_CLIENT,
+                false,
+                "Whether to not count -0 offsets as PBs."
         );
 
         renderLandingBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderLB", true).setShowInGui(false).getBoolean();

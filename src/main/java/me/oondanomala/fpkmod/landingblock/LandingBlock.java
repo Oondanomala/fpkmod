@@ -2,6 +2,7 @@ package me.oondanomala.fpkmod.landingblock;
 
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.movement.PlayerState;
+import me.oondanomala.fpkmod.util.MathUtil;
 import me.oondanomala.fpkmod.util.RenderUtil;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.block.state.IBlockState;
@@ -195,10 +196,13 @@ public class LandingBlock {
             Tuple<AxisAlignedBB, Vec3> landPos = getLandPos(pastState, secondPastState);
             lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond(), boxMode);
 
-            // TODO: Add an option to not count -0 offsets as PBs
-            if (bestOffset == null || lastOffset.getAxisOffset(landAxis) > bestOffset.getAxisOffset(landAxis)) {
-                bestOffset = lastOffset;
-                TextUtil.showChatMessage("New pb! " + TextUtil.formatDouble(bestOffset.getAxisOffset(landAxis)));
+            if (bestOffset == null || Double.compare(lastOffset.getAxisOffset(landAxis), bestOffset.getAxisOffset(landAxis)) > 0) {
+                if (!FPKMod.config.ignoreZeroOffsets || !MathUtil.isNegativeZero(lastOffset.combinedOffset)) {
+                    bestOffset = lastOffset;
+                    TextUtil.showChatMessage("New pb! " + TextUtil.formatDouble(bestOffset.getAxisOffset(landAxis)));
+                } else {
+                    TextUtil.showChatMessage("Ignored " + TextUtil.formatDouble(-0.0) + " pb.");
+                }
             }
 
             if (FPKMod.config.sendOffsetInChat) {
