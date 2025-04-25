@@ -26,4 +26,9 @@ public class FlyCommand extends FPKSubCommand {
             TextUtil.showChatMessage("Flight is now enabled.");
         }
     }
+
+    @Override
+    public boolean canSignExecute() {
+        return true;
+    }
 }

@@ -36,4 +36,9 @@ public class SetCondCommand extends FPKSubCommand {
     protected String getUsage() {
         return "<minX> <maxX> <minZ> <maxZ>";
     }
+
+    @Override
+    public boolean canSignExecute() {
+        return true;
+    }
 }

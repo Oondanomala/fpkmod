@@ -80,6 +80,16 @@ public abstract class FPKSubCommand {
     }
 
     /**
+     * Returns <tt>true</tt> if this command can be executed by right-clicking a sign
+     * with the command and command arguments on it, <tt>false</tt> otherwise.
+     * <p>
+     * The default implementation always returns <tt>false</tt>.
+     */
+    public boolean canSignExecute() {
+        return false;
+    }
+
+    /**
      * Called when the subcommand is run.
      *
      * @param args The subcommand arguments

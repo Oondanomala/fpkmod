@@ -90,4 +90,9 @@ public class TeleportCommand extends FPKSubCommand {
     protected String getUsage() {
         return "[<x> <y> <z> [yaw] [pitch]]";
     }
+
+    @Override
+    public boolean canSignExecute() {
+        return true;
+    }
 }

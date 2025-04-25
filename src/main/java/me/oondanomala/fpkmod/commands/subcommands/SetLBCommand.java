@@ -192,6 +192,11 @@ public class SetLBCommand extends FPKSubCommand {
         return "[target|below|x y z] [land|zneo|enter|hit] [box] [x|z|~]";
     }
 
+    @Override
+    public boolean canSignExecute() {
+        return true;
+    }
+
     private enum TargetType {
         TARGET,
         BELOW,

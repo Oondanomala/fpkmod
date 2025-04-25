@@ -2,6 +2,7 @@ package me.oondanomala.fpkmod;
 
 import me.oondanomala.fpkmod.commands.CommandKeybindHandler;
 import me.oondanomala.fpkmod.commands.FPKMainCommand;
+import me.oondanomala.fpkmod.commands.SignCommandHandler;
 import me.oondanomala.fpkmod.config.Config;
 import me.oondanomala.fpkmod.gui.UpdateNotifier;
 import me.oondanomala.fpkmod.labels.LabelManager;
@@ -46,6 +47,7 @@ public class FPKMod {
                 LabelManager.INSTANCE,
                 new LBManager(),
                 new CommandKeybindHandler(),
+                new SignCommandHandler(),
                 new UpdateNotifier(),
                 new PlayerTickHandler()
         );
