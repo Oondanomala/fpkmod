@@ -1,6 +1,6 @@
 package me.oondanomala.fpkmod.labels.misc;
 
-import me.oondanomala.fpkmod.commands.subcommands.TogglesprintCommand;
+import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.labels.TextLabel;
 
 public class LabelTogglesprint extends TextLabel {
@@ -10,6 +10,6 @@ public class LabelTogglesprint extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return TogglesprintCommand.sprintToggled ? "Enabled" : "Disabled";
+        return FPKMod.config.sprintToggled ? "Enabled" : "Disabled";
     }
 }

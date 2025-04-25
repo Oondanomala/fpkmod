@@ -22,6 +22,7 @@ public class Config {
     public boolean sendOffsetInChat;
     public boolean ignoreZeroOffsets;
 
+    public boolean sprintToggled;
     public boolean renderLandingBox;
     public boolean renderCondBox;
 
@@ -93,6 +94,7 @@ public class Config {
                 "Whether to not count -0 offsets as PBs."
         );
 
+        sprintToggled = configuration.get(Configuration.CATEGORY_CLIENT, "togglesprint", false).setShowInGui(false).getBoolean();
         renderLandingBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderLB", true).setShowInGui(false).getBoolean();
         renderCondBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderCond", false).setShowInGui(false).getBoolean();
 

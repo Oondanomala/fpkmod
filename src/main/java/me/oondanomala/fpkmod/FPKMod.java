@@ -43,6 +43,7 @@ public class FPKMod {
         );
         fpkCommand = new FPKMainCommand();
         CommandUtil.registerCommands(fpkCommand);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> config.saveConfig()));
     }
 
     private void registerEvents(Object... events) {

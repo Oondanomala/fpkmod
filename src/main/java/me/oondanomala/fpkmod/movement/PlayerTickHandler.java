@@ -1,6 +1,6 @@
 package me.oondanomala.fpkmod.movement;
 
-import me.oondanomala.fpkmod.commands.subcommands.TogglesprintCommand;
+import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.landingblock.LBManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -53,7 +53,7 @@ public class PlayerTickHandler {
         }
 
         // Togglesprint
-        if (TogglesprintCommand.sprintToggled) {
+        if (FPKMod.config.sprintToggled) {
             KeyBinding.setKeyBindState(Minecraft.getMinecraft().gameSettings.keyBindSprint.getKeyCode(), true);
         }
 
