@@ -41,6 +41,7 @@ public class LandingBlockGUI extends GuiScreen {
     public void onGuiClosed() {
         FPKMod.config.setConfigOption("renderLB", FPKMod.config.renderLandingBox);
         FPKMod.config.setConfigOption("renderCond", FPKMod.config.renderCondBox);
+        FPKMod.config.saveConfig();
     }
 
     @Override

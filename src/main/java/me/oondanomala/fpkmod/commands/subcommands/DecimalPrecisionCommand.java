@@ -28,6 +28,7 @@ public class DecimalPrecisionCommand extends FPKSubCommand {
 
         FPKMod.config.doublePrecision = decimals;
         FPKMod.config.setConfigOption("Coord Precision", decimals);
+        FPKMod.config.saveConfig();
         TextUtil.setDecimalPrecision(decimals, FPKMod.config.trimZeroes);
         TextUtil.showChatMessage("Changed coord precision to " + decimals + " decimals.");
     }

@@ -103,14 +103,28 @@ public class Config {
         configuration.save();
     }
 
+    /**
+     * Sets the provided config option to {@code value}.
+     * Does not save the configs.
+     *
+     * @param optionName The name of the config option
+     * @param value      The value to change it to
+     * @see #saveConfig()
+     */
     public void setConfigOption(String optionName, int value) {
         configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
-        saveConfig();
     }
 
+    /**
+     * Sets the provided config option to {@code value}.
+     * Does not save the configs.
+     *
+     * @param optionName The name of the config option
+     * @param value      The value to change it to
+     * @see #saveConfig()
+     */
     public void setConfigOption(String optionName, boolean value) {
         configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
-        saveConfig();
     }
 
     public void saveConfig() {
