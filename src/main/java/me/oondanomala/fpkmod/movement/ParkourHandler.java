@@ -189,6 +189,20 @@ public class ParkourHandler {
             analyzeInputs();
     }
 
+    private enum Timings {
+        JAM("Jam"), BWJAM("BwJam"), WALKJAM("WalkJam"), HH("HH"), PESSI("Pessi"), FMM("FMM");
+
+        private final String name;
+
+        Timings(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+    }
+
     private static void analyzeInputs() {
         if (inputs.size() < 2)
             return;
@@ -198,20 +212,20 @@ public class ParkourHandler {
         if (currentInput.jumping) {
             if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping
                     && (!secondLastInput.jumping || lastInput.duration > 1)) {
-                lastTiming = lastInput.duration + "t HH";
+                lastTiming = lastInput.duration + "t " + Timings.HH.getName();
             } else if (!lastInput.jumping) {
                 if (currentInput.sprinting) {
-                    lastTiming = "Jam";
+                    lastTiming = Timings.JAM.getName();
                 } else if (currentInput.forwardMove < 0f && currentInput.strafeMove == 0f) {
-                    lastTiming = "BwJam";
+                    lastTiming = Timings.BWJAM.getName();
                 } else {
-                    lastTiming = "WalkJam";
+                    lastTiming = Timings.WALKJAM.getName();
                 }
             } else if (currentInput.isMoving() && !lastInput.isMoving()) {
-                lastTiming = "Pessi";
-            } else if (Objects.equals(lastTiming, "WalkJam") && currentInput.sprinting
-                    && currentInput.forwardMove > 0f) {
-                lastTiming = "FMM";
+                lastTiming = Timings.PESSI.getName();
+            } else if (Objects.equals(lastTiming, Timings.WALKJAM.getName())
+                    && currentInput.sprinting && currentInput.forwardMove > 0f) {
+                lastTiming = Timings.FMM.getName();
             }
         }
     }
