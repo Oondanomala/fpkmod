@@ -20,18 +20,21 @@ public class ParkourHandler {
      */
     public static double speedZ;
     /**
-     * The highest speed achieved on the X axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * The highest speed achieved on the X axis. Resets when the movement direction changes, or when
+     * {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is
+     * run.
      */
     public static double maxSpeedX;
     /**
-     * The highest speed achieved on the Y axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * The highest speed achieved on the Y axis. Resets when the movement direction changes, or when
+     * {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is
+     * run.
      */
     public static double maxSpeedY;
     /**
-     * The highest speed achieved on the Z axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * The highest speed achieved on the Z axis. Resets when the movement direction changes, or when
+     * {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is
+     * run.
      */
     public static double maxSpeedZ;
     /**
@@ -59,7 +62,8 @@ public class ParkourHandler {
     /**
      * The amount of grinds chained. Resets when a jump isn't a grind.
      *
-     * @see <a href="https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
+     * @see <a href=
+     *      "https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
      */
     public static int grinds;
     /**
@@ -75,7 +79,8 @@ public class ParkourHandler {
      */
     public static ArrayList<Input> inputs = new ArrayList<>();
 
-    static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
+    static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState,
+            boolean isJumpTick) {
         // Speed
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
@@ -84,17 +89,20 @@ public class ParkourHandler {
         // Max Speed
         // TODO: Reset on stop option
         if (speedX != 0) {
-            if (Math.abs(speedX) > Math.abs(maxSpeedX) || Math.signum(speedX) != Math.signum(maxSpeedX)) {
+            if (Math.abs(speedX) > Math.abs(maxSpeedX)
+                    || Math.signum(speedX) != Math.signum(maxSpeedX)) {
                 maxSpeedX = speedX;
             }
         }
         if (speedY != 0) {
-            if (Math.abs(speedY) > Math.abs(maxSpeedY) || Math.signum(speedY) != Math.signum(maxSpeedY)) {
+            if (Math.abs(speedY) > Math.abs(maxSpeedY)
+                    || Math.signum(speedY) != Math.signum(maxSpeedY)) {
                 maxSpeedY = speedY;
             }
         }
         if (speedZ != 0) {
-            if (Math.abs(speedZ) > Math.abs(maxSpeedZ) || Math.signum(speedZ) != Math.signum(maxSpeedZ)) {
+            if (Math.abs(speedZ) > Math.abs(maxSpeedZ)
+                    || Math.signum(speedZ) != Math.signum(maxSpeedZ)) {
                 maxSpeedZ = speedZ;
             }
         }
@@ -136,7 +144,8 @@ public class ParkourHandler {
         }
 
         // Last 45
-        if (secondPastState.onGround && !pastState.onGround && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
+        if (secondPastState.onGround && !pastState.onGround && player.movementInput.moveStrafe != 0
+                && !pastState.isStrafing()) {
             last45 = player.rotationYaw - pastState.yaw;
         }
 
@@ -145,7 +154,8 @@ public class ParkourHandler {
         if (isJumpTick) {
             currentInput.jump();
             boolean strafingLeft = player.movementInput.moveStrafe > 0f;
-            if (pastState.isStrafing() && player.movementInput.moveStrafe != 0f && (strafingLeft != pastState.keyLeft)) {
+            if (pastState.isStrafing() && player.movementInput.moveStrafe != 0f
+                    && (strafingLeft != pastState.keyLeft)) {
                 sidestep = 0;
             } else {
                 sidestep = 1;
@@ -159,10 +169,13 @@ public class ParkourHandler {
         }
 
         // Inputs
-        if (!player.onGround) currentInput.jump();
+        if (!player.onGround)
+            currentInput.jump();
         currentInput.move(player.movementInput.moveForward, player.movementInput.moveStrafe);
-        if (player.movementInput.sneak) currentInput.sneak();
-        if (!player.isSprinting()) currentInput.walk();
+        if (player.movementInput.sneak)
+            currentInput.sneak();
+        if (!player.isSprinting())
+            currentInput.walk();
         Input lastInput = !inputs.isEmpty() ? inputs.get(inputs.size() - 1) : null;
         if (lastInput != null && lastInput.isEqual(currentInput)) {
             lastInput.duration++;
@@ -170,17 +183,21 @@ public class ParkourHandler {
             inputs.add(currentInput);
         }
         // TODO: Inputs size depends on inputs history instead of being a constant
-        if (inputs.size() > 3) inputs.remove(0);
-        if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround)) analyzeInputs();
+        if (inputs.size() > 3)
+            inputs.remove(0);
+        if (!(speedX * speedX + speedY * speedY + speedZ * speedZ <= 0 && player.onGround))
+            analyzeInputs();
     }
 
     private static void analyzeInputs() {
-        if (inputs.size() < 2) return;
+        if (inputs.size() < 2)
+            return;
         Input currentInput = inputs.get(inputs.size() - 1);
         Input lastInput = inputs.get(inputs.size() - 2);
         Input secondLastInput = inputs.size() > 2 ? inputs.get(inputs.size() - 3) : new Input();
         if (currentInput.jumping) {
-            if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping && (!secondLastInput.jumping || lastInput.duration > 1)) {
+            if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping
+                    && (!secondLastInput.jumping || lastInput.duration > 1)) {
                 lastTiming = lastInput.duration + "t HH";
             } else if (!lastInput.jumping) {
                 if (currentInput.sprinting) {
@@ -192,7 +209,8 @@ public class ParkourHandler {
                 }
             } else if (currentInput.isMoving() && !lastInput.isMoving()) {
                 lastTiming = "Pessi";
-            } else if (Objects.equals(lastTiming, "WalkJam") && currentInput.sprinting && currentInput.forwardMove > 0f) {
+            } else if (Objects.equals(lastTiming, "WalkJam") && currentInput.sprinting
+                    && currentInput.forwardMove > 0f) {
                 lastTiming = "FMM";
             }
         }
