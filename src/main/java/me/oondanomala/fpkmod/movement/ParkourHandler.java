@@ -77,7 +77,7 @@ public class ParkourHandler {
     /**
      * History of inputs to be later interpreted by the input history and last timing labels
      */
-    public static ArrayList<Input> inputs = new ArrayList<>();
+    public static ArrayList<PlayerState> inputs = new ArrayList<>();
 
     static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState,
             boolean isJumpTick) {
@@ -150,7 +150,7 @@ public class ParkourHandler {
         }
 
         // Sidestep
-        Input currentInput = new Input();
+        PlayerState currentInput = new PlayerState();
         if (isJumpTick) {
             currentInput.jump();
             boolean strafingLeft = player.movementInput.moveStrafe > 0f;
@@ -176,8 +176,8 @@ public class ParkourHandler {
             currentInput.sneak();
         if (!player.isSprinting())
             currentInput.walk();
-        Input lastInput = !inputs.isEmpty() ? inputs.get(inputs.size() - 1) : null;
-        if (lastInput != null && lastInput.isEqual(currentInput)) {
+        PlayerState lastInput = !inputs.isEmpty() ? inputs.get(inputs.size() - 1) : null;
+        if (lastInput != null && lastInput.isMovementEqual(currentInput)) {
             lastInput.duration++;
         } else {
             inputs.add(currentInput);
@@ -206,9 +206,10 @@ public class ParkourHandler {
     private static void analyzeInputs() {
         if (inputs.size() < 2)
             return;
-        Input currentInput = inputs.get(inputs.size() - 1);
-        Input lastInput = inputs.get(inputs.size() - 2);
-        Input secondLastInput = inputs.size() > 2 ? inputs.get(inputs.size() - 3) : new Input();
+        PlayerState currentInput = inputs.get(inputs.size() - 1);
+        PlayerState lastInput = inputs.get(inputs.size() - 2);
+        PlayerState secondLastInput =
+                inputs.size() > 2 ? inputs.get(inputs.size() - 3) : new PlayerState();
         if (currentInput.jumping) {
             if (lastInput.isMoving() && currentInput.isMoving() && !lastInput.jumping
                     && (!secondLastInput.jumping || lastInput.duration > 1)) {
