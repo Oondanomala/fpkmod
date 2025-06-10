@@ -121,7 +121,7 @@ public class ParkourHandler {
         }
 
         // Last 45
-        if (secondPastState.onGround && !pastState.onGround && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
+        if (pastState.isJumpTick && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
             last45 = player.rotationYaw - pastState.yaw;
         }
     }
