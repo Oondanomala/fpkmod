@@ -37,13 +37,11 @@ public class PlayerTickHandler {
         }
 
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        PlayerState currentState = getNewPlayerState(player, Minecraft.getMinecraft().gameSettings);
-        boolean isJumpTick = false;
+        boolean isJumpTick = pastState.onGround && !player.onGround && player.posY >= pastState.posY && player.movementInput.jump;
+        PlayerState currentState = getNewPlayerState(player, Minecraft.getMinecraft().gameSettings, isJumpTick);
 
-        // Player has jumped
-        if (pastState.onGround && !player.onGround && player.posY >= pastState.posY && player.movementInput.jump) {
+        if (isJumpTick) {
             lastJumpState = currentState;
-            isJumpTick = true;
         }
 
         // Player has landed
@@ -66,18 +64,23 @@ public class PlayerTickHandler {
         pastState = currentState;
     }
 
-    private PlayerState getNewPlayerState(EntityPlayer player, GameSettings settings) {
+    private PlayerState getNewPlayerState(EntityPlayer player, GameSettings settings, boolean isJumpTick) {
         return new PlayerState(
                 player.posX,
                 player.posY,
                 player.posZ,
                 player.rotationYaw,
+                player.rotationPitch,
                 player.getEntityBoundingBox(),
                 player.onGround,
+                isJumpTick,
                 settings.keyBindForward.isKeyDown(),
                 settings.keyBindBack.isKeyDown(),
                 settings.keyBindLeft.isKeyDown(),
-                settings.keyBindRight.isKeyDown()
+                settings.keyBindRight.isKeyDown(),
+                settings.keyBindJump.isKeyDown(),
+                settings.keyBindSprint.isKeyDown(),
+                settings.keyBindSneak.isKeyDown()
         );
     }
 }
