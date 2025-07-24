@@ -196,6 +196,10 @@ public class LandingBlock {
             Tuple<AxisAlignedBB, Vec3> landPos = getLandPos(pastState, secondPastState, landMode);
             lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond());
 
+            if (MathUtil.isPositive(lastOffset.combinedOffset)) {
+                AntiCP.INSTANCE.hasLanded();
+            }
+
             if (bestOffset == null || Double.compare(lastOffset.getAxisOffset(landAxis), bestOffset.getAxisOffset(landAxis)) > 0) {
                 if (!FPKMod.config.ignoreZeroOffsets || !MathUtil.isNegativeZero(lastOffset.combinedOffset)) {
                     bestOffset = lastOffset;

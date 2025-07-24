@@ -21,6 +21,8 @@ public class Config {
     public boolean mpkCommand;
     public boolean sendOffsetInChat;
     public boolean ignoreZeroOffsets;
+    public boolean enableAntiCP;
+    public int antiCPTime;
 
     public boolean sprintToggled;
     public boolean renderLandingBox;
@@ -93,6 +95,20 @@ public class Config {
                 false,
                 "Whether to not count -0 offsets as PBs."
         );
+        enableAntiCP = configuration.getBoolean(
+                "AntiCP",
+                Configuration.CATEGORY_CLIENT,
+                false,
+                "Whether to block right-clicks after landing for a specified amount of time."
+        );
+        antiCPTime = (int) (configuration.get(
+                Configuration.CATEGORY_CLIENT,
+                "AntiCP Time",
+                2d,
+                "How long to block right-clicks for, in seconds.",
+                0d,
+                20d
+        ).getDouble() * 1000);
 
         sprintToggled = configuration.get(Configuration.CATEGORY_CLIENT, "togglesprint", false).setShowInGui(false).getBoolean();
         renderLandingBox = configuration.get(Configuration.CATEGORY_CLIENT, "renderLB", true).setShowInGui(false).getBoolean();
@@ -112,6 +128,18 @@ public class Config {
      * @see #saveConfig()
      */
     public void setConfigOption(String optionName, int value) {
+        configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
+    }
+
+    /**
+     * Sets the provided config option to {@code value}.
+     * Does not save the configs.
+     *
+     * @param optionName The name of the config option
+     * @param value      The value to change it to
+     * @see #saveConfig()
+     */
+    public void setConfigOption(String optionName, double value) {
         configuration.getCategory(Configuration.CATEGORY_CLIENT).get(optionName).set(value);
     }
 
