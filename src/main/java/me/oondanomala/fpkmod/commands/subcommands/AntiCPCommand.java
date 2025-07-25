@@ -32,7 +32,7 @@ public class AntiCPCommand extends FPKSubCommand {
 
             FPKMod.config.antiCPTime = (int) (antiCPDuration * 1000);
             FPKMod.config.setConfigOption("AntiCP Time", antiCPDuration);
-            TextUtil.showChatMessage("Changed antiCP duration to " + antiCPDuration + " seconds.");
+            TextUtil.showChatMessage("Changed antiCP duration to " + TextUtil.formatDoubleExact(antiCPDuration) + " seconds.");
         }
         FPKMod.config.saveConfig();
     }
