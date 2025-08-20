@@ -44,6 +44,10 @@ public class PlayerState {
         this.keySneak = keySneak;
     }
 
+    public boolean isHoldingMovementKeys() {
+        return (keyForward ^ keyBackward) || (keyLeft ^ keyRight);
+    }
+
     /**
      * Returns <tt>true</tt> if either the left or right movement keys are pressed,
      * and <tt>false</tt> if none or both are pressed.

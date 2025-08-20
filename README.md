@@ -54,6 +54,7 @@ You can edit their position and visibility using `/fpk gui`.
 | Max Speed Y      | The highest speed achieved on the `Y` axis. Resets when the movement direction changes, or when `/fpk clearmaxspeed` is run |
 | Max Speed Z      | The highest speed achieved on the `Z` axis. Resets when the movement direction changes, or when `/fpk clearmaxspeed` is run |
 | Max Speed Vector | The [vector][vector] of the highest speed achieved, shown as magnitude/angle                                                |
+| Run Ticks        | The amount of ticks the player has been running on the ground for                                                           |
 | Last Input       | The current `WASD` input                                                                                                    |
 | Jump Input       | The `WASD` input on jump tick                                                                                               |
 | Last Turning     | The size of the turn made on the last tick                                                                                  |

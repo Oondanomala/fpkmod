@@ -59,8 +59,23 @@ public class ParkourHandler {
      * @see <a href="https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
      */
     public static int grinds;
+    /**
+     * The amount of ticks the player has been running on the ground for.
+     * Resets when the player stops running or leaves the ground.
+     */
+    public static int runTicks;
 
-    static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
+    static void update(EntityPlayerSP player, PlayerState currentState, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick, boolean isLandTick) {
+        // Run Ticks
+        if (!pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys()) {
+            runTicks = 0;
+        }
+        if (isLandTick) {
+            runTicks = 0;
+        } else if (currentState.isHoldingMovementKeys() && player.onGround) {
+            runTicks++;
+        }
+
         // Speed
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
