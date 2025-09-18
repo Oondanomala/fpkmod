@@ -79,7 +79,8 @@ public abstract class Label {
      * <p>
      * Should be used to load the config value in {@link #loadLabelConfig()}.
      *
-     * @param name The name of the config option, shown in GUIs
+     * @param name         The name of the config option, shown in GUIs
+     * @param defaultValue The value to use if the config option did not already exist
      * @return The config value if it already exists, otherwise {@code defaultValue}
      */
     protected boolean addCustomConfig(String name, boolean defaultValue) {

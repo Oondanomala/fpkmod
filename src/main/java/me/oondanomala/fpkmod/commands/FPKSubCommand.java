@@ -64,6 +64,7 @@ public abstract class FPKSubCommand {
      * Called when the user presses tab while typing the subcommand arguments.
      *
      * @param args The subcommand arguments the user has already provided
+     * @implSpec The default implementation always returns an empty list.
      */
     public List<String> getTabCompletions(String[] args) {
         return Collections.emptyList();
@@ -71,9 +72,10 @@ public abstract class FPKSubCommand {
 
     /**
      * Gets the subcommand usage. This is shown to the user when the subcommand throws a {@link SyntaxErrorException}.
-     * <p>
-     * This <strong>must</strong> be overridden if the subcommand throws a {@link SyntaxErrorException}!
+     *
      * @return The subcommand usage
+     * @implSpec The default implementation always throws an {@link UnsupportedOperationException},
+     *           and <strong>must</strong> be overridden if the subcommand throws a {@link SyntaxErrorException}!
      */
     protected String getUsage() {
         throw new UnsupportedOperationException();
@@ -82,8 +84,8 @@ public abstract class FPKSubCommand {
     /**
      * Returns <tt>true</tt> if this command can be executed by right-clicking a sign
      * with the command and command arguments on it, <tt>false</tt> otherwise.
-     * <p>
-     * The default implementation always returns <tt>false</tt>.
+     *
+     * @implSpec The default implementation always returns <tt>false</tt>.
      */
     public boolean canSignExecute() {
         return false;

@@ -22,10 +22,23 @@ public final class TextUtil {
     private TextUtil() {
     }
 
+    /**
+     * Shows the given message in the chat.
+     * The message will be prefixed with the configured prefix.
+     *
+     * @param message The message to show
+     */
     public static void showChatMessage(String message) {
         showChatMessage(message, true);
     }
 
+    /**
+     * Shows the given message in chat,
+     * with an optional prefix.
+     *
+     * @param message The message to show
+     * @param prefix  Whether to prefix the message
+     */
     public static void showChatMessage(String message, boolean prefix) {
         if (Minecraft.getMinecraft().thePlayer == null) return;
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(prefix ? assembleText(FPKMod.config.prefix, message) : message));
