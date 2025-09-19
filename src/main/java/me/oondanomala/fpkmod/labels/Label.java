@@ -49,6 +49,24 @@ public abstract class Label {
         draw(false);
     }
 
+    /**
+     * Draws the label to the screen, if it is used.
+     * <p>
+     * Subclasses should rarely need to override this,
+     * and instead should draw themselves in {@link #drawLabel(boolean)}.
+     *
+     * @param showDisabled Whether to draw the label if it's disabled.
+     */
+    public void draw(boolean showDisabled) {
+        if (isUsed) {
+            if (isEnabled) {
+                drawLabel(true);
+            } else if (showDisabled) {
+                drawLabel(false);
+            }
+        }
+    }
+
     public void drawSelectionBox(int alpha) {
         Gui.drawRect(
                 posX,
@@ -135,9 +153,11 @@ public abstract class Label {
     public abstract int getHeight();
 
     /**
-     * Draws the label to the screen, if it is used.
+     * Draws the label to the screen.
+     * Will only be called if the label should be drawn.
      *
-     * @param showDisabled Whether to draw the label if it's disabled.
+     * @param drawEnabled Whether to draw the label in its enabled state or its disabled state
+     * @see me.oondanomala.fpkmod.util.TextUtil#formatAsDisabled(String)
      */
-    public abstract void draw(boolean showDisabled);
+    protected abstract void drawLabel(boolean drawEnabled);
 }

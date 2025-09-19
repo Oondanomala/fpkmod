@@ -35,17 +35,14 @@ public abstract class TextLabel extends Label {
 
     /**
      * {@inheritDoc}
-     * If {@code showDisabled} is <tt>true</tt> it will be rendered with strikethrough and gray text when disabled,
-     * otherwise it won't be rendered at all.
+     * If {@code drawEnabled} is <tt>false</tt> it will be rendered with strikethrough and gray text.
      */
     @Override
-    public void draw(boolean showDisabled) {
-        if (isUsed) {
-            if (isEnabled) {
-                drawLabelText(TextUtil.assembleText(name, getLabelText(), ": "));
-            } else if (showDisabled) {
-                drawLabelText(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
-            }
+    public final void drawLabel(boolean drawEnabled) {
+        if (drawEnabled) {
+            drawLabelText(TextUtil.assembleText(name, getLabelText(), ": "));
+        } else {
+            drawLabelText(TextUtil.formatAsDisabled(name + ": " + getLabelText()));
         }
     }
 

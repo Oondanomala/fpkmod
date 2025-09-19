@@ -42,19 +42,9 @@ public class LabelKeystrokes extends Label {
     }
 
     @Override
-    public void draw(boolean showDisabled) {
-        if (isUsed) {
-            if (isEnabled) {
-                drawKeys(true);
-            } else if (showDisabled) {
-                drawKeys(false);
-            }
-        }
-    }
-
-    private void drawKeys(boolean isEnabled) {
+    public void drawLabel(boolean drawEnabled) {
         for (KeystrokeKey key : keys) {
-            key.draw(posX + key.offsetX, posY + key.offsetY, isEnabled);
+            key.draw(posX + key.offsetX, posY + key.offsetY, drawEnabled);
         }
     }
 }
