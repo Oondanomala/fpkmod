@@ -3,7 +3,7 @@ package me.oondanomala.fpkmod.movement;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 // Better class name?
-public class ParkourHandler {
+public final class ParkourHandler {
     /**
      * The player speed on the X axis.
      */
@@ -64,6 +64,9 @@ public class ParkourHandler {
      * Resets when the player stops running or leaves the ground.
      */
     public static int runTicks;
+
+    private ParkourHandler() {
+    }
 
     static void update(EntityPlayerSP player, PlayerState currentState, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick, boolean isLandTick) {
         // Run Ticks
