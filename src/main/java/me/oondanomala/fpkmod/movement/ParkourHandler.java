@@ -18,17 +18,20 @@ public final class ParkourHandler {
     public static double speedZ;
     /**
      * The highest speed achieved on the X axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedX;
     /**
      * The highest speed achieved on the Y axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedY;
     /**
      * The highest speed achieved on the Z axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedZ;
     /**
@@ -79,13 +82,20 @@ public final class ParkourHandler {
             runTicks++;
         }
 
+        // Clear Max Speed On Stop
+        boolean startedMoving = !pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys() && speedX == 0 && speedY == 0 && speedZ == 0 && pastState.onGround;
+        if (FPKMod.config.clearMaxSpeedOnStop && startedMoving) {
+            maxSpeedX = 0;
+            maxSpeedY = 0;
+            maxSpeedZ = 0;
+        }
+
         // Speed
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
         speedZ = player.posZ - pastState.posZ;
 
         // Max Speed
-        // TODO: Reset on stop option
         if (speedX != 0) {
             if (Math.abs(speedX) > Math.abs(maxSpeedX) || Math.signum(speedX) != Math.signum(maxSpeedX)) {
                 maxSpeedX = speedX;
