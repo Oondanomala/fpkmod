@@ -9,12 +9,14 @@ public class LandOffset {
     public final double zOffset;
     public final double combinedOffset;
 
-    public LandOffset(AxisAlignedBB playerBB, Vec3 playerPos, AxisAlignedBB landingBox, AxisAlignedBB wallBox, boolean box) {
+    // TODO: Add a way to distinguish between land offsets and wall offsets
+    //  This is useful for small ZNeo landings for example, where you want to be able to tell whether you overshot or undershot
+    public LandOffset(AxisAlignedBB playerBB, AxisAlignedBB playerWallBB, Vec3 playerPos, AxisAlignedBB landingBox, AxisAlignedBB wallBox, boolean box) {
         double landOffsetX = box ? getXOffset(landingBox, playerPos) : getXOffset(landingBox, playerBB);
         double landOffsetZ = box ? getZOffset(landingBox, playerPos) : getZOffset(landingBox, playerBB);
 
-        this.xOffset = Math.min(landOffsetX, getWallXOffset(wallBox, playerBB));
-        this.zOffset = Math.min(landOffsetZ, getWallZOffset(wallBox, playerBB));
+        this.xOffset = Math.min(landOffsetX, getWallXOffset(wallBox, playerWallBB));
+        this.zOffset = Math.min(landOffsetZ, getWallZOffset(wallBox, playerWallBB));
         this.combinedOffset = getCombinedOffset();
     }
 

@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Tuple;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -193,8 +192,7 @@ public class LandingBlock {
      */
     public void update(PlayerState pastState, PlayerState secondPastState) {
         if (canLand()) {
-            Tuple<AxisAlignedBB, Vec3> landPos = getLandPos(pastState, secondPastState, landMode);
-            lastOffset = getLandOffset(landPos.getFirst(), landPos.getSecond());
+            lastOffset = getLandOffset(pastState, secondPastState, landMode);
 
             if (MathUtil.isPositive(lastOffset.combinedOffset)) {
                 AntiCP.INSTANCE.hasLanded();
@@ -248,47 +246,57 @@ public class LandingBlock {
     }
 
     /**
-     * Gets the player's bounding box and position at the tick (or a combination of multiple ticks)
-     * appropriate for the provided landing mode.
+     * Gets the land offset that is appropriate for the provided landing mode.
      *
      * @param pastState       The player's state on the previous tick
      * @param secondPastState The player's state on the tick before the previous tick
      * @param landMode        The landing mode to use
-     * @return A tuple containing the player's bounding box and position vector appropriate for the provided landing mode
+     * @return The land offset appropriate for the provided landing mode
      */
-    private Tuple<AxisAlignedBB, Vec3> getLandPos(PlayerState pastState, PlayerState secondPastState, LandMode landMode) {
+    private LandOffset getLandOffset(PlayerState pastState, PlayerState secondPastState, LandMode landMode) {
         AxisAlignedBB playerBB;
+        AxisAlignedBB playerWallBB;
         Vec3 playerVec;
         switch (landMode) {
             case LAND:
                 playerBB = pastState.boundingBox;
+                playerWallBB = playerBB;
                 playerVec = pastState.getPositionVec();
                 break;
             case ZNEO:
-                // TODO: Whatever cyv is doing with Neo & Landing (neoAndNormal). Call it Neo or Landing?
                 AxisAlignedBB pastTickBB = pastState.boundingBox;
                 AxisAlignedBB secondPastTickBB = secondPastState.boundingBox;
-                playerBB = new AxisAlignedBB(pastTickBB.minX, secondPastTickBB.minY, secondPastTickBB.minZ, pastTickBB.maxX, secondPastTickBB.maxY, secondPastTickBB.maxZ);
-                playerVec = new Vec3(pastState.posX, secondPastState.posY, secondPastState.posZ);
+                playerBB = pastTickBB;
+                playerWallBB = new AxisAlignedBB(pastTickBB.minX, secondPastTickBB.minY, secondPastTickBB.minZ, pastTickBB.maxX, secondPastTickBB.maxY, secondPastTickBB.maxZ);
+                playerVec = pastState.getPositionVec();
                 break;
             case ENTER:
             case HIT:
                 EntityPlayer player = Minecraft.getMinecraft().thePlayer;
                 playerBB = player.getEntityBoundingBox();
+                playerWallBB = playerBB;
                 playerVec = player.getPositionVector();
                 break;
             default:
                 // Java 8 switch statements suck.
                 throw new IllegalStateException();
         }
-        return new Tuple<>(playerBB, playerVec);
+        return calculateLandOffset(playerBB, playerWallBB, playerVec);
     }
 
-    private LandOffset getLandOffset(AxisAlignedBB playerBB, Vec3 playerPos) {
+    /**
+     * Calculates a new land offset based on the provided player positions.
+     *
+     * @param playerBB     The player bounding box used for land offset calculation
+     * @param playerWallBB The player bounding box used for wall offset calculation
+     * @param playerPos    The player position vector used for box mode land offset calculation
+     * @return The new land offset
+     */
+    private LandOffset calculateLandOffset(AxisAlignedBB playerBB, AxisAlignedBB playerWallBB, Vec3 playerPos) {
         LandOffset offset = null;
         for (int i = 0; i < landingBoxes.length; i++) {
             if (canLandOnBox(landingBoxes[i])) {
-                LandOffset newOffset = new LandOffset(playerBB, playerPos, landingBoxes[i], wallBoxes[i], boxMode);
+                LandOffset newOffset = new LandOffset(playerBB, playerWallBB, playerPos, landingBoxes[i], wallBoxes[i], boxMode);
 
                 if (offset == null) {
                     offset = newOffset;
