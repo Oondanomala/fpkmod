@@ -318,13 +318,13 @@ public class LandingBlock {
         renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, boxMode);
     }
 
-    public void cycleLandMode() {
+    public void cycleLandMode(boolean forward) {
         LandMode[] values = LandMode.values();
-        landMode = values[(landMode.ordinal() + 1) % values.length];
+        landMode = values[(landMode.ordinal() + values.length + (forward ? 1 : -1)) % values.length];
     }
 
-    public void cycleAxis() {
+    public void cycleAxis(boolean forward) {
         LandAxis[] values = LandAxis.values();
-        landAxis = values[(landAxis.ordinal() + 1) % values.length];
+        landAxis = values[(landAxis.ordinal() + values.length + (forward ? 1 : -1)) % values.length];
     }
 }

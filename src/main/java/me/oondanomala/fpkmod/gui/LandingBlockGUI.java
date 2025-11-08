@@ -56,9 +56,9 @@ public class LandingBlockGUI extends GuiScreen {
         if (landingBlock != null) {
             if (button.id == 0) {
                 // TODO: Maybe clear pb when you do this? (config option?)
-                landingBlock.cycleLandMode();
+                landingBlock.cycleLandMode(!GuiScreen.isShiftKeyDown());
             } else if (button.id == 1) {
-                landingBlock.cycleAxis();
+                landingBlock.cycleAxis(!GuiScreen.isShiftKeyDown());
             } else if (button.id == 4) {
                 landingBlock.recalculateWalls();
             }
