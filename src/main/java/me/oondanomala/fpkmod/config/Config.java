@@ -72,7 +72,7 @@ public class Config {
                 "MPK Command",
                 true,
                 "Whether to create the \"mpk\" alias to the \"fpk\" command."
-        ).setRequiresMcRestart(true).getBoolean();
+        ).setRequiresMcRestart(true).setRequiresWorldRestart(false).getBoolean();
         sendOffsetInChat = getBooleanConfig(
                 "Send Offsets In Chat",
                 "Whether to send the land offsets in chat when landing on a landing block.",
