@@ -68,6 +68,7 @@ public class LabelManager {
                 new LabelLastInput(),
                 new LabelJumpInput(),
                 new LabelKeystrokes(),
+                new LabelLastSidestep(),
                 // Turn
                 new LabelLastTurning(),
                 new LabelPreturn(),
