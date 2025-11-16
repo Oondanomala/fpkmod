@@ -229,7 +229,7 @@ public class LandingBlock {
     private boolean canLand(PlayerState pastTick) {
         if (condBox.isVecInXZ(Minecraft.getMinecraft().thePlayer.getPositionVector())) {
             for (AxisAlignedBB landingBox : landingBoxes) {
-                if (canLandOnBox(landingBox)) {
+                if (canLandOnBox(landingBox, pastTick)) {
                     return true;
                 }
             }
@@ -237,7 +237,7 @@ public class LandingBlock {
         return false;
     }
 
-    private boolean canLandOnBox(AxisAlignedBB landingBox) {
+    private boolean canLandOnBox(AxisAlignedBB landingBox, PlayerState pastTick) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         AxisAlignedBB playerBB = player.getEntityBoundingBox();
 
