@@ -37,6 +37,7 @@ public class LandingBlock {
     public LandAxis landAxis;
     public LandMode landMode;
     private final boolean boxMode;
+    public static boolean veryHackyButItWorksForNow_ceiling;
 
     public LandingBlock(BlockPos position, LandMode landMode, LandAxis landAxis, boolean box) {
         //this.position = position;
@@ -191,7 +192,7 @@ public class LandingBlock {
      * @param secondPastState The player's state on the tick before the previous tick
      */
     public void update(PlayerState pastState, PlayerState secondPastState) {
-        if (canLand()) {
+        if (canLand(pastState)) {
             lastOffset = getLandOffset(pastState, secondPastState, landMode);
 
             if (MathUtil.isPositive(lastOffset.combinedOffset)) {
@@ -225,7 +226,7 @@ public class LandingBlock {
      * and if {@link #canLandOnBox(AxisAlignedBB)} is <tt>true</tt> for at least one of the {@link #landingBoxes},
      * <tt>false</tt> otherwise.
      */
-    private boolean canLand() {
+    private boolean canLand(PlayerState pastTick) {
         if (condBox.isVecInXZ(Minecraft.getMinecraft().thePlayer.getPositionVector())) {
             for (AxisAlignedBB landingBox : landingBoxes) {
                 if (canLandOnBox(landingBox)) {
@@ -238,8 +239,12 @@ public class LandingBlock {
 
     private boolean canLandOnBox(AxisAlignedBB landingBox) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        AxisAlignedBB playerBB = player.getEntityBoundingBox();
+
         if (landMode == LandMode.ENTER) {
             return player.posY < landingBox.maxY && player.posY >= landingBox.minY && player.posY < player.lastTickPosY;
+        } else if (veryHackyButItWorksForNow_ceiling) {
+            return playerBB.maxY >= landingBox.minY && pastTick.boundingBox.maxY < landingBox.minY;
         } else {
             return player.posY <= landingBox.maxY && player.lastTickPosY > landingBox.maxY;
         }
@@ -281,7 +286,7 @@ public class LandingBlock {
                 // Java 8 switch statements suck.
                 throw new IllegalStateException();
         }
-        return calculateLandOffset(playerBB, playerWallBB, playerVec);
+        return calculateLandOffset(playerBB, playerWallBB, playerVec, pastState);
     }
 
     /**
@@ -292,10 +297,10 @@ public class LandingBlock {
      * @param playerPos    The player position vector used for box mode land offset calculation
      * @return The new land offset
      */
-    private LandOffset calculateLandOffset(AxisAlignedBB playerBB, AxisAlignedBB playerWallBB, Vec3 playerPos) {
+    private LandOffset calculateLandOffset(AxisAlignedBB playerBB, AxisAlignedBB playerWallBB, Vec3 playerPos, PlayerState pastState) {
         LandOffset offset = null;
         for (int i = 0; i < landingBoxes.length; i++) {
-            if (canLandOnBox(landingBoxes[i])) {
+            if (canLandOnBox(landingBoxes[i], pastState)) {
                 LandOffset newOffset = new LandOffset(playerBB, playerWallBB, playerPos, landingBoxes[i], wallBoxes[i], boxMode);
 
                 if (offset == null) {
