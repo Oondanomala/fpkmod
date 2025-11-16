@@ -35,6 +35,7 @@ public class SetLBCommand extends FPKSubCommand {
         LandMode landMode = LandMode.LAND;
         LandAxis axis = LandAxis.BOTH;
         boolean box = false;
+        boolean ceiling = false;
 
         int argIndex = 0;
         if (args.length > 0) {
@@ -80,6 +81,8 @@ public class SetLBCommand extends FPKSubCommand {
                 float absYaw = Math.abs(MathHelper.wrapAngleTo180_float(Minecraft.getMinecraft().thePlayer.rotationYaw));
                 axis = (absYaw > 45 && absYaw < 135) ? LandAxis.X : LandAxis.Z;
                 setAxis = true;
+            } else if (arg.equals("ceil")) {
+                ceiling = true;
             } else {
                 throw new SyntaxErrorException();
             }
@@ -95,7 +98,8 @@ public class SetLBCommand extends FPKSubCommand {
             landMode = LandMode.ENTER;
             box = true;
         }
-
+        
+        LandingBlock.veryHackyButItWorksForNow_ceiling = ceiling;
         LBManager.addLandingBlock(new LandingBlock(pos, landMode, axis, box));
         TextUtil.showChatMessage("Set landing block.");
     }
@@ -189,7 +193,7 @@ public class SetLBCommand extends FPKSubCommand {
 
     @Override
     protected String getUsage() {
-        return "[target|below|x y z] [land|zneo|enter|hit] [box] [x|z|~]";
+        return "[target|below|x y z] [land|zneo|enter|hit] [box] [ceil] [x|z|~]";
     }
 
     @Override
