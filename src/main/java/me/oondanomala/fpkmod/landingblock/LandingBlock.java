@@ -214,8 +214,6 @@ public class LandingBlock {
                 if (landAxis == LandAxis.BOTH || landAxis == LandAxis.Z) {
                     TextUtil.showChatMessage(EnumChatFormatting.BOLD + "Z Offset" + EnumChatFormatting.RESET + ": " + TextUtil.formatDouble(lastOffset.zOffset));
                 }
-                // TODO: Remove this once offset labels are implemented
-                TextUtil.showChatMessage("Both: " + TextUtil.formatDouble(lastOffset.combinedOffset));
             }
         }
     }
