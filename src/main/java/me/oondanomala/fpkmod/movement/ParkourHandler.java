@@ -1,5 +1,6 @@
 package me.oondanomala.fpkmod.movement;
 
+import me.oondanomala.fpkmod.FPKMod;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 // Better class name?
@@ -71,7 +72,7 @@ public final class ParkourHandler {
     private ParkourHandler() {
     }
 
-    static void update(EntityPlayerSP player, PlayerState currentState, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick, boolean isLandTick) {
+    static void update(EntityPlayerSP player, PlayerState currentState, PlayerState pastState, PlayerState secondPastState, boolean isLandTick) {
         // Run Ticks
         if (!pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys()) {
             runTicks = 0;
@@ -114,7 +115,7 @@ public final class ParkourHandler {
 
         // Airtime & Tier
         if (pastState.onGround && !player.onGround) {
-            if (isJumpTick) {
+            if (currentState.isJumpTick) {
                 airtime = 1;
                 tier = 11;
             } else {
@@ -131,7 +132,7 @@ public final class ParkourHandler {
             tier = 0;
         }
 
-        if (isJumpTick) {
+        if (currentState.isJumpTick) {
             // Grind
             // TODO: Add stairboosts?
             if (player.posY == pastState.posY) {

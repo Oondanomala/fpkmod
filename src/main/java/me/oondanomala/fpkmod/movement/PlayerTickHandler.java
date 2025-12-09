@@ -59,7 +59,7 @@ public class PlayerTickHandler {
         // Landing Blocks
         LBManager.updateLandingBlocks(pastState, secondPastState);
         // ParkourHandler
-        ParkourHandler.update(player, currentState, pastState, secondPastState, isJumpTick, isLandTick);
+        ParkourHandler.update(player, currentState, pastState, secondPastState, isLandTick);
 
         secondPastState = pastState;
         pastState = currentState;
