@@ -65,6 +65,7 @@ public class LabelManager {
                 new LabelMaxSpeedZ(),
                 new LabelMaxSpeedVector(),
                 // Input
+                new LabelRunTicks(),
                 new LabelLastInput(),
                 new LabelJumpInput(),
                 new LabelKeystrokes(),

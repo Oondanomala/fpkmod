@@ -45,7 +45,8 @@ public class PlayerTickHandler {
         }
 
         // Player has landed
-        if (player.onGround && !pastState.onGround && player.posY < pastState.posY) {
+        boolean isLandTick = player.onGround && !pastState.onGround && player.posY < pastState.posY;
+        if (isLandTick) {
             lastHitState = currentState;
             lastLandingState = pastState;
         }
@@ -58,7 +59,7 @@ public class PlayerTickHandler {
         // Landing Blocks
         LBManager.updateLandingBlocks(pastState, secondPastState);
         // ParkourHandler
-        ParkourHandler.update(player, pastState, secondPastState, isJumpTick);
+        ParkourHandler.update(player, currentState, pastState, secondPastState, isLandTick);
 
         secondPastState = pastState;
         pastState = currentState;

@@ -19,6 +19,7 @@ public class Config {
     public boolean enableLabels;
     public int doublePrecision;
     public boolean trimZeroes;
+    public boolean clearMaxSpeedOnStop;
     public boolean mpkCommand;
     public boolean sendOffsetInChat;
     public boolean ignoreZeroOffsets;
@@ -66,6 +67,11 @@ public class Config {
                 "Trim Zeroes",
                 "Whether to remove trailing zeroes from floating point numbers.",
                 false
+        );
+        clearMaxSpeedOnStop = getBooleanConfig(
+                "Clear Max Speed On Stop",
+                "Whether to reset the max speed when not moving.",
+                true
         );
         mpkCommand = configuration.get(
                 Configuration.CATEGORY_CLIENT,

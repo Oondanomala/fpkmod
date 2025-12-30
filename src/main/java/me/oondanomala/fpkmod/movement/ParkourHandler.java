@@ -1,9 +1,10 @@
 package me.oondanomala.fpkmod.movement;
 
+import me.oondanomala.fpkmod.FPKMod;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 // Better class name?
-public class ParkourHandler {
+public final class ParkourHandler {
     /**
      * The player speed on the X axis.
      */
@@ -18,17 +19,20 @@ public class ParkourHandler {
     public static double speedZ;
     /**
      * The highest speed achieved on the X axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedX;
     /**
      * The highest speed achieved on the Y axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedY;
     /**
      * The highest speed achieved on the Z axis. Resets when the movement direction changes,
-     * or when {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
+     * the player stops moving (and {@link me.oondanomala.fpkmod.config.Config#clearMaxSpeedOnStop clearMaxSpeedOnStop} is <tt>true</tt>),
+     * or {@link me.oondanomala.fpkmod.commands.subcommands.ClearMaxSpeedCommand /fpk clearmaxspeed} is run.
      */
     public static double maxSpeedZ;
     /**
@@ -59,15 +63,40 @@ public class ParkourHandler {
      * @see <a href="https://www.mcpk.wiki/wiki/Jump_Cancel#Ceiling_Variant">mcpk.wiki/wiki/Jump_Cancel</a>
      */
     public static int grinds;
+    /**
+     * The amount of ticks the player has been running on the ground for.
+     * Resets when the player stops running or leaves the ground.
+     */
+    public static int runTicks;
 
-    static void update(EntityPlayerSP player, PlayerState pastState, PlayerState secondPastState, boolean isJumpTick) {
+    private ParkourHandler() {
+    }
+
+    static void update(EntityPlayerSP player, PlayerState currentState, PlayerState pastState, PlayerState secondPastState, boolean isLandTick) {
+        // Run Ticks
+        if (!pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys()) {
+            runTicks = 0;
+        }
+        if (isLandTick) {
+            runTicks = 0;
+        } else if (currentState.isHoldingMovementKeys() && player.onGround) {
+            runTicks++;
+        }
+
+        // Clear Max Speed On Stop
+        boolean startedMoving = !pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys() && speedX == 0 && speedY == 0 && speedZ == 0 && pastState.onGround;
+        if (FPKMod.config.clearMaxSpeedOnStop && startedMoving) {
+            maxSpeedX = 0;
+            maxSpeedY = 0;
+            maxSpeedZ = 0;
+        }
+
         // Speed
         speedX = player.posX - pastState.posX;
         speedY = player.posY - pastState.posY;
         speedZ = player.posZ - pastState.posZ;
 
         // Max Speed
-        // TODO: Reset on stop option
         if (speedX != 0) {
             if (Math.abs(speedX) > Math.abs(maxSpeedX) || Math.signum(speedX) != Math.signum(maxSpeedX)) {
                 maxSpeedX = speedX;
@@ -86,7 +115,7 @@ public class ParkourHandler {
 
         // Airtime & Tier
         if (pastState.onGround && !player.onGround) {
-            if (isJumpTick) {
+            if (currentState.isJumpTick) {
                 airtime = 1;
                 tier = 11;
             } else {
@@ -103,7 +132,7 @@ public class ParkourHandler {
             tier = 0;
         }
 
-        if (isJumpTick) {
+        if (currentState.isJumpTick) {
             // Grind
             // TODO: Add stairboosts?
             if (player.posY == pastState.posY) {
