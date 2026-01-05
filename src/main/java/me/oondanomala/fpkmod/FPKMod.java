@@ -11,12 +11,17 @@ import me.oondanomala.fpkmod.landingblock.LBManager;
 import me.oondanomala.fpkmod.movement.PlayerTickHandler;
 import me.oondanomala.fpkmod.util.CommandUtil;
 import me.oondanomala.fpkmod.util.GuiUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Mod(
     modid = FPKMod.MODID,
@@ -32,6 +37,7 @@ public class FPKMod {
     public static final String NAME = "FPK Mod";
     public static final String VERSION = "0.0.1";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
+    public static Path modDirectory;
     public static Config config;
     public static FPKMainCommand fpkCommand;
 
@@ -42,6 +48,13 @@ public class FPKMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        try {
+            modDirectory = Minecraft.getMinecraft().mcDataDir.toPath().resolve("FPKMod");
+            Files.createDirectories(modDirectory);
+        } catch (IOException e) {
+            LOGGER.error("Failed to create mod directory, things will not go as planned!", e);
+        }
+
         registerEvents(
                 config,
                 new GuiUtil(),
