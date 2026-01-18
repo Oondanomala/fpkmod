@@ -3,9 +3,11 @@ package me.oondanomala.fpkmod.gui;
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.landingblock.LBManager;
 import me.oondanomala.fpkmod.landingblock.LandingBlock;
+import me.oondanomala.fpkmod.util.GuiUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
+import net.minecraftforge.fml.client.config.HoverChecker;
 
 // TODO: Multiple landing block management
 public class LandingBlockGUI extends GuiScreen {
@@ -14,6 +16,7 @@ public class LandingBlockGUI extends GuiScreen {
     private GuiButton renderLBButton;
     private GuiButton renderCondButton;
     private GuiButton recalculateWallsButton;
+    private HoverChecker landModeHoverChecker;
 
     @Override
     public void initGui() {
@@ -33,6 +36,7 @@ public class LandingBlockGUI extends GuiScreen {
         buttonList.add(renderCondButton = new GuiButtonExt(3, x, y, buttonWidth, buttonHeight, "Render Cond: ?"));
         y += buttonHeight + bigDivider;
         buttonList.add(recalculateWallsButton = new GuiButtonExt(4, x, y, buttonWidth, buttonHeight, "Recalculate Walls"));
+        landModeHoverChecker = new HoverChecker(landModeButton, 300);
 
         updateButtons();
     }
@@ -48,6 +52,37 @@ public class LandingBlockGUI extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
+        LandingBlock selectedLandingBlock = LBManager.getSelectedLandingBlock();
+        if (landModeHoverChecker.checkHover(mouseX, mouseY, landModeButton.enabled) && selectedLandingBlock != null) {
+            final int tooltipStartX = landModeButton.xPosition;
+            final int tooltipEndX = landModeButton.xPosition + landModeButton.width;
+            final int tooltipY = landModeButton.yPosition + landModeButton.height + 2;
+            switch (selectedLandingBlock.landMode) {
+                case LAND:
+                    GuiUtil.drawTooltip(
+                        "The default landing mode, and what you'll want to use most of the time.\n\nCalculates the offset using the landing tick.",
+                        tooltipStartX, tooltipEndX, tooltipY, fontRendererObj
+                    );
+                    break;
+                case ZNEO:
+                    GuiUtil.drawTooltip(
+                        "Useful for Z-facing neos where there is an X-facing blockage on landing (most of them). This is technical speak for a landing block which has a Z-facing wall next to it that you can slide off of (typically causing an offset of \"-0\").\n\nSimilar to Land, but uses the tick before the land tick for wall offsets on the Z axis.\n\nThis is because X-facing blockages require you to pass them a tick earlier than Z blockages.",
+                        tooltipStartX, tooltipEndX, tooltipY, fontRendererObj
+                    );
+                    break;
+                case ENTER:
+                    GuiUtil.drawTooltip(
+                        "Useful for climbing blocks like ladders or vines.\n\nSimilar to hit, but will consider every tick your Y position is inside the landing block (and is going down) for an offset (instead of only when it goes below it).",
+                        tooltipStartX, tooltipEndX, tooltipY, fontRendererObj
+                    );
+                    break;
+                case HIT:
+                    GuiUtil.drawTooltip(
+                        "Useful for slime bounces.\n\nCalculates the offset using the hit tick (the tick after land tick).",
+                        tooltipStartX, tooltipEndX, tooltipY, fontRendererObj
+                    );
+            }
+        }
     }
 
     @Override

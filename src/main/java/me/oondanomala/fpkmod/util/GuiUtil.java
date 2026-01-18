@@ -1,11 +1,14 @@
 package me.oondanomala.fpkmod.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.util.List;
 
 public final class GuiUtil {
     public static final int MOUSE_LEFT = 0;
@@ -30,6 +33,20 @@ public final class GuiUtil {
         int halfwayX = posX + Math.round(width / 2f);
         int halfwayY = posY + Math.round(height / 2f);
         Minecraft.getMinecraft().fontRendererObj.drawString(text, halfwayX - textWidth, halfwayY - textHeight, color);
+    }
+
+    public static void drawTooltip(String tooltipText, int startX, int endX, int posY, FontRenderer fontRenderer) {
+        final int maxTextWidth = endX - startX - 8;
+        List<String> textLines = fontRenderer.listFormattedStringToWidth(tooltipText, maxTextWidth);
+
+        int textHeight = textLines.size() * (fontRenderer.FONT_HEIGHT + 1) + 7;
+        drawTooltipBackground(startX, posY, endX, posY + textHeight);
+
+        int textY = posY + 4;
+        for (String line : textLines) {
+            fontRenderer.drawStringWithShadow(line, startX + 4, textY, -1);
+            textY += fontRenderer.FONT_HEIGHT + 1;
+        }
     }
 
     public static void drawTooltipBackground(int startX, int startY, int endX, int endY) {
