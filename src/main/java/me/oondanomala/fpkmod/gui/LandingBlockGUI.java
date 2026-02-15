@@ -2,6 +2,8 @@ package me.oondanomala.fpkmod.gui;
 
 import me.oondanomala.fpkmod.FPKMod;
 import me.oondanomala.fpkmod.landingblock.LBManager;
+import me.oondanomala.fpkmod.landingblock.LandAxis;
+import me.oondanomala.fpkmod.landingblock.LandMode;
 import me.oondanomala.fpkmod.landingblock.LandingBlock;
 import me.oondanomala.fpkmod.util.GuiUtil;
 import net.minecraft.client.gui.GuiButton;
@@ -11,8 +13,8 @@ import net.minecraftforge.fml.client.config.HoverChecker;
 
 // TODO: Multiple landing block management
 public class LandingBlockGUI extends GuiScreen {
-    private GuiButton landModeButton;
-    private GuiButton axisButton;
+    private EnumButton<LandMode> landModeButton;
+    private EnumButton<LandAxis> axisButton;
     private GuiButton renderLBButton;
     private GuiButton renderCondButton;
     private GuiButton recalculateWallsButton;
@@ -27,9 +29,9 @@ public class LandingBlockGUI extends GuiScreen {
         final int bigDivider = 6;
         int y = 10;
         int x = this.width - buttonWidth - 10;
-        buttonList.add(landModeButton = new GuiButtonExt(0, x, y, buttonWidth, buttonHeight, "Land Mode: Land"));
+        buttonList.add(landModeButton = new EnumButton<>(0, x, y, buttonWidth, buttonHeight, "Land Mode:", LandMode.LAND));
         y += buttonHeight + smallDivider;
-        buttonList.add(axisButton = new GuiButtonExt(1, x, y, buttonWidth, buttonHeight, "Axis: BOTH"));
+        buttonList.add(axisButton = new EnumButton<>(1, x, y, buttonWidth, buttonHeight, "Axis:", LandAxis.BOTH));
         y += buttonHeight + bigDivider;
         buttonList.add(renderLBButton = new GuiButtonExt(2, x, y, buttonWidth, buttonHeight, "Render LB: ?"));
         y += buttonHeight + smallDivider;
@@ -38,6 +40,15 @@ public class LandingBlockGUI extends GuiScreen {
         buttonList.add(recalculateWallsButton = new GuiButtonExt(4, x, y, buttonWidth, buttonHeight, "Recalculate Walls"));
         landModeHoverChecker = new HoverChecker(landModeButton, 300);
 
+        LandingBlock selectedLB = LBManager.getSelectedLandingBlock();
+        if (selectedLB != null) {
+            landModeButton.setCurrentValue(selectedLB.landMode);
+            axisButton.setCurrentValue(selectedLB.landAxis);
+        } else {
+            landModeButton.enabled = false;
+            axisButton.enabled = false;
+            recalculateWallsButton.enabled = false;
+        }
         updateButtons();
     }
 
@@ -52,12 +63,11 @@ public class LandingBlockGUI extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        LandingBlock selectedLandingBlock = LBManager.getSelectedLandingBlock();
-        if (landModeHoverChecker.checkHover(mouseX, mouseY, landModeButton.enabled) && selectedLandingBlock != null) {
+        if (landModeHoverChecker.checkHover(mouseX, mouseY, landModeButton.enabled)) {
             final int tooltipStartX = landModeButton.xPosition;
             final int tooltipEndX = landModeButton.xPosition + landModeButton.width;
             final int tooltipY = landModeButton.yPosition + landModeButton.height + 2;
-            switch (selectedLandingBlock.landMode) {
+            switch (landModeButton.getCurrentValue()) {
                 case LAND:
                     GuiUtil.drawTooltip(
                         "The default landing mode, and what you'll want to use most of the time.\n\nCalculates the offset using the landing tick.",
@@ -87,20 +97,20 @@ public class LandingBlockGUI extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
-        if (landingBlock != null) {
-            if (button.id == 0) {
+        LandingBlock selectedLB = LBManager.getSelectedLandingBlock();
+        if (selectedLB != null) {
+            if (button.id == landModeButton.id) {
                 // TODO: Maybe clear pb when you do this? (config option?)
-                landingBlock.cycleLandMode(!GuiScreen.isShiftKeyDown());
-            } else if (button.id == 1) {
-                landingBlock.cycleAxis(!GuiScreen.isShiftKeyDown());
-            } else if (button.id == 4) {
-                landingBlock.recalculateWalls();
+                selectedLB.setLandMode(landModeButton.getCurrentValue());
+            } else if (button.id == axisButton.id) {
+                selectedLB.setLandAxis(axisButton.getCurrentValue());
+            } else if (button.id == recalculateWallsButton.id) {
+                selectedLB.recalculateWalls();
             }
         }
-        if (button.id == 2) {
+        if (button.id == renderLBButton.id) {
             FPKMod.config.renderLandingBox = !FPKMod.config.renderLandingBox;
-        } else if (button.id == 3) {
+        } else if (button.id == renderCondButton.id) {
             FPKMod.config.renderCondBox = !FPKMod.config.renderCondBox;
         }
 
@@ -108,16 +118,6 @@ public class LandingBlockGUI extends GuiScreen {
     }
 
     private void updateButtons() {
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
-        if (landingBlock != null) {
-            landModeButton.displayString = "Land Mode: " + landingBlock.landMode;
-            axisButton.displayString = "Axis: " + landingBlock.landAxis;
-        } else {
-            landModeButton.enabled = false;
-            axisButton.enabled = false;
-            recalculateWallsButton.enabled = false;
-        }
-
         renderLBButton.displayString = "Render LB: " + (FPKMod.config.renderLandingBox ? "ON" : "OFF");
         renderCondButton.displayString = "Render Cond: " + (FPKMod.config.renderCondBox ? "ON" : "OFF");
     }

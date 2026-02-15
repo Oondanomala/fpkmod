@@ -164,14 +164,6 @@ public class LandingBlock {
         return box ? cond : cond.expand(player.width / 2, 0, player.width / 2);
     }
 
-    /**
-     * Sets the condition box to the provided coordinates.
-     * The {@code Y} values are taken from the previous condition box.
-     */
-    public void setCond(double minX, double minZ, double maxX, double maxZ) {
-        condBox = new AxisAlignedBB(minX, condBox.minY, minZ, maxX, condBox.maxY, maxZ);
-    }
-
     public void draw(float partialTicks) {
         GlStateManager.disableDepth();
         if (FPKMod.config.renderLandingBox) {
@@ -311,18 +303,24 @@ public class LandingBlock {
         return offset;
     }
 
+    /**
+     * Sets the condition box to the provided coordinates.
+     * The {@code Y} values are taken from the previous condition box.
+     */
+    public void setCond(double minX, double minZ, double maxX, double maxZ) {
+        condBox = new AxisAlignedBB(minX, condBox.minY, minZ, maxX, condBox.maxY, maxZ);
+    }
+
+    public void setLandMode(LandMode landMode) {
+        this.landMode = landMode;
+    }
+
+    public void setLandAxis(LandAxis axis) {
+        landAxis = axis;
+    }
+
     public void recalculateWalls() {
         wallBoxes = getWallBoxes(landingBoxes, boxMode);
         renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, boxMode);
-    }
-
-    public void cycleLandMode(boolean forward) {
-        LandMode[] values = LandMode.values();
-        landMode = values[(landMode.ordinal() + values.length + (forward ? 1 : -1)) % values.length];
-    }
-
-    public void cycleAxis(boolean forward) {
-        LandAxis[] values = LandAxis.values();
-        landAxis = values[(landAxis.ordinal() + values.length + (forward ? 1 : -1)) % values.length];
     }
 }
