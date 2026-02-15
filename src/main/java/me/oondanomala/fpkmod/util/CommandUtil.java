@@ -79,8 +79,8 @@ public final class CommandUtil {
      */
     public static boolean isValidDouble(String number) {
         if (number.startsWith("~")) {
+            if (number.length() == 1) return true;
             number = number.substring(1);
-            if (number.isEmpty()) return true;
         }
         try {
             double num = Double.parseDouble(number);

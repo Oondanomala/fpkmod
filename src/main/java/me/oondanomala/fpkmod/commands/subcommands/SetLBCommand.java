@@ -39,17 +39,16 @@ public class SetLBCommand extends FPKSubCommand {
 
         int argIndex = 0;
         if (args.length > 0) {
-            if (args[0].equals("target") || args[0].equals("t")) {
+            if (args[argIndex].equals("target")) {
                 // targetType is already TARGET, no need to do anything.
                 argIndex++;
-            } else if (args[0].equals("below") || args[0].equals("b")) {
+            } else if (args[argIndex].equals("below") || args[argIndex].equals("b")) {
                 targetType = TargetType.BELOW;
                 argIndex++;
+            } else if (args.length >= 3 && CommandUtil.isValidBlockPos(args, argIndex)) {
+                targetType = TargetType.COORDS;
+                argIndex += 3;
             }
-        }
-        if (args.length >= 3 && CommandUtil.isValidBlockPos(args, 0)) {
-            targetType = TargetType.COORDS;
-            argIndex += 3;
         }
 
         boolean setLandMode = false;
@@ -152,7 +151,7 @@ public class SetLBCommand extends FPKSubCommand {
             return Arrays.asList("target", "below", "land", "zneo", "enter", "hit", "box", "x", "z", "~");
         }
 
-        List<String> targets = Arrays.asList("target", "t", "below", "b");
+        List<String> targets = Arrays.asList("target", "below", "b");
         List<String> landModes = Arrays.asList("land", "zneo", "enter", "hit");
         List<String> axis = Arrays.asList("x", "z", "~");
 

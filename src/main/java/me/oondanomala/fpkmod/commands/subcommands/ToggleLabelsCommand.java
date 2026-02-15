@@ -6,7 +6,7 @@ import me.oondanomala.fpkmod.util.TextUtil;
 
 public class ToggleLabelsCommand extends FPKSubCommand {
     public ToggleLabelsCommand() {
-        super("toggleall", "Toggles visibility of all labels.", "Toggle all labels");
+        super("toggleall", "Toggles visibility of all labels.", "Toggle All Labels");
     }
 
     @Override
