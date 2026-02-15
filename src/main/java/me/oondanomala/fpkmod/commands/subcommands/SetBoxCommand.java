@@ -32,10 +32,16 @@ public class SetBoxCommand extends FPKSubCommand {
             throw new CommandException("No landing block set.");
         }
         landingBlock.setLandingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
+        TextUtil.showChatMessage("Set landing block landing box.");
     }
 
     @Override
     protected String getUsage() {
         return "<minX> <maxX> <minY> <maxY> <minZ> <maxZ>";
+    }
+
+    @Override
+    public boolean canSignExecute() {
+        return true;
     }
 }
