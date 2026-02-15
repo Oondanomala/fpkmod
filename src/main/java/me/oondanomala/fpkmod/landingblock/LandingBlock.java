@@ -24,7 +24,7 @@ public class LandingBlock {
     private static final Color COND_COLOR = new Color(240, 130, 0, 85);
 
     //private final BlockPos position;
-    private final AxisAlignedBB[] landingBoxes;
+    private AxisAlignedBB[] landingBoxes;
     private AxisAlignedBB[] wallBoxes;
     private AxisAlignedBB[] renderingBoxes;
     /**
@@ -36,7 +36,7 @@ public class LandingBlock {
     public LandOffset bestOffset;
     public LandAxis landAxis;
     public LandMode landMode;
-    private final boolean boxMode;
+    private boolean boxMode;
     public static boolean veryHackyButItWorksForNow_ceiling;
 
     public LandingBlock(BlockPos position, LandMode landMode, LandAxis landAxis, boolean box) {
@@ -171,6 +171,14 @@ public class LandingBlock {
      */
     public void setCond(double minX, double minZ, double maxX, double maxZ) {
         condBox = new AxisAlignedBB(minX, condBox.minY, minZ, maxX, condBox.maxY, maxZ);
+    }
+
+    public void setLandingBox(AxisAlignedBB landingBox) {
+        landingBoxes = new AxisAlignedBB[]{landingBox};
+        wallBoxes = new AxisAlignedBB[]{new AxisAlignedBB(Double.POSITIVE_INFINITY, Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN, Double.NEGATIVE_INFINITY)};
+        boxMode = true;
+        condBox = getCondBox(landingBoxes, true);
+        renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, true);
     }
 
     public void draw(float partialTicks) {
