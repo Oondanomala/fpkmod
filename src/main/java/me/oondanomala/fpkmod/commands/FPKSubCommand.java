@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implement this class to add a new subcommand to {@code /fpk}.
@@ -39,7 +40,7 @@ public abstract class FPKSubCommand {
      * @param keybindName The name of the keybind, or <tt>null</tt> for no keybind
      */
     protected FPKSubCommand(String name, String helpMessage, String keybindName) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
         this.helpMessage = helpMessage;
 
         if (keybindName == null) {
@@ -49,6 +50,16 @@ public abstract class FPKSubCommand {
         }
     }
 
+    /**
+     * Runs the subcommand with the provided arguments.
+     * <p>
+     * If the subcommand throws a {@link SyntaxErrorException},
+     * then the command's {@link #getUsage() usage} will be shown to the user.
+     * If it throws a {@link CommandException} then the exception message
+     * will be shown instead.
+     *
+     * @param args The arguments the subcommand will receive
+     */
     public final void run(String[] args) {
         try {
             internalRun(args);
@@ -82,8 +93,8 @@ public abstract class FPKSubCommand {
     }
 
     /**
-     * Returns <tt>true</tt> if this command can be executed by right-clicking a sign
-     * with the command and command arguments on it, <tt>false</tt> otherwise.
+     * Returns <tt>true</tt> if this subcommand can be executed by right-clicking a sign
+     * with the subcommand and subcommand arguments on it, <tt>false</tt> otherwise.
      *
      * @implSpec The default implementation always returns <tt>false</tt>.
      */
@@ -99,4 +110,15 @@ public abstract class FPKSubCommand {
      * @throws CommandException     When a generic error occurs in the command. The exception message will be shown in chat, without additional formatting
      */
     protected abstract void internalRun(String[] args) throws CommandException;
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof FPKSubCommand)) return false;
+        return name.equals(((FPKSubCommand) o).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
