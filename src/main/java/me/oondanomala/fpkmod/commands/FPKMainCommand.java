@@ -52,16 +52,15 @@ public class FPKMainCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        String[] lowercaseArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
-
-        if (lowercaseArgs.length == 0) {
-            subCommands.get("help").run(lowercaseArgs);
+        Arrays.setAll(args, i -> args[i].toLowerCase());
+        if (args.length == 0) {
+            subCommands.get("help").run(args);
         } else {
-            FPKSubCommand subCommand = subCommands.get(lowercaseArgs[0]);
+            FPKSubCommand subCommand = subCommands.get(args[0]);
             if (subCommand == null) {
                 TextUtil.showChatMessage("Unknown command. Try /fpk help.");
             } else {
-                subCommand.run(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length));
+                subCommand.run(Arrays.copyOfRange(args, 1, args.length));
             }
         }
     }
@@ -71,10 +70,10 @@ public class FPKMainCommand extends CommandBase {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, subCommands.keySet());
         } else {
+            Arrays.setAll(args, i -> args[i].toLowerCase());
             FPKSubCommand subCommand = subCommands.get(args[0]);
             if (subCommand != null) {
-                String[] lowercaseArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
-                return getListOfStringsMatchingLastWord(lowercaseArgs, subCommand.getTabCompletions(Arrays.copyOfRange(lowercaseArgs, 1, lowercaseArgs.length - 1)));
+                return getListOfStringsMatchingLastWord(args, subCommand.getTabCompletions(Arrays.copyOfRange(args, 1, args.length - 1)));
             }
         }
         return Collections.emptyList();
