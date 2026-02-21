@@ -6,12 +6,14 @@ on:
       - "README.md"
       - "LICENSE"
       - ".gitignore"
+      - ".editorconfig"
       - "versions.json"
   pull_request:
     paths-ignore:
       - "README.md"
       - "LICENSE"
       - ".gitignore"
+      - ".editorconfig"
       - "versions.json"
 
 permissions:
@@ -23,13 +25,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout source"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: "Setup Java"
         uses: actions/setup-java@v5
         with:
           distribution: "temurin"
-          java-version: "8"
+          java-version: "17"
 
       - name: "Setup Gradle"
         uses: gradle/actions/setup-gradle@v5
@@ -40,7 +42,7 @@ jobs:
         run: ./gradlew --no-daemon build
 
       - name: "Upload built mod JAR"
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: build
           path: build/libs/*.jar

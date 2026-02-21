@@ -1,23 +1,19 @@
-# idea
+# Gradle
+.gradle/
+build/
+!**/src/main/**/build/
+
+# IDEs
+/.vscode/
 /.idea/
-out/
+/out/
 *.ipr
 *.iws
 *.iml
 
-# eclipse
-/eclipse/
-bin/
-.settings/
-*.launch
-.metadata
-.classpath
-.project
-.factorypath
+# OS Files
+.DS_Store
+Thumbs.db
 
-# gradle
-/.gradle/
-/build/
-
-# minecraft
+# Minecraft
 /run/

@@ -1,10 +1,10 @@
 [
   {
-    "modid": "fpkmod",
-    "name": "FPK Mod",
+    "modid": "${modID}",
+    "name": "${modName}",
     "description": "An open source replacement for MPK Mod/CyvClient.\nAdds a bunch of useful parkour features to the game.",
     "version": "${version}",
-    "mcversion": "${mcversion}",
+    "mcversion": "${mcVersion}",
     "url": "https://github.com/Oondanomala/fpkmod",
     "updateUrl": "",
     "authorList": ["Oondanomala"],
