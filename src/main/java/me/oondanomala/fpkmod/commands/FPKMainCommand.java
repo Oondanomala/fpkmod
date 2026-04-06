@@ -52,10 +52,10 @@ public class FPKMainCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        Arrays.setAll(args, i -> args[i].toLowerCase());
         if (args.length == 0) {
             subCommands.get("help").run(args);
         } else {
+            Arrays.setAll(args, i -> args[i].toLowerCase());
             FPKSubCommand subCommand = subCommands.get(args[0]);
             if (subCommand == null) {
                 TextUtil.showChatMessage("Unknown command. Try /fpk help.");
