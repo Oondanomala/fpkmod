@@ -1,6 +1,7 @@
 package me.oondanomala.fpkmod.landingblock;
 
 import me.oondanomala.fpkmod.movement.PlayerState;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -35,8 +36,10 @@ public class LBManager {
 
     @SubscribeEvent
     public void renderLandingBlocks(RenderWorldLastEvent event) {
+        GlStateManager.disableDepth();
         for (LandingBlock landingBlock : landingBlocks) {
             landingBlock.draw(event.partialTicks);
         }
+        GlStateManager.enableDepth();
     }
 }

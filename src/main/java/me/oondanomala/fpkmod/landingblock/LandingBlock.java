@@ -7,7 +7,6 @@ import me.oondanomala.fpkmod.util.RenderUtil;
 import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -165,7 +164,6 @@ public class LandingBlock {
     }
 
     public void draw(float partialTicks) {
-        GlStateManager.disableDepth();
         if (FPKMod.config.renderLandingBox) {
             for (AxisAlignedBB landingBox : renderingBoxes) {
                 // Maybe render outlines too like cyv does?
@@ -175,7 +173,6 @@ public class LandingBlock {
         if (FPKMod.config.renderCondBox) {
             RenderUtil.drawBoundingBox(condBox, COND_COLOR, partialTicks);
         }
-        GlStateManager.enableDepth();
     }
 
     /**
