@@ -1,7 +1,7 @@
 plugins {
     idea
     java
-    id("gg.essential.loom") version "1.10.+"
+    id("gg.essential.loom") version "1.15.+"
 }
 
 val modGroup: String by project
