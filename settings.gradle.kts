@@ -16,4 +16,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "fpkmod"
+rootProject.name = "FPK Mod"

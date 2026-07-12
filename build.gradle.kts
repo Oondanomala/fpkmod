@@ -38,6 +38,7 @@ loom {
 repositories {
     mavenCentral()
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+    maven("https://nexus.gtnewhorizons.com/repository/public/")
 }
 
 dependencies {
@@ -45,12 +46,26 @@ dependencies {
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
 
-    // DevAuth
+    annotationProcessor("com.github.GTNewHorizons:jabel-javac-plugin:1.0.2-GTNH")
+        ?.because("Enables use of Java 17 syntax while running on Java 8")
+    compileOnly("com.github.GTNewHorizons:jabel-javac-plugin:1.0.2-GTNH")
+
     runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.1")
+        ?.because("Allows authenticating into a Minecraft account in dev")
 }
 
 sourceSets.main {
     output.setResourcesDir(sourceSets.main.flatMap { it.java.classesDirectory })
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    targetCompatibility = JavaVersion.VERSION_17.majorVersion
+    sourceCompatibility = JavaVersion.VERSION_17.majorVersion
+    options.release = 8
+
+    javaCompiler = javaToolchains.compilerFor {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 tasks {
