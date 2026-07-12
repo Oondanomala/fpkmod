@@ -28,6 +28,7 @@ import java.nio.file.Path;
     name = FPKMod.NAME,
     version = FPKMod.VERSION,
     acceptedMinecraftVersions = "1.8",
+    acceptableRemoteVersions = "*",
     clientSideOnly = true,
     guiFactory = "me.oondanomala.fpkmod.config.GuiFactory",
     updateJSON = "https://raw.githubusercontent.com/Oondanomala/fpkmod/master/versions.json"
