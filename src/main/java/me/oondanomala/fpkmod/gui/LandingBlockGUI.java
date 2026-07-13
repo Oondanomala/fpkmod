@@ -101,9 +101,9 @@ public class LandingBlockGUI extends GuiScreen {
         if (selectedLB != null) {
             if (button.id == landModeButton.id) {
                 // TODO: Maybe clear pb when you do this? (config option?)
-                selectedLB.setLandMode(landModeButton.getCurrentValue());
+                selectedLB.landMode = landModeButton.getCurrentValue();
             } else if (button.id == axisButton.id) {
-                selectedLB.setLandAxis(axisButton.getCurrentValue());
+                selectedLB.landAxis = axisButton.getCurrentValue();
             } else if (button.id == recalculateWallsButton.id) {
                 selectedLB.recalculateWalls();
             }

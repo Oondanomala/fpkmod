@@ -32,7 +32,7 @@ public class LBManager {
         landingBlocks.clear();
     }
 
-    public static void updateLandingBlocks(PlayerState pastState, PlayerState secondPastState) {
+    public static void update(PlayerState pastState, PlayerState secondPastState) {
         for (LandingBlock landingBlock : landingBlocks) {
             landingBlock.update(pastState, secondPastState);
         }

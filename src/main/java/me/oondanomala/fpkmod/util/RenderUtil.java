@@ -72,9 +72,6 @@ public final class RenderUtil {
     /**
      * Draws the provided axis aligned {@code boundingBox} in the world
      * in the provided {@code color}.
-     * <p>
-     * The box will render with depth disabled
-     * (it will be visible behind walls).
      *
      * @param boundingBox The bounding box to draw
      * @param color       The color of the bounding box

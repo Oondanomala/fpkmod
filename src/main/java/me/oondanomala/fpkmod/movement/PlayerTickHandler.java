@@ -27,7 +27,13 @@ public class PlayerTickHandler {
      */
     public static PlayerState lastHitState = new PlayerState();
 
+    /**
+     * The player state on the previous tick.
+     */
     private PlayerState pastState = new PlayerState();
+    /**
+     * The player state on the tick before {@link #pastState}.
+     */
     private PlayerState secondPastState = new PlayerState();
 
     @SubscribeEvent
@@ -57,7 +63,7 @@ public class PlayerTickHandler {
         }
 
         // Landing Blocks
-        LBManager.updateLandingBlocks(pastState, secondPastState);
+        LBManager.update(pastState, secondPastState);
         // ParkourHandler
         ParkourHandler.update(player, currentState, pastState, secondPastState, isLandTick);
 

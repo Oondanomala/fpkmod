@@ -308,14 +308,6 @@ public class LandingBlock {
         condBox = new AxisAlignedBB(minX, condBox.minY, minZ, maxX, condBox.maxY, maxZ);
     }
 
-    public void setLandMode(LandMode landMode) {
-        this.landMode = landMode;
-    }
-
-    public void setLandAxis(LandAxis axis) {
-        landAxis = axis;
-    }
-
     public void recalculateWalls() {
         wallBoxes = getWallBoxes(landingBoxes, boxMode);
         displayBoxes = getDisplayBoxes(landingBoxes, wallBoxes, boxMode);
