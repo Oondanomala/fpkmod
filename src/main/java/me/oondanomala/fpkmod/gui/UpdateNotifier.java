@@ -29,8 +29,7 @@ public class UpdateNotifier {
 
     @SubscribeEvent
     public void onMainMenuInit(GuiScreenEvent.InitGuiEvent.Post event) {
-        if (!(event.gui instanceof GuiMainMenu)) return;
-        GuiMainMenu mainMenu = (GuiMainMenu) event.gui;
+        if (!(event.gui instanceof GuiMainMenu mainMenu)) return;
 
         if (updateResult.status == ForgeVersion.Status.OUTDATED) {
             String updateString = TextUtil.assembleText("New " + FPKMod.NAME + " version available:", Objects.toString(updateResult.target));

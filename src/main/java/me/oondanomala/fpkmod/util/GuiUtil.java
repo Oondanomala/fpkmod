@@ -15,10 +15,25 @@ public final class GuiUtil {
     public static final int MOUSE_RIGHT = 1;
     private static GuiScreen guiToDisplay;
 
+    /**
+     * Queues the provided GUI to be displayed on the next
+     * {@link TickEvent.ClientTickEvent}.
+     *
+     * @param gui The GUI to display
+     */
     public static void displayGui(GuiScreen gui) {
         guiToDisplay = gui;
     }
 
+    /**
+     * Returns the int-packed ARGB color
+     * of the provided text color formatting code,
+     * using the provided alpha value.
+     *
+     * @param colorCode The text color code
+     * @param alpha     The alpha value used in the returned color
+     * @throws IllegalArgumentException If {@code alpha} is {@code < 0} or {@code > 255}
+     */
     public static int getRGBFromColorCode(char colorCode, int alpha) {
         if (alpha < 0 || alpha > 255) {
             throw new IllegalArgumentException("Alpha value must be between 0 and 255 (inclusive)");

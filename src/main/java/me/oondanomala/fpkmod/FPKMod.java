@@ -38,6 +38,7 @@ public class FPKMod {
     public static final String NAME = "FPK Mod";
     public static final String VERSION = "0.0.1";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
+
     public static Path modDirectory;
     public static Config config;
     public static FPKMainCommand fpkCommand;

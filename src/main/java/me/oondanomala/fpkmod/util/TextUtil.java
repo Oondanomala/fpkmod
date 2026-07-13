@@ -13,9 +13,10 @@ import java.util.Locale;
 
 public final class TextUtil {
     private static final DecimalFormat decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-    private static final DecimalFormat exactFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    private static final DecimalFormat exactFormat;
 
     static {
+        exactFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         exactFormat.setMaximumFractionDigits(Integer.MAX_VALUE);
     }
 

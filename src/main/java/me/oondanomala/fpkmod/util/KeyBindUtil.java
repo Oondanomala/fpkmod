@@ -24,22 +24,15 @@ public final class KeyBindUtil {
      * If the keybind is unbound, returns its description.
      */
     public static String getKeybindName(KeyBinding keybind) {
-        switch (keybind.getKeyCode()) {
-            case -100:
-                return "LMB";
-            case -99:
-                return "RMB";
-            case -98:
-                return "WMB";
-            case Keyboard.KEY_NONE:
-                return I18n.format(keybind.getKeyDescription());
-            case Keyboard.KEY_LCONTROL:
-                return "LCTRL";
-            case Keyboard.KEY_RCONTROL:
-                return "RCTRL";
-        }
-
-        return GameSettings.getKeyDisplayString(keybind.getKeyCode());
+        return switch (keybind.getKeyCode()) {
+            case -100 -> "LMB";
+            case -99 -> "RMB";
+            case -98 -> "WMB";
+            case Keyboard.KEY_NONE -> I18n.format(keybind.getKeyDescription());
+            case Keyboard.KEY_LCONTROL -> "LCTRL";
+            case Keyboard.KEY_RCONTROL -> "RCTRL";
+            default -> GameSettings.getKeyDisplayString(keybind.getKeyCode());
+        };
     }
 
     /**

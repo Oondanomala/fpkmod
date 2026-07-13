@@ -70,20 +70,14 @@ public class TeleportCommand extends FPKSubCommand {
         }
 
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        switch (args.length) {
-            case 0:
-                return Collections.singletonList(TextUtil.formatDoubleExact(player.posX));
-            case 1:
-                return Collections.singletonList(TextUtil.formatDoubleExact(player.posY));
-            case 2:
-                return Collections.singletonList(TextUtil.formatDoubleExact(player.posZ));
-            case 3:
-                return Collections.singletonList(TextUtil.formatAngleExact(player.rotationYaw));
-            case 4:
-                return Collections.singletonList(TextUtil.formatAngleExact(player.rotationPitch));
-        }
-
-        return Collections.emptyList();
+        return switch (args.length) {
+            case 0 -> Collections.singletonList(TextUtil.formatDoubleExact(player.posX));
+            case 1 -> Collections.singletonList(TextUtil.formatDoubleExact(player.posY));
+            case 2 -> Collections.singletonList(TextUtil.formatDoubleExact(player.posZ));
+            case 3 -> Collections.singletonList(TextUtil.formatAngleExact(player.rotationYaw));
+            case 4 -> Collections.singletonList(TextUtil.formatAngleExact(player.rotationPitch));
+            default -> Collections.emptyList();
+        };
     }
 
     @Override

@@ -88,14 +88,10 @@ public class LandOffset {
     }
 
     public double getAxisOffset(LandAxis axis) {
-        switch (axis) {
-            case BOTH:
-                return combinedOffset;
-            case X:
-                return xOffset;
-            case Z:
-                return zOffset;
-        }
-        throw new IllegalStateException();
+        return switch (axis) {
+            case BOTH -> combinedOffset;
+            case X -> xOffset;
+            case Z -> zOffset;
+        };
     }
 }
