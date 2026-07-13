@@ -24,7 +24,7 @@ public class SetCondCommand extends FPKSubCommand {
         double minZ = CommandUtil.parseDouble(args[2]);
         double maxZ = CommandUtil.parseDouble(args[3]);
 
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
+        LandingBlock landingBlock = LBManager.getSelectedLB();
         if (landingBlock == null) {
             throw new CommandException("No landing block set.");
         }

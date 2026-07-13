@@ -14,7 +14,7 @@ public class LabelZPB extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
+        LandingBlock landingBlock = LBManager.getSelectedLB();
         if (landingBlock == null || landingBlock.bestOffset == null) {
             return "N/A";
         }

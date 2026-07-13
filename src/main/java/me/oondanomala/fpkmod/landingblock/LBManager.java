@@ -8,6 +8,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages {@link LandingBlock}s.
+ * This class is not thread safe.
+ */
 public class LBManager {
     private static final List<LandingBlock> landingBlocks = new ArrayList<>();
 
@@ -18,7 +22,7 @@ public class LBManager {
     }
 
     // getCurrentLandingBlock ?
-    public static LandingBlock getSelectedLandingBlock() {
+    public static LandingBlock getSelectedLB() {
         if (landingBlocks.isEmpty()) return null;
         // TODO: Actually choose the selected one
         return landingBlocks.get(landingBlocks.size() - 1);

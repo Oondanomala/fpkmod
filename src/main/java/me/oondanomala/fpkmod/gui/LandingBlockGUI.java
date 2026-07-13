@@ -40,7 +40,7 @@ public class LandingBlockGUI extends GuiScreen {
         buttonList.add(recalculateWallsButton = new GuiButtonExt(4, x, y, buttonWidth, buttonHeight, "Recalculate Walls"));
         landModeHoverChecker = new HoverChecker(landModeButton, 300);
 
-        LandingBlock selectedLB = LBManager.getSelectedLandingBlock();
+        LandingBlock selectedLB = LBManager.getSelectedLB();
         if (selectedLB != null) {
             landModeButton.setCurrentValue(selectedLB.landMode);
             axisButton.setCurrentValue(selectedLB.landAxis);
@@ -97,7 +97,7 @@ public class LandingBlockGUI extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        LandingBlock selectedLB = LBManager.getSelectedLandingBlock();
+        LandingBlock selectedLB = LBManager.getSelectedLB();
         if (selectedLB != null) {
             if (button.id == landModeButton.id) {
                 // TODO: Maybe clear pb when you do this? (config option?)

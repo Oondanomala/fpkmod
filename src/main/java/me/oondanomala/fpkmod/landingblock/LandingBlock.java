@@ -25,7 +25,7 @@ public class LandingBlock {
     //private final BlockPos position;
     private final AxisAlignedBB[] landingBoxes;
     private AxisAlignedBB[] wallBoxes;
-    private AxisAlignedBB[] renderingBoxes;
+    private AxisAlignedBB[] displayBoxes;
     /**
      * The condition box.
      * Land offsets will only be counted if the player's {@code X} and {@code Z} coordinates are inside of this.
@@ -44,7 +44,7 @@ public class LandingBlock {
         this.boxMode = box;
         this.landingBoxes = getLandingBoxes(position, box);
         this.wallBoxes = getWallBoxes(landingBoxes, box);
-        this.renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, box);
+        this.displayBoxes = getDisplayBoxes(landingBoxes, wallBoxes, box);
         this.condBox = getCondBox(landingBoxes, box);
     }
 
@@ -125,16 +125,16 @@ public class LandingBlock {
         return wallBoxes;
     }
 
-    private AxisAlignedBB[] getRenderingBoxes(AxisAlignedBB[] landingBoxes, AxisAlignedBB[] wallBoxes, boolean box) {
+    private AxisAlignedBB[] getDisplayBoxes(AxisAlignedBB[] landingBoxes, AxisAlignedBB[] wallBoxes, boolean box) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        AxisAlignedBB[] renderingBoxes = new AxisAlignedBB[landingBoxes.length];
+        AxisAlignedBB[] displayBoxes = new AxisAlignedBB[landingBoxes.length];
         float playerOffset = box ? 0 : player.width / 2;
         float playerWallOffset = player.width / 2;
 
         for (int i = 0; i < landingBoxes.length; i++) {
             AxisAlignedBB landingBox = landingBoxes[i];
             AxisAlignedBB wallBox = wallBoxes[i];
-            renderingBoxes[i] = new AxisAlignedBB(
+            displayBoxes[i] = new AxisAlignedBB(
                     Math.max(landingBox.minX - playerOffset, wallBox.minX + playerWallOffset),
                     landingBox.minY,
                     Math.max(landingBox.minZ - playerOffset, wallBox.minZ + playerWallOffset),
@@ -143,7 +143,7 @@ public class LandingBlock {
                     Math.min(landingBox.maxZ + playerOffset, wallBox.maxZ - playerWallOffset)
             );
         }
-        return renderingBoxes;
+        return displayBoxes;
     }
 
     /**
@@ -165,7 +165,7 @@ public class LandingBlock {
 
     public void draw(float partialTicks) {
         if (FPKMod.config.renderLandingBox) {
-            for (AxisAlignedBB landingBox : renderingBoxes) {
+            for (AxisAlignedBB landingBox : displayBoxes) {
                 // Maybe render outlines too like cyv does?
                 RenderUtil.drawBoundingBox(landingBox, LANDING_BLOCK_COLOR, partialTicks);
             }
@@ -318,6 +318,6 @@ public class LandingBlock {
 
     public void recalculateWalls() {
         wallBoxes = getWallBoxes(landingBoxes, boxMode);
-        renderingBoxes = getRenderingBoxes(landingBoxes, wallBoxes, boxMode);
+        displayBoxes = getDisplayBoxes(landingBoxes, wallBoxes, boxMode);
     }
 }

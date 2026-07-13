@@ -14,7 +14,7 @@ public class LabelZOffset extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
+        LandingBlock landingBlock = LBManager.getSelectedLB();
         if (landingBlock == null || landingBlock.lastOffset == null) {
             return "N/A";
         }

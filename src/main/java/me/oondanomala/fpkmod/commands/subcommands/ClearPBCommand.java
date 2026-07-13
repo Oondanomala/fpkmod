@@ -14,7 +14,7 @@ public class ClearPBCommand extends FPKSubCommand {
     @Override
     protected void internalRun(String[] args) throws CommandException {
         // TODO: Multiple landing blocks
-        LandingBlock landingBlock = LBManager.getSelectedLandingBlock();
+        LandingBlock landingBlock = LBManager.getSelectedLB();
         if (landingBlock == null) {
             throw new CommandException("No landing block set.");
         }
