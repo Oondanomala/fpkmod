@@ -31,13 +31,24 @@ public abstract class Label {
     protected Label(String id, String name, int defaultPosX, int defaultPosY, boolean defaultUsed) {
         this.id = id;
         this.name = name;
-        configCategory = FPKMod.config.configuration.getCategory("labels" + Configuration.CATEGORY_SPLITTER + id);
+
+        Configuration config = FPKMod.config.configuration;
+        // Migrate old space separated label IDs to new underscore separated format
+        String newCategoryName = "labels" + Configuration.CATEGORY_SPLITTER + id;
+        String oldCategoryName = "labels" + Configuration.CATEGORY_SPLITTER + id.replace('_', ' ');
+        if (!config.hasCategory(newCategoryName) && config.hasCategory(oldCategoryName)) {
+            ConfigCategory oldCategory = config.getCategory(oldCategoryName);
+            ConfigCategory newCategory = config.getCategory(newCategoryName);
+            newCategory.putAll(oldCategory);
+            config.removeCategory(oldCategory);
+        }
+        configCategory = config.getCategory(newCategoryName);
 
         String category = configCategory.getQualifiedName();
-        FPKMod.config.configuration.get(category, "x", defaultPosX);
-        FPKMod.config.configuration.get(category, "y", defaultPosY);
-        FPKMod.config.configuration.get(category, "used", defaultUsed);
-        FPKMod.config.configuration.get(category, "Enabled", true);
+        config.get(category, "x", defaultPosX);
+        config.get(category, "y", defaultPosY);
+        config.get(category, "used", defaultUsed);
+        config.get(category, "Enabled", true);
         FPKMod.config.saveConfig();
         loadLabelConfig();
     }

@@ -17,8 +17,7 @@ public abstract class TextLabel extends Label {
      * @param name The name of the label
      */
     public TextLabel(String name) {
-        // TODO: Change the id to something else
-        super(name.toLowerCase(Locale.ENGLISH), name, 0, 0, false);
+        super(name.toLowerCase(Locale.ROOT).replace(' ', '_'), name, 0, 0, false);
     }
 
     /**
@@ -29,8 +28,7 @@ public abstract class TextLabel extends Label {
      * @param defaultPosY The default Y position.
      */
     public TextLabel(String name, int defaultPosX, int defaultPosY) {
-        // TODO: Change the id to something else
-        super(name.toLowerCase(Locale.ENGLISH), name, defaultPosX, defaultPosY, true);
+        super(name.toLowerCase(Locale.ROOT).replace(' ', '_'), name, defaultPosX, defaultPosY, true);
     }
 
     /**
