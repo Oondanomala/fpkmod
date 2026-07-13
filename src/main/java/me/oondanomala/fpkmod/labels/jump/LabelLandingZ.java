@@ -11,6 +11,6 @@ public class LabelLandingZ extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerTickHandler.lastLandingState.posZ);
+        return TextUtil.formatDouble(PlayerTickHandler.lastLandingState.posZ());
     }
 }

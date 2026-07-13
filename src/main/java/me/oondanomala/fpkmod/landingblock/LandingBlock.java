@@ -246,13 +246,13 @@ public class LandingBlock {
         Vec3 playerVec;
         switch (landMode) {
             case LAND:
-                playerBB = pastState.boundingBox;
+                playerBB = pastState.boundingBox();
                 playerWallBB = playerBB;
                 playerVec = pastState.getPositionVec();
                 break;
             case ZNEO:
-                AxisAlignedBB pastTickBB = pastState.boundingBox;
-                AxisAlignedBB secondPastTickBB = secondPastState.boundingBox;
+                AxisAlignedBB pastTickBB = pastState.boundingBox();
+                AxisAlignedBB secondPastTickBB = secondPastState.boundingBox();
                 playerBB = pastTickBB;
                 playerWallBB = new AxisAlignedBB(pastTickBB.minX, secondPastTickBB.minY, secondPastTickBB.minZ, pastTickBB.maxX, secondPastTickBB.maxY, secondPastTickBB.maxZ);
                 playerVec = pastState.getPositionVec();

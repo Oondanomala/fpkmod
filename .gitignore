@@ -4,8 +4,8 @@ build/
 !**/src/main/**/build/
 
 # IDEs
-/.vscode/
-/.idea/
+.vscode/
+.idea/
 /out/
 *.ipr
 *.iws

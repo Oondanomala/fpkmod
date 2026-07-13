@@ -11,6 +11,6 @@ public class LabelJumpAngle extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatAngle(PlayerTickHandler.lastJumpState.yaw);
+        return TextUtil.formatAngle(PlayerTickHandler.lastJumpState.yaw());
     }
 }

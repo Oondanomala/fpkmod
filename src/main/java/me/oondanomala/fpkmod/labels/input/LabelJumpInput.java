@@ -21,15 +21,15 @@ public class LabelJumpInput extends TextLabel {
 
         if (accurateKeyNames) {
             GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
-            jumpInput = (jumpState.keyForward ? KeyBindUtil.getKeybindName(gameSettings.keyBindForward) : "") +
-                    (jumpState.keyLeft ? KeyBindUtil.getKeybindName(gameSettings.keyBindLeft) : "") +
-                    (jumpState.keyBackward ? KeyBindUtil.getKeybindName(gameSettings.keyBindBack) : "") +
-                    (jumpState.keyRight ? KeyBindUtil.getKeybindName(gameSettings.keyBindRight) : "");
+            jumpInput = (jumpState.keyForward() ? KeyBindUtil.getKeybindName(gameSettings.keyBindForward) : "") +
+                        (jumpState.keyLeft() ? KeyBindUtil.getKeybindName(gameSettings.keyBindLeft) : "") +
+                        (jumpState.keyBackward() ? KeyBindUtil.getKeybindName(gameSettings.keyBindBack) : "") +
+                        (jumpState.keyRight() ? KeyBindUtil.getKeybindName(gameSettings.keyBindRight) : "");
         } else {
-            jumpInput = (jumpState.keyForward ? "W" : "") +
-                    (jumpState.keyLeft ? "A" : "") +
-                    (jumpState.keyBackward ? "S" : "") +
-                    (jumpState.keyRight ? "D" : "");
+            jumpInput = (jumpState.keyForward() ? "W" : "") +
+                        (jumpState.keyLeft() ? "A" : "") +
+                        (jumpState.keyBackward() ? "S" : "") +
+                        (jumpState.keyRight() ? "D" : "");
         }
 
         return jumpInput.isEmpty() ? "None" : jumpInput;

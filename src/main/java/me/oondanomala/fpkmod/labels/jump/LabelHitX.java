@@ -11,6 +11,6 @@ public class LabelHitX extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatDouble(PlayerTickHandler.lastHitState.posX);
+        return TextUtil.formatDouble(PlayerTickHandler.lastHitState.posX());
     }
 }

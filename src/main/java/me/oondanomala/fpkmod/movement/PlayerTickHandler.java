@@ -37,7 +37,7 @@ public class PlayerTickHandler {
         }
 
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        boolean isJumpTick = pastState.onGround && !player.onGround && player.posY >= pastState.posY && player.movementInput.jump;
+        boolean isJumpTick = pastState.onGround() && !player.onGround && player.posY >= pastState.posY() && player.movementInput.jump;
         PlayerState currentState = getNewPlayerState(player, Minecraft.getMinecraft().gameSettings, isJumpTick);
 
         if (isJumpTick) {
@@ -45,7 +45,7 @@ public class PlayerTickHandler {
         }
 
         // Player has landed
-        boolean isLandTick = player.onGround && !pastState.onGround && player.posY < pastState.posY;
+        boolean isLandTick = player.onGround && !pastState.onGround() && player.posY < pastState.posY();
         if (isLandTick) {
             lastHitState = currentState;
             lastLandingState = pastState;

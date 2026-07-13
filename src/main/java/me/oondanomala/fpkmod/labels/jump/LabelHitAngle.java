@@ -11,6 +11,6 @@ public class LabelHitAngle extends TextLabel {
 
     @Override
     protected String getLabelText() {
-        return TextUtil.formatAngle(PlayerTickHandler.lastHitState.yaw);
+        return TextUtil.formatAngle(PlayerTickHandler.lastHitState.yaw());
     }
 }

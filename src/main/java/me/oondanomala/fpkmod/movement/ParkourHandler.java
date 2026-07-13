@@ -84,7 +84,7 @@ public final class ParkourHandler {
         }
 
         // Clear Max Speed On Stop
-        boolean startedMoving = !pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys() && speedX == 0 && speedY == 0 && speedZ == 0 && pastState.onGround;
+        boolean startedMoving = !pastState.isHoldingMovementKeys() && currentState.isHoldingMovementKeys() && speedX == 0 && speedY == 0 && speedZ == 0 && pastState.onGround();
         if (FPKMod.config.clearMaxSpeedOnStop && startedMoving) {
             maxSpeedX = 0;
             maxSpeedY = 0;
@@ -92,9 +92,9 @@ public final class ParkourHandler {
         }
 
         // Speed
-        speedX = player.posX - pastState.posX;
-        speedY = player.posY - pastState.posY;
-        speedZ = player.posZ - pastState.posZ;
+        speedX = player.posX - pastState.posX();
+        speedY = player.posY - pastState.posY();
+        speedZ = player.posZ - pastState.posZ();
 
         // Max Speed
         if (speedX != 0) {
@@ -114,15 +114,15 @@ public final class ParkourHandler {
         }
 
         // Airtime & Tier
-        if (pastState.onGround && !player.onGround) {
-            if (currentState.isJumpTick) {
+        if (pastState.onGround() && !player.onGround) {
+            if (currentState.isJumpTick()) {
                 airtime = 1;
                 tier = 11;
             } else {
                 airtime = 0;
                 tier = 0;
             }
-        } else if (!pastState.onGround) {
+        } else if (!pastState.onGround()) {
             airtime++;
             tier--;
         }
@@ -132,26 +132,26 @@ public final class ParkourHandler {
             tier = 0;
         }
 
-        if (currentState.isJumpTick) {
+        if (currentState.isJumpTick()) {
             // Grind
             // TODO: Add stairboosts?
-            if (player.posY == pastState.posY) {
+            if (player.posY == pastState.posY()) {
                 grinds++;
             } else {
                 grinds = 0;
             }
             // Preturn
-            preturn = pastState.yaw - secondPastState.yaw;
+            preturn = pastState.yaw() - secondPastState.yaw();
         }
 
         // Last Turning
-        if (player.rotationYaw != pastState.yaw) {
-            lastTurning = player.rotationYaw - pastState.yaw;
+        if (player.rotationYaw != pastState.yaw()) {
+            lastTurning = player.rotationYaw - pastState.yaw();
         }
 
         // Last 45
-        if (pastState.isJumpTick && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
-            last45 = player.rotationYaw - pastState.yaw;
+        if (pastState.isJumpTick() && player.movementInput.moveStrafe != 0 && !pastState.isStrafing()) {
+            last45 = player.rotationYaw - pastState.yaw();
         }
     }
 }
