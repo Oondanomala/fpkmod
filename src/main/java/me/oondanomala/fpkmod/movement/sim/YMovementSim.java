@@ -11,6 +11,10 @@ import java.util.List;
 public class YMovementSim {
     private final int jumpBoost;
 
+    public YMovementSim() {
+        this(0);
+    }
+
     /**
      * Constructs a new movement sim with the default settings.
      */
