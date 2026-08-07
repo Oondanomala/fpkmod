@@ -184,7 +184,7 @@ public class LandingBlock {
             lastOffset = getLandOffset(pastState, secondPastState, landMode);
 
             if (MathUtil.isPositive(lastOffset.combinedOffset)) {
-                AntiCP.INSTANCE.hasLanded();
+                AntiCP.INSTANCE.onLanded();
             }
 
             if (bestOffset == null || Double.compare(lastOffset.getAxisOffset(landAxis), bestOffset.getAxisOffset(landAxis)) > 0) {

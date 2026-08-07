@@ -13,7 +13,7 @@ public class AntiCP {
     private AntiCP() {
     }
 
-    public void hasLanded() {
+    public void onLanded() {
         lastLandTime = System.currentTimeMillis();
         hasClicked = false;
     }
