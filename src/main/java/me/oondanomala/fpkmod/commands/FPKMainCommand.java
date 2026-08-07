@@ -36,6 +36,7 @@ public class FPKMainCommand extends CommandBase {
                 new ResetLabelsCommand(),
                 new SetLBCommand(),
                 new SetCondCommand(),
+                new TierFinderCommand(),
                 new ClearPBCommand(),
                 new ClearLBCommand()
         };
