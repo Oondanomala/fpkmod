@@ -2,6 +2,7 @@ plugins {
     idea
     java
     id("gg.essential.loom") version "1.15.+"
+    id("com.gradleup.shadow") version "9.6.+"
 }
 
 val modGroup: String by project
@@ -36,9 +37,16 @@ loom {
 }
 
 repositories {
+    maven("https://jitpack.io") {
+        content { includeGroup("com.github.Oondanomala") }
+    }
     mavenCentral()
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
     maven("https://nexus.gtnewhorizons.com/repository/public/")
+}
+
+val shade: Configuration by configurations.creating {
+    configurations.api.get().extendsFrom(this)
 }
 
 dependencies {
@@ -52,6 +60,13 @@ dependencies {
 
     runtimeOnly("me.djtheredstoner:DevAuth-forge-legacy:1.2.1")
         ?.because("Allows authenticating into a Minecraft account in dev")
+
+    val imGuiVersion = "1.92.7.1"
+    shade("com.github.Oondanomala:ImGui-LWJGL2:1.0.0")
+    shade("io.github.spair:imgui-java-binding:${imGuiVersion}")
+    shade("io.github.spair:imgui-java-natives-windows:${imGuiVersion}")
+    shade("io.github.spair:imgui-java-natives-linux:${imGuiVersion}")
+    shade("io.github.spair:imgui-java-natives-macos:${imGuiVersion}")
 }
 
 sourceSets.main {
@@ -88,11 +103,21 @@ tasks {
         rename("(.+_at.cfg)", "META-INF/$1")
     }
 
+    shadowJar {
+        archiveClassifier.set("dev")
+        configurations = listOf(shade)
+    }
+
     jar {
         manifest.attributes(mapOf(
             "FMLCorePluginContainsFMLMod" to true,
             "ForceLoadAsMod" to true,
             "FMLAT" to "${modID}_at.cfg",
         ))
+    }
+
+    remapJar {
+        inputFile.set(shadowJar.get().archiveFile)
+        archiveClassifier.set("")
     }
 }
