@@ -3,7 +3,6 @@ package me.oondanomala.fpkmod.gui;
 import imgui.ImGui;
 import imgui.flag.ImGuiChildFlags;
 import imgui.flag.ImGuiCol;
-import imgui.flag.ImGuiTableFlags;
 import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
@@ -77,29 +76,22 @@ public class TierFinderGUI extends ImGuiBasedGUIScreen {
             ImGui.setNextWindowSizeConstraints(0, ImGui.getTextLineHeightWithSpacing() * 2.5f, Float.MAX_VALUE, Float.MAX_VALUE);
             if (ImGui.beginChild("badStartingPositionListWindow",
                     ImGuiChildFlags.Borders | ImGuiChildFlags.ResizeY | ImGuiChildFlags.NavFlattened, ImGuiWindowFlags.None)) {
-                if (ImGui.beginTable("badStartingPosList", 3, ImGuiTableFlags.SizingFixedFit)) {
-                    Set<Double> existingPositions = new HashSet<>(badStartingPositions.size());
-                    for (ListIterator<ImDouble> it = badStartingPositions.listIterator(); it.hasNext(); ) {
-                        ImGui.pushID(it.nextIndex());
-                        ImDouble badPos = it.next();
-                        ImGui.tableNextRow();
+                Set<Double> existingPositions = new HashSet<>(badStartingPositions.size());
+                for (ListIterator<ImDouble> it = badStartingPositions.listIterator(); it.hasNext(); ) {
+                    ImGui.pushID(it.nextIndex());
+                    ImDouble badPos = it.next();
 
-                        if (ImGui.tableNextColumn()) {
-                            ImGui.alignTextToFramePadding();
-                            ImGui.text("Bad Starting Pos");
-                        }
-                        if (ImGui.tableNextColumn()) {
-                            hasChanged |= coordInput("##badStartingPos", badPos, existingPositions.contains(badPos.get()));
-                        }
-                        if (ImGui.tableNextColumn() && ImGuiUtil.squareButton("-") && !hasChanged) {
-                            it.remove();
-                            hasChanged = true;
-                        }
-                        existingPositions.add(badPos.get());
-                        ImGui.popID();
+                    ImGui.alignTextToFramePadding();
+                    ImGui.text("Bad Starting Pos");
+                    ImGui.sameLine();
+                    hasChanged |= coordInput("##badStartingPos", badPos, existingPositions.contains(badPos.get()));
+                    ImGui.sameLine();
+                    if (ImGuiUtil.squareButton("-") && !hasChanged) {
+                        it.remove();
+                        hasChanged = true;
                     }
-
-                    ImGui.endTable();
+                    existingPositions.add(badPos.get());
+                    ImGui.popID();
                 }
             }
             ImGui.endChild();
