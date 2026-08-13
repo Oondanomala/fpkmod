@@ -17,3 +17,9 @@ pluginManagement {
 }
 
 rootProject.name = "FPK Mod"
+
+sourceControl {
+    gitRepository(java.net.URI("https://github.com/Oondanomala/ImGui-LWJGL2.git")) {
+        producesModule("loutre.imgui:ImGui-LWJGL2")
+    }
+}

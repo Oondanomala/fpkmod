@@ -37,9 +37,6 @@ loom {
 }
 
 repositories {
-    maven("https://jitpack.io") {
-        content { includeGroup("com.github.Oondanomala") }
-    }
     mavenCentral()
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
     maven("https://nexus.gtnewhorizons.com/repository/public/")
@@ -62,7 +59,7 @@ dependencies {
         ?.because("Allows authenticating into a Minecraft account in dev")
 
     val imGuiVersion = "1.92.7.1"
-    shade("com.github.Oondanomala:ImGui-LWJGL2:1.0.0")
+    shade("loutre.imgui:ImGui-LWJGL2:1.0.2")
     shade("io.github.spair:imgui-java-binding:${imGuiVersion}")
     shade("io.github.spair:imgui-java-natives-windows:${imGuiVersion}")
     shade("io.github.spair:imgui-java-natives-linux:${imGuiVersion}")
