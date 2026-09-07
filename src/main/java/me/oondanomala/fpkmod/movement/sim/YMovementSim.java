@@ -22,6 +22,13 @@ public class YMovementSim {
         this.jumpBoost = jumpBoostLevel;
     }
 
+    /**
+     * Simulates Y movement from the provided start coordinate.
+     *
+     * @param startY The Y coordinate to start the simulation from
+     * @param jump   Whether to jump or not
+     * @return A list of Y positions for each tick
+     */
     public List<Double> simulate(double startY, boolean jump) {
         // TODO: Implement:
         //  - Slimes

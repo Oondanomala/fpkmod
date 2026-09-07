@@ -8,7 +8,6 @@ import me.oondanomala.fpkmod.util.TextUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -93,11 +92,9 @@ public class UnusedLabelList extends GuiListExtended {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-
         if (selectedEntry != null) {
-            ScaledResolution resolution = new ScaledResolution(mc);
-            int clampedX = Math.min(Math.max(mouseX - clickX, 0), resolution.getScaledWidth() - mc.fontRendererObj.getStringWidth(selectedEntry.label.name));
-            int clampedY = Math.min(Math.max(mouseY - clickY, 0), resolution.getScaledHeight() - mc.fontRendererObj.FONT_HEIGHT);
+            int clampedX = Math.min(Math.max(mouseX - clickX, 0), parent.width - mc.fontRendererObj.getStringWidth(selectedEntry.label.name));
+            int clampedY = Math.min(Math.max(mouseY - clickY, 0), parent.height - mc.fontRendererObj.FONT_HEIGHT);
             selectedEntry.drawEntryText(clampedX, clampedY);
         }
     }

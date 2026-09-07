@@ -73,8 +73,8 @@ public final class RenderUtil {
      * Draws the provided axis aligned {@code boundingBox} in the world
      * in the provided {@code color}.
      *
-     * @param boundingBox The bounding box to draw
-     * @param color       The color of the bounding box
+     * @param boundingBox The bounding box to draw, not <tt>null</tt>
+     * @param color       The color of the bounding box, not <tt>null</tt>
      */
     public static void drawBoundingBox(AxisAlignedBB boundingBox, Color color, float partialTicks) {
         GlStateManager.disableTexture2D();

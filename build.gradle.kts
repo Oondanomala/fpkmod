@@ -107,8 +107,6 @@ tasks {
 
     jar {
         manifest.attributes(mapOf(
-            "FMLCorePluginContainsFMLMod" to true,
-            "ForceLoadAsMod" to true,
             "FMLAT" to "${modID}_at.cfg",
         ))
     }

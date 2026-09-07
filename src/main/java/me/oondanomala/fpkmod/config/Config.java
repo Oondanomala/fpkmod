@@ -14,8 +14,8 @@ public class Config {
     public final Configuration configuration;
 
     public String prefix;
-    public String color1;
-    public String color2;
+    public EnumChatFormatting color1;
+    public EnumChatFormatting color2;
     public boolean enableLabels;
     public int doublePrecision;
     public boolean trimZeroes;
@@ -31,7 +31,7 @@ public class Config {
     public boolean renderCondBox;
 
     public Config(File configFile) {
-        configuration = new Configuration(configFile);
+        configuration = new Configuration(configFile, true);
         loadConfig();
     }
 
@@ -172,22 +172,30 @@ public class Config {
     /**
      * Creates a color picker config option,
      * allowing the user to choose between all color formatting codes.
-     * The color is returned as a 2 character string composed of the
-     * control character ({@code §}) and the formatting character,
-     * so that it can be easily used in text.
      *
      * @param name         The name of the option, this is also used as an identifier
      * @param description  A description of what the option does
      * @param defaultValue The value to use if the option did not previously exist
-     * @return A 2 character string representing the config value if it already exists,
-     *         otherwise the 2 character string representing {@code defaultValue}
+     * @return The config value as a color if it already exists,
+     *         otherwise {@code defaultValue}
      * @see EnumChatFormatting
      */
-    private String getColorConfig(String name, String description, EnumChatFormatting defaultValue) {
+    private EnumChatFormatting getColorConfig(String name, String description, EnumChatFormatting defaultValue) {
         if (!defaultValue.isColor() || defaultValue.ordinal() > COLOR_NAMES.length - 1) {
             throw new IllegalArgumentException("The default value must be a valid color");
         }
-        return configuration.get(Configuration.CATEGORY_CLIENT, name, COLOR_NAMES[defaultValue.ordinal()], description, COLOR_NAMES).getString().substring(0, 2);
+        int num = Character.digit(configuration.get(
+            Configuration.CATEGORY_CLIENT,
+            name,
+            COLOR_NAMES[defaultValue.ordinal()],
+            description,
+            COLOR_NAMES
+        ).getString().charAt(1), 16);
+        // Someone set an invalid color :(
+        if (num < 0) {
+            return defaultValue;
+        }
+        return EnumChatFormatting.values()[num];
     }
 
     private static final String[] COLOR_NAMES = {"§0Black", "§1Dark Blue", "§2Dark Green", "§3Dark Aqua", "§4Dark Red", "§5Dark Purple", "§6Gold", "§7Gray", "§8Dark Gray", "§9Blue", "§aGreen", "§bAqua", "§cRed", "§dLight Purple", "§eYellow", "§fWhite"};

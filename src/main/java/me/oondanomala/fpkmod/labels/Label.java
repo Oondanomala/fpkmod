@@ -10,14 +10,30 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Generic class for labels. You're probably looking for {@link TextLabel}.
+ * A generic label, a HUD element that
+ * shows various useful information on screen.
+ * <p>
+ * Don't forget to register it in {@link LabelManager}'s constructor!
+ *
+ * @see TextLabel
  */
 public abstract class Label {
     private final ConfigCategory configCategory;
+    /**
+     * The unique identifier string of this label,
+     * never shown to the user.
+     * Never <tt>null</tt>.
+     */
     protected final String id;
+    /**
+     * The display name of this label,
+     * shown to the user.
+     * Never <tt>null</tt>.
+     */
     public final String name;
     public boolean isUsed;
     public boolean isEnabled;
@@ -29,16 +45,16 @@ public abstract class Label {
     }
 
     protected Label(String id, String name, int defaultPosX, int defaultPosY, boolean defaultUsed) {
-        this.id = id;
-        this.name = name;
+        this.id = Objects.requireNonNull(id);
+        this.name = Objects.requireNonNull(name);
 
         Configuration config = FPKMod.config.configuration;
         // Migrate old space separated label IDs to new underscore separated format
         String newCategoryName = "labels" + Configuration.CATEGORY_SPLITTER + id;
         String oldCategoryName = "labels" + Configuration.CATEGORY_SPLITTER + id.replace('_', ' ');
         if (!config.hasCategory(newCategoryName) && config.hasCategory(oldCategoryName)) {
-            ConfigCategory oldCategory = config.getCategory(oldCategoryName);
             ConfigCategory newCategory = config.getCategory(newCategoryName);
+            ConfigCategory oldCategory = config.getCategory(oldCategoryName);
             newCategory.putAll(oldCategory);
             config.removeCategory(oldCategory);
         }
@@ -84,7 +100,7 @@ public abstract class Label {
                 posY,
                 posX + getWidth(),
                 posY + getHeight(),
-                GuiUtil.getRGBFromColorCode(FPKMod.config.color1.charAt(1), alpha)
+                GuiUtil.getRGBFromColorCode(FPKMod.config.color1, alpha)
         );
     }
 
@@ -171,4 +187,15 @@ public abstract class Label {
      * @see me.oondanomala.fpkmod.util.TextUtil#formatAsDisabled(String)
      */
     protected abstract void drawLabel(boolean drawEnabled);
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Label label)) return false;
+        return id.equals(label.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

@@ -23,7 +23,7 @@ import java.io.UncheckedIOException;
 import java.util.Objects;
 
 /**
- * A GUI screen that uses ImGui to draw elements.
+ * A GUI screen that uses <a href="https://github.com/ocornut/imgui">ImGui</a> to draw elements.
  */
 // TODO: Use an "overlay" instead of a separate GUI screen
 public abstract class ImGuiBasedGUIScreen extends GuiScreen {
@@ -118,7 +118,7 @@ public abstract class ImGuiBasedGUIScreen extends GuiScreen {
 
     @Override
     public final void handleKeyboardInput() throws IOException {
-        boolean imguiHandlesEscape = ImGui.isAnyItemFocused() || ImGui.getIO().getWantTextInput() || ImGui.isPopupOpen("", ImGuiPopupFlags.AnyPopup);
+        boolean imguiHandlesEscape = ImGui.isAnyItemFocused() || ImGui.getIO().getWantTextInput() || ImGui.isPopupOpen(null, ImGuiPopupFlags.AnyPopup);
         if (!imguiHandlesEscape) {
             super.handleKeyboardInput();
         }

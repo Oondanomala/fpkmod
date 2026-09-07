@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -30,24 +31,24 @@ public final class GuiUtil {
      * of the provided text color formatting code,
      * using the provided alpha value.
      *
-     * @param colorCode The text color code
+     * @param color The text color
      * @param alpha     The alpha value used in the returned color
-     * @throws IllegalArgumentException If {@code alpha} is {@code < 0} or {@code > 255}
+     * @throws IllegalArgumentException If {@code color} is not a color, {@code alpha} is {@code < 0} or {@code > 255}
      */
-    public static int getRGBFromColorCode(char colorCode, int alpha) {
-        if (alpha < 0 || alpha > 255) {
+    public static int getRGBFromColorCode(EnumChatFormatting color, int alpha) {
+        if (!color.isColor() || alpha < 0 || alpha > 255) {
             throw new IllegalArgumentException("Alpha value must be between 0 and 255 (inclusive)");
         }
-
-        return GuiUtils.getColorCode(colorCode, true) & 0xffffff | alpha << 24;
+        return GuiUtils.colorCodes[color.ordinal()] & 0xffffff | alpha << 24;
     }
 
     public static void drawCenteredString(String text, int posX, int posY, int width, int height, int color) {
-        int textWidth = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text) / 2;
-        int textHeight = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2;
+        FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+        int textWidth = font.getStringWidth(text) / 2;
+        int textHeight = font.FONT_HEIGHT / 2;
         int halfwayX = posX + Math.round(width / 2f);
         int halfwayY = posY + Math.round(height / 2f);
-        Minecraft.getMinecraft().fontRendererObj.drawString(text, halfwayX - textWidth, halfwayY - textHeight, color);
+        font.drawString(text, halfwayX - textWidth, halfwayY - textHeight, color);
     }
 
     public static void drawTooltip(String tooltipText, int startX, int endX, int posY, FontRenderer fontRenderer) {

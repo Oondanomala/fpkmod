@@ -12,10 +12,11 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public final class TextUtil {
-    private static final DecimalFormat decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    private static final DecimalFormat decimalFormat;
     private static final DecimalFormat exactFormat;
 
     static {
+        decimalFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         exactFormat = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         exactFormat.setMaximumFractionDigits(Integer.MAX_VALUE);
     }

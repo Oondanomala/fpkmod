@@ -13,7 +13,7 @@ public class LabelSpeedVector extends TextLabel {
     @Override
     protected String getLabelText() {
         return TextUtil.formatDouble(Math.hypot(ParkourHandler.speedX, ParkourHandler.speedZ)) +
-                FPKMod.config.color1 + "/" + FPKMod.config.color2 +
-                TextUtil.formatDouble(Math.toDegrees(-Math.atan2(ParkourHandler.speedX, ParkourHandler.speedZ) + 0)) + "°";
+               FPKMod.config.color1 + '/' + FPKMod.config.color2 +
+               TextUtil.formatDouble(Math.toDegrees(-Math.atan2(ParkourHandler.speedX, ParkourHandler.speedZ) + 0)) + '°';
     }
 }

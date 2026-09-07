@@ -7,8 +7,7 @@ import net.minecraft.client.Minecraft;
 import java.util.Locale;
 
 /**
- * Implement this class to add a new text based label.
- * Don't forget to register it in {@link LabelManager}'s constructor!
+ * A text based label that shows a single line of text.
  */
 public abstract class TextLabel extends Label {
     /**

@@ -13,7 +13,7 @@ public class LabelMaxSpeedVector extends TextLabel {
     @Override
     protected String getLabelText() {
         return TextUtil.formatDouble(Math.hypot(ParkourHandler.maxSpeedX, ParkourHandler.maxSpeedZ)) +
-                FPKMod.config.color1 + "/" + FPKMod.config.color2 +
-                TextUtil.formatDouble(Math.toDegrees(-Math.atan2(ParkourHandler.maxSpeedX, ParkourHandler.maxSpeedZ) + 0)) + "°";
+               FPKMod.config.color1 + '/' + FPKMod.config.color2 +
+               TextUtil.formatDouble(Math.toDegrees(-Math.atan2(ParkourHandler.maxSpeedX, ParkourHandler.maxSpeedZ) + 0)) + '°';
     }
 }

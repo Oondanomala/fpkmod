@@ -12,7 +12,7 @@ public class HelpCommand extends FPKSubCommand {
 
     @Override
     public void internalRun(String[] args) {
-        TextUtil.showChatMessage(FPKMod.config.color1 + EnumChatFormatting.BOLD + "FPK Command Help:", false);
+        TextUtil.showChatMessage(FPKMod.config.color1.toString() + EnumChatFormatting.BOLD + "FPK Command Help:", false);
         for (FPKSubCommand command : FPKMod.fpkCommand.subCommands.values()) {
             TextUtil.showChatMessage(TextUtil.assembleText(command.name, command.helpMessage, ": "), false);
         }
