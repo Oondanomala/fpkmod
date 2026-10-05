@@ -166,7 +166,6 @@ public class LandingBlock {
     public void draw(float partialTicks) {
         if (FPKMod.config.renderLandingBox) {
             for (AxisAlignedBB landingBox : displayBoxes) {
-                // Maybe render outlines too like cyv does?
                 RenderUtil.drawBoundingBox(landingBox, LANDING_BLOCK_COLOR, partialTicks);
             }
         }

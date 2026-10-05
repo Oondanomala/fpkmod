@@ -24,49 +24,70 @@ public final class RenderUtil {
         worldRenderer.setTranslation(-xOffset, -yOffset, -zOffset);
     }
 
-    private static void finishDrawing(Tessellator tessellator, WorldRenderer worldRenderer) {
-        worldRenderer.setTranslation(0, 0, 0);
+    private static void drawOutline(Tessellator tessellator, WorldRenderer renderer, AxisAlignedBB boundingBox) {
+        renderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+
+        // Bottom
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        // Top
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        tessellator.draw();
+        // Sides
+        renderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
         tessellator.draw();
     }
 
-    private static void drawCube(AxisAlignedBB boundingBox, float partialTicks) {
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-        setRenderOffset(worldRenderer, partialTicks);
+    private static void drawCube(Tessellator tessellator, WorldRenderer renderer, AxisAlignedBB boundingBox) {
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
         // Down
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
         // Up
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
         // West
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
         // East
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
         // North
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.minZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.minZ).endVertex();
         // South
-        worldRenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
-        worldRenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).endVertex();
+        renderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).endVertex();
 
-        finishDrawing(tessellator, worldRenderer);
+        tessellator.draw();
     }
 
     /**
@@ -77,13 +98,21 @@ public final class RenderUtil {
      * @param color       The color of the bounding box, not <tt>null</tt>
      */
     public static void drawBoundingBox(AxisAlignedBB boundingBox, Color color, float partialTicks) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+
         GlStateManager.disableTexture2D();
+        GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+        setRenderOffset(renderer, partialTicks);
+
+        GL11.glLineWidth(2);
+        drawOutline(tessellator, renderer, boundingBox);
+        GL11.glLineWidth(1);
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-        GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+        drawCube(tessellator, renderer, boundingBox);
 
-        drawCube(boundingBox, partialTicks);
-
+        renderer.setTranslation(0, 0, 0);
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }
