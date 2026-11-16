@@ -12,7 +12,6 @@ import imgui.flag.ImFontAtlasFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiPopupFlags;
 import loutre.imgui.ImGuiLWJGL2;
-import me.oondanomala.fpkmod.FPKMod;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import org.apache.commons.io.IOUtils;
@@ -36,7 +35,6 @@ public abstract class ImGuiBasedGUIScreen extends GuiScreen {
     static {
         ImGuiLWJGL2.create(false);
         ImGuiIO io = ImGui.getIO();
-        io.setIniFilename(FPKMod.modDirectory.resolve("imgui.ini").toString());
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
         ImGui.getStyle().setFrameBorderSize(1);
         io.setGetClipboardTextFn(new ImStrSupplier() {
@@ -96,25 +94,19 @@ public abstract class ImGuiBasedGUIScreen extends GuiScreen {
     public void onGuiClosed() {
         Keyboard.enableRepeatEvents(false);
         ImGui.getIO().clearInputKeys();
+        ImGuiLWJGL2.resetMouseCursor();
     }
 
     @Override
     public final void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        ImGuiLWJGL2.draw(this::prepareDraw);
-    }
-
-    /**
-     * Runs logic before {@link #drawScreen()},
-     * but after {@link ImGui#newFrame()}.
-     * <p>
-     * Only necessary with the legacy font handling.
-     */
-    private void prepareDraw() {
-        ImFont font = baseFonts[currentFontIndex];
-        ImGui.pushFont(font, font.getLegacySize());
-        drawScreen();
-        ImGui.popFont();
+        // Have to set the font size manually with the legacy font handling
+        ImGuiLWJGL2.draw(() -> {
+            ImFont font = baseFonts[currentFontIndex];
+            ImGui.pushFont(font, font.getLegacySize());
+            drawScreen();
+            ImGui.popFont();
+        });
     }
 
     /**

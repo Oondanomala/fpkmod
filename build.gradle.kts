@@ -59,7 +59,7 @@ dependencies {
         ?.because("Allows authenticating into a Minecraft account in dev")
 
     val imGuiVersion = "1.92.7.1"
-    shade("loutre.imgui:ImGui-LWJGL2:1.0.2")
+    shade("loutre.imgui:ImGui-LWJGL2:1.0.4")
     shade("io.github.spair:imgui-java-binding:${imGuiVersion}")
     shade("io.github.spair:imgui-java-natives-windows:${imGuiVersion}")
     shade("io.github.spair:imgui-java-natives-linux:${imGuiVersion}")
